@@ -1,0 +1,18 @@
+Ensimag 2A POO - TP 2014/15
+============================
+
+- src: contient les classes fournies par les enseignants 
+  -> LecteurDonnees.java         : lit tous les elements d'un fichier de description de donnees (cases, incendies et robots) et les affiche.
+                                   A vous de modifier cette classe pour creer les objets correspondants à vos propres classes
+  -> ExceptionFormatDonnees.java : exception levee en cas de probleme de lecture
+  -> TestLecteurDonnees.java     : lit un fichier de donnees et affiche son contenu
+  -> TestIHM                     : cree une fenetre graphique "Invaders"
+
+- cartes: quelques exemples de fichiers de donnees
+
+- bin/ihm.jar: archive Java contenant les classes de l'interface graphique. Voir un exemple d'utilisation dans TestIHM.java
+
+- doc: la documentation (API) des classes de l'interface graphique contenues dans ihm.jar. Point d'entrée: index.html
+
+- Makefile: quelques explications sur la compilation en ligne, notamment la notion de classpath et l'utilisation de ihm.jar
+
