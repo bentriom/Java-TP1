@@ -5,9 +5,20 @@
  */
 
 public enum NatureTerrain {
-	EAU,
-	FORET,
-	ROCHE,
-	TERRAIN_LIBRE,
-	HABITAT;
+	EAU("Eau"),
+	FORET("Foret"),
+	ROCHE("Roche"),
+	TERRAIN_LIBRE("Terrain libre"),
+	HABITAT("Habitat");
+	
+	private String chaine = "";
+	
+	NatureTerrain(String ch) {
+		this.chaine = ch;
+	}
+	
+	@Override
+	public String toString() {
+		return chaine;
+	}
 }
