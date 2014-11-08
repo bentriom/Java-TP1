@@ -66,7 +66,7 @@ public class LecteurDonnees {
 	 * Lit et affiche les donnees de la carte.
 	 * @throws ExceptionFormatDonnees
 	 */
-	private void lireCarte() throws ExceptionFormatDonnees {
+	private Carte lireCarte() throws ExceptionFormatDonnees {
 		ignorerCommentaires();
 		try {
 			int nbLignes = scanner.nextInt();
@@ -75,11 +75,16 @@ public class LecteurDonnees {
 			System.out.println("Carte " + nbLignes + "x" + nbColonnes
 					+ "; taille des cases = " + tailleCases);
 			
+			Case[][] tabCases = new Case[nbLignes][nbColonnes];
 			for (int lig = 0; lig < nbLignes; lig++) {
 				for (int col = 0; col < nbColonnes; col++) {
-					lireCase(lig, col);
+					tabCases[lig][col] = lireCase(lig, col);
 				}
 			}
+			
+			Carte map = new Carte(nbLignes, nbColonnes, tailleCases, tabCases);
+			
+			return map;
 			
 		} catch (NoSuchElementException e) {
 			throw new ExceptionFormatDonnees("Format invalide. "
@@ -94,28 +99,27 @@ public class LecteurDonnees {
 	/**
 	 * Lit et affiche les donnees d'une case.
 	 */
-	private void lireCase(int lig, int col) throws ExceptionFormatDonnees {
+	private Case lireCase(int lig, int col) throws ExceptionFormatDonnees {
 		ignorerCommentaires();		
 		System.out.print("Case (" + lig + "," + col + "): ");
 		String chaineNature = new String();
-//		NatureTerrain nature;
+		NatureTerrain n;
 		
 		try {
 			chaineNature = scanner.next();
-			// si NatureTerrain est un Enum, vous pouvez recuperer la valeur
-			// de l'enum a partir d'une String avec: 
-//			NatureTerrain nature = NatureTerrain.valueOf(chaineNature);
 
 			verifieLigneTerminee();
 			
 			System.out.print("nature = " + chaineNature);
-			
+			n = NatureTerrain.valueOf(chaineNature);
 		} catch (NoSuchElementException e) {
 			throw new ExceptionFormatDonnees("format de case invalide. "
 					+ "Attendu: nature altitude [valeur_specifique]");
 		}
 
 		System.out.println();
+		Case c = new Case(lig, col, n);
+		return c;
 	}
 
 

@@ -1,5 +1,5 @@
 /**
- * Enumération d'objets qui correspondent à un type de terrain
+ * Enumeration d'objets qui correspondent à un type de terrain
  * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
  *
  */

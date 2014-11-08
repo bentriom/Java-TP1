@@ -1,5 +1,5 @@
 /**
- * Classe qui permet de modéliser la carte
+ * Classe qui permet de modeliser la carte
  * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
  */
 
@@ -11,6 +11,20 @@ public class Carte {
 	private Case [][] tabCases;
 
 	/* Constructeur */
+	public Carte(int lignes, int colonnes, int taillecase, Case [][] tabCases) {
+		this.nbLignes = lignes;
+		this.nbColonnes = colonnes;
+		this.tailleCases = taillecase;
+		
+		this.tabCases = new Case[lignes][colonnes];
+		for(int i=0; i<lignes; i++) {
+			for(int j=0; j<colonnes; j++) {
+				this.tabCases[i][j] = new Case(i,j,NatureTerrain.TERRAIN_LIBRE);
+			}
+		}
+	}
+	
+	/* Constructeur Carte terrain libre*/
 	public Carte(int lignes, int colonnes, int taillecase) {
 		this.nbLignes = lignes;
 		this.nbColonnes = colonnes;
@@ -78,7 +92,7 @@ public class Carte {
 				return source; // Pour satisfaire le compilateur
 			}
 		}
-		return source; // De même
+		return source; // De meme
 	}
 	
 	public void affiche() {
