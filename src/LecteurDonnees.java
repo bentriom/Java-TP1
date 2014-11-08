@@ -38,15 +38,25 @@ public class LecteurDonnees {
 			throws FileNotFoundException, ExceptionFormatDonnees {
 		System.out.println("\n == Lecture du fichier" + fichierDonnees);
 		LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
-		lecteur.lireCarte();
-		lecteur.lireIncendies();		
-		lecteur.lireRobots();
+		Carte map = lecteur.lireCarte();
+		lecteur.lireIncendies(map);		
+		lecteur.lireRobots(map);
 		scanner.close();
 		System.out.println("\n == Lecture terminee");
 	}
 
-	
-	
+	public static DonneesSimulation creeDonnees(String fichierDonnees)
+		throws FileNotFoundException, ExceptionFormatDonnees {
+		System.out.println("\n == Lecture du fichier" + fichierDonnees);
+		LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
+		Carte map = lecteur.lireCarte();
+		LinkedList<Incendie> fire = lecteur.lireIncendies(map);		
+		LinkedList<Robot> rob = lecteur.lireRobots(map);
+		scanner.close();
+		System.out.println("\n == Lecture terminee");
+		DonneesSimulation data = new DonneesSimulation(map, rob, fire);
+		return data;
+	}
 	
 	// Tout le reste de la classe est prive!
 	
@@ -126,15 +136,18 @@ public class LecteurDonnees {
 	/** 
 	 * Lit et affiche les donnees des incendies.
 	 */
-	private void lireIncendies() throws ExceptionFormatDonnees {
+	private LinkedList<Incendie> lireIncendies(Carte map) throws ExceptionFormatDonnees {
 		ignorerCommentaires();
 		try {
 			int nbIncendies = scanner.nextInt();
 			System.out.println("Nb d'incendies = " + nbIncendies);
+			LinkedList<Incendie> fireList = new LinkedList<Incendie>();
+			Incendie fire;
 			for (int i = 0; i < nbIncendies; i++) {
-				lireIncendie(i);
+				fire = lireIncendie(i, map);
+				fireList.add(fire);
 			}
-			
+			return fireList;
 		} catch (NoSuchElementException e) {
 			throw new ExceptionFormatDonnees("Format invalide. "
 					+ "Attendu: nbIncendies");
@@ -146,7 +159,7 @@ public class LecteurDonnees {
 	 * Lit et affiche les donnees du i-eme incendie.
 	 * @param i
 	 */
-	private void lireIncendie(int i) throws ExceptionFormatDonnees {
+	private Incendie lireIncendie(int i, Carte map) throws ExceptionFormatDonnees {
 		ignorerCommentaires();		
 		System.out.print("Incendie " + i + ": ");
 		
@@ -159,10 +172,10 @@ public class LecteurDonnees {
 						+ "nb litres pour eteindre doit etre > 0");				
 			}
 			verifieLigneTerminee();
-			
+			Incendie fire = new Incendie(map.getCase(lig, col), intensite);
 			System.out.println("position = (" + lig + "," + col
 					+ ");\t intensite = " + intensite);
-			
+			return fire;
 		} catch (NoSuchElementException e) {
 			throw new ExceptionFormatDonnees("format d'incendie invalide. "
 					+ "Attendu: ligne colonne intensite");		
@@ -173,15 +186,18 @@ public class LecteurDonnees {
 	/** 
 	 * Lit et affiche les donnees des robots.
 	 */
-	private void lireRobots() throws ExceptionFormatDonnees {
+	private LinkedList<Robot> lireRobots(Carte map) throws ExceptionFormatDonnees {
 		ignorerCommentaires();
 		try {
 			int nbRobots = scanner.nextInt();
 			System.out.println("Nb de robots = " + nbRobots);
+			LinkedList<Robot> robotList = new LinkedList<Robot>();
+			Robot robot;
 			for (int i = 0; i < nbRobots; i++) {
-				lireRobot(i);
+				robot = lireRobot(i, map);
+				robotList.add(robot);
 			}
-			
+			return robotList;
 		} catch (NoSuchElementException e) {
 			throw new ExceptionFormatDonnees("Format invalide. "
 					+ "Attendu: nbRobots");
@@ -193,7 +209,7 @@ public class LecteurDonnees {
 	 * Lit et affiche les donnees du i-eme robot.
 	 * @param i
 	 */
-	private void lireRobot(int i) throws ExceptionFormatDonnees {
+	private Robot lireRobot(int i, Carte map) throws ExceptionFormatDonnees {
 		ignorerCommentaires();
 		System.out.print("Robot " + i + ": ");
 		
@@ -202,7 +218,7 @@ public class LecteurDonnees {
 			int col = scanner.nextInt();
 			System.out.print("position = (" + lig + "," + col + ");");
 			String type = scanner.next();
-			
+			// GERER LES TYPES
 			System.out.print("\t type = " + type);
 
 			
@@ -210,16 +226,18 @@ public class LecteurDonnees {
 			System.out.print("; \t vitesse = ");
 			String s = scanner.findInLine("(\\d+)");	// 1 or more digit(s) ?
 			// pour lire un flottant:    ("(\\d+(\\.\\d+)?)");
-
+			Robot rob;
 			if (s == null) {
 				System.out.print("valeur par defaut");
+				rob = new RobotARoue(map.getCase(lig, col), 0);
 			} else {
 				int vitesse = Integer.parseInt(s);
 				System.out.print(vitesse);
+				rob = new RobotARoue(map.getCase(lig, col), 0, vitesse);
 			}
 			verifieLigneTerminee();
-
 			System.out.println();
+			return rob;
 			
 		} catch (NoSuchElementException e) {
 			throw new ExceptionFormatDonnees("format de robot invalide. "

@@ -15,12 +15,13 @@ public class DonneesSimulation {
 	private Carte carte;
 	
 	/* Constructeur, pas d'utilité de faire un constructeur de copie ici */
-	public DonneesSimulation(int lignes, int colonnes, int taillecase) {
-		/* Initialisation des listes */
-		incendies = new LinkedList<Incendie>();
-		robots = new LinkedList<Robot>();
+	public DonneesSimulation(Carte map,
+			LinkedList<Robot> robots,
+			LinkedList<Incendie> incendies) {
 		/* Création de la carte */
-		this.carte = new Carte(lignes,colonnes,taillecase);
+		this.carte = map;
+		this.incendies = incendies;
+		this.robots = robots;
 	}
 	
 	/* Méthodes pour la carte : un seul accesseur, on utilise ensuite les méthodes de Carte */	
