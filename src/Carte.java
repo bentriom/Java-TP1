@@ -54,7 +54,7 @@ public class Carte {
 		return this.nbColonnes;
 	}
 	
-	public int getTailleCasses() {
+	public int getTailleCases() {
 		return this.tailleCases;
 	}
 	

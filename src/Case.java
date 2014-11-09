@@ -50,6 +50,9 @@ public class Case {
 		return map.getVoisin(this, d);
 	}
 
+	public String image() {
+		return "abd.png";
+	}
 	
 	@Override
 	public String toString() {

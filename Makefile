@@ -28,6 +28,9 @@ testIHM:
 testLecture:
 	javac -d bin -sourcepath src src/TestLecteurDonnees.java
 	
+testDessin:
+	javac -d bin -sourcepath src src/TestDessin.java
+	
 # Execution:
 # on peut taper directement la ligne de commande :
 #   > java -classpath bin TestIHM
@@ -38,6 +41,9 @@ exeIHM:
 
 exeLecture:
 	java -classpath bin TestLecteurDonnees cartes/carteSujet.txt
+
+exeDessin:
+	java -classpath bin TestDessin cartes/carteSujet.txt
 
 clean:
 	rm -rf bin/*.class
