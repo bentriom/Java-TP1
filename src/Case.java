@@ -51,11 +51,28 @@ public class Case {
 	}
 
 	public String image() {
-		return "abd.png";
+	    String s;
+	    switch(nature) {
+	        case TERRAIN_LIBRE : s = "images/lowlands.png";
+	                             break;
+	        case HABITAT : s = "images/town.png";
+	                             break;
+	        case FORET : s = "images/forest.png";
+	        					break;
+	        case ROCHE : s = "images/rock.png";
+	        				break;
+	        case EAU : s = "images/water.png";
+							break;
+	        default : s = "images/lowlands.png";
+	                  break;
+	    }
+	    return s;
 	}
 	
 	@Override
 	public String toString() {
 		return this.nature.toString();
 	}
+	
+
 }

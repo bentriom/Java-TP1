@@ -7,7 +7,7 @@ public abstract class Robot {
 
 	
     private Case position;
-    private int waterVol;
+    protected int waterVol;
     private boolean busy;
 
     public Robot(Case c, int waterVol){
@@ -60,7 +60,7 @@ public abstract class Robot {
     	if (nearWater) {
     		waterVol = getWaterVolMax(); 
     	} else {
-		    System.out.println("Vous essayez de bouger le robot sans eau !");
+		    System.out.println("Vous essayez de remplir le robot sans eau !");
     	}
     	return getFullingTime();
     }
