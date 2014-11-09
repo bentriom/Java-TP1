@@ -9,7 +9,7 @@ public class RunSimulation {
 		Simulateur simu = new Simulateur(args);
 	}
 }
-
+/*
 class Simulateur implements Simulable {
 
     private IGSimulateur ihm;
@@ -50,4 +50,4 @@ class Simulateur implements Simulable {
 		Affichage.dessineIncendies(data, ihm);
 		Affichage.dessineRobots(data, ihm);
     }
-}
+}*/
