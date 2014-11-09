@@ -1,5 +1,5 @@
 /**
- * Classe qui definit l'entite Case, pour définir l'entite Carte
+ * Classe qui definit l'entite Case, pour définir la classe Carte
  * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
  */
 
