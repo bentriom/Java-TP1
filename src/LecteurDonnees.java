@@ -221,7 +221,7 @@ public class LecteurDonnees {
 			String type = scanner.next();
 			// GERER LES TYPES
 			System.out.print("\t type = " + type);
-
+			NatureRobot n = NatureRobot.valueOf(type);
 			
 			// lecture eventuelle d'une vitesse du robot (entier)
 			System.out.print("; \t vitesse = ");
@@ -229,13 +229,41 @@ public class LecteurDonnees {
 			// pour lire un flottant:    ("(\\d+(\\.\\d+)?)");
 			Robot rob;
 			if (s == null) {
-				System.out.print("valeur par defaut");
-				rob = new RobotARoue(map.getCase(lig, col), 0);
+				switch (n) {
+					case DRONE : 
+						rob = new RobotVolant(map.getCase(lig, col), 0);
+						break;
+					case PATTES : 
+						rob = new RobotAPattes(map.getCase(lig, col), 0);
+						break;
+					case CHENILLES : 
+						rob = new RobotAChenille(map.getCase(lig, col), 0);
+						break;
+					case ROUES : 
+						rob = new RobotARoue(map.getCase(lig, col), 0);
+						break;
+					default : rob = new RobotARoue(map.getCase(lig, col), 0);
+
+				}	
 			} else {
 				int vitesse = Integer.parseInt(s);
-				System.out.print(vitesse);
-				rob = new RobotARoue(map.getCase(lig, col), 0, vitesse);
-			}
+				System.out.print(vitesse);				
+				switch (n) {
+					case DRONE : 
+						rob = new RobotVolant(map.getCase(lig, col), 0, vitesse);
+						break;
+					case PATTES : 
+						rob = new RobotAPattes(map.getCase(lig, col), 0, vitesse);
+						break;
+					case CHENILLES : 
+						rob = new RobotAChenille(map.getCase(lig, col), 0, vitesse);
+						break;
+					case ROUES : 
+						rob = new RobotARoue(map.getCase(lig, col), 0, vitesse);
+						break;
+					default : rob = new RobotARoue(map.getCase(lig, col), 0, vitesse);
+				}
+			}	
 			verifieLigneTerminee();
 			System.out.println();
 			return rob;

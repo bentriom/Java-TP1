@@ -43,54 +43,11 @@ class Simulateur implements Simulable {
 	public void restart(){
     }
     
-    private void dessineCases(Carte map){
-    	try {
-			int col = map.getNbColonnes();
-			int lig = map.getNbLignes();
-			for (int i = 0; i < lig; i++){
-				for (int j = 0; j < col; j++){
-					Case c = map.getCase(i, j);
-					ihm.paintImage(j, i, c.image(), 1, 1);
-				}
-			}
-    	} catch (MapIndexOutOfBoundsException e) {
-    		e.printStackTrace();
-    	}
-    }
-    
-   private void dessineRobots(DonneesSimulation data){
-	   	try {
-				int nbRobots = data.getSizeRobot();
-				Robot rob;
-				for (int numRobot = 0; numRobot < nbRobots; numRobot++){
-					rob = data.getRobot(numRobot);
-					ihm.paintImage(rob.getPosition().getColonne(), 
-							rob.getPosition().getLigne(), 
-							rob.image(), 1, 1);
-				}
-	   	} catch (MapIndexOutOfBoundsException e) {
-	   		e.printStackTrace();
-	   	}
-    }
-   
-   private void dessineIncendies(DonneesSimulation data){
-		   	try {
-					int nbIncendies= data.getSizeIncendie();
-					Incendie fire;
-					for (int numIncendie= 0; numIncendie < nbIncendies; numIncendie++){
-						fire = data.getIncendie(numIncendie);
-						ihm.paintImage(fire.getPosition().getColonne(), 
-								fire.getPosition().getLigne(), 
-								"image/feu.png", 1, 1);
-					}
-		   	} catch (MapIndexOutOfBoundsException e) {
-		   		e.printStackTrace();
-		   	}
-   	}	
+
    
     private void dessine(){
-		dessineCases(data.getCarte());
-		dessineIncendies(data);
-		dessineRobots(data);
+		Affichage.dessineCases(data.getCarte(), ihm);
+		Affichage.dessineIncendies(data, ihm);
+		Affichage.dessineRobots(data, ihm);
     }
 }
