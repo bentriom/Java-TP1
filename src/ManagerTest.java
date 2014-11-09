@@ -15,6 +15,8 @@ public final class ManagerTest extends Manager {
 	@Override
 	public void manage() {
 		EvenementMsg evt = new EvenementMsg(1,"coucou\n");
+		if (this.simu == null)
+			System.out.println("pb!!\n");
 		this.simu.ajouteEvenement(evt);
 	}
 
