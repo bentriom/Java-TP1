@@ -55,7 +55,7 @@ public class RobotAPattes extends Robot {
     
     @Override
     public String image(){
-    	return "images/pattes.png";
+    	return "images/patte.png";
     }
     
     @Override

@@ -122,6 +122,7 @@ public class LecteurDonnees {
 			
 			System.out.print("nature = " + chaineNature);
 			n = NatureTerrain.valueOf(chaineNature);
+			
 		} catch (NoSuchElementException e) {
 			throw new ExceptionFormatDonnees("format de case invalide. "
 					+ "Attendu: nature altitude [valeur_specifique]");

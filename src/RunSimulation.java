@@ -50,7 +50,6 @@ class Simulateur implements Simulable {
 			for (int i = 0; i < lig; i++){
 				for (int j = 0; j < col; j++){
 					Case c = map.getCase(i, j);
-					System.out.print(i + " " + j + " : " + c.toString());
 					ihm.paintImage(j, i, c.image(), 1, 1);
 				}
 			}
