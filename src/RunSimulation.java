@@ -81,7 +81,7 @@ class Simulateur implements Simulable {
 						fire = data.getIncendie(numIncendie);
 						ihm.paintImage(fire.getPosition().getColonne(), 
 								fire.getPosition().getLigne(), 
-								"image/feu.png", 1, 1);
+								"images/feu.png", 1, 1);
 					}
 		   	} catch (MapIndexOutOfBoundsException e) {
 		   		e.printStackTrace();
