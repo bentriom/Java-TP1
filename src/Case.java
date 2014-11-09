@@ -52,7 +52,7 @@ public class Case {
 
 	public String image() {
 	    String s;
-	    switch(nature) {
+	    switch(this.nature) {
 	        case TERRAIN_LIBRE : s = "images/lowlands.png";
 	                             break;
 	        case HABITAT : s = "images/town.png";
@@ -63,7 +63,7 @@ public class Case {
 	        				break;
 	        case EAU : s = "images/water.png";
 							break;
-	        default : s = "images/lowlands.png";
+	        default : s = "images/water.png";
 	                  break;
 	    }
 	    return s;

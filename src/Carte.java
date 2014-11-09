@@ -15,13 +15,7 @@ public class Carte {
 		this.nbLignes = lignes;
 		this.nbColonnes = colonnes;
 		this.tailleCases = taillecase;
-		
-		this.tabCases = new Case[lignes][colonnes];
-		for(int i=0; i<lignes; i++) {
-			for(int j=0; j<colonnes; j++) {
-				this.tabCases[i][j] = new Case(i,j,NatureTerrain.TERRAIN_LIBRE);
-			}
-		}
+		this.tabCases = tabCases;
 	}
 	
 	/* Constructeur Carte terrain libre*/

@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.io.FileNotFoundException;
+
 import ihm.*;
 
 
@@ -48,7 +49,9 @@ class Simulateur implements Simulable {
 			int lig = map.getNbLignes();
 			for (int i = 0; i < lig; i++){
 				for (int j = 0; j < col; j++){
-					ihm.paintImage(j, i, map.getCase(i, j).image()  ,1 ,1 );
+					Case c = map.getCase(i, j);
+					System.out.print(i + " " + j + " : " + c.toString());
+					ihm.paintImage(j, i, c.image(), 1, 1);
 				}
 			}
     	} catch (MapIndexOutOfBoundsException e) {
@@ -63,7 +66,7 @@ class Simulateur implements Simulable {
 				for (int numRobot = 0; numRobot < nbRobots; numRobot++){
 					rob = data.getRobot(numRobot);
 					ihm.paintImage(rob.getPosition().getColonne(), 
-							rob.getPosition().getColonne(), 
+							rob.getPosition().getLigne(), 
 							rob.image(), 1, 1);
 				}
 	   	} catch (MapIndexOutOfBoundsException e) {
@@ -78,7 +81,7 @@ class Simulateur implements Simulable {
 					for (int numIncendie= 0; numIncendie < nbIncendies; numIncendie++){
 						fire = data.getIncendie(numIncendie);
 						ihm.paintImage(fire.getPosition().getColonne(), 
-								fire.getPosition().getColonne(), 
+								fire.getPosition().getLigne(), 
 								"image/feu.png", 1, 1);
 					}
 		   	} catch (MapIndexOutOfBoundsException e) {
