@@ -9,7 +9,7 @@ public class Simulateur implements Simulable {
     private DonneesSimulation data;
 	private long dateCourrante = 0;
 	private long dateEvtMax = 0;
-	private LinkedList<Evenement> evenements;
+	private LinkedList<Evenement> evenements = new LinkedList<Evenement>();
     
 	// constructeur lisant les donnees
 	public Simulateur(String[] args) {
@@ -30,7 +30,7 @@ public class Simulateur implements Simulable {
 		} catch (ExceptionFormatDonnees e) {
 			System.out.println("\n\t**format du fichier " + args[0] + " invalide: " + e.getMessage());
 		}
-	}
+
     
     @Override 
 	public void next(){
