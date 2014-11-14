@@ -1,6 +1,7 @@
-
+import java.util.*;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
+
 import ihm.*;
 
 public class Simulateur implements Simulable {
@@ -9,7 +10,8 @@ public class Simulateur implements Simulable {
     private DonneesSimulation data;
 	private long dateCourrante = 0;
 	private long dateEvtMax = 0;
-	private LinkedList<Evenement> evenements = new LinkedList<Evenement>();
+	ComparateurEvenements C = new ComparateurEvenements();
+	private TreeSet<Evenement> evenements = new TreeSet<Evenement>(C);
     
 	// constructeur lisant les donnees
 	public Simulateur(String[] args) {
@@ -30,11 +32,13 @@ public class Simulateur implements Simulable {
 		} catch (ExceptionFormatDonnees e) {
 			System.out.println("\n\t**format du fichier " + args[0] + " invalide: " + e.getMessage());
 		}
-		}
+	}
 
     
     @Override 
 	public void next(){
+    	Evenement E = evenements.first();
+    	
     }
 
     @Override 
@@ -64,7 +68,7 @@ public class Simulateur implements Simulable {
 			dateEvtMax = e.getDate();
 	}
 	
-	public LinkedList<Evenement> getEvts() {
+	public TreeSet<Evenement> getEvts() {
 		return this.evenements;
 	}
 	
