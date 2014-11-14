@@ -46,14 +46,22 @@ public class Simulateur implements Simulable {
     
     @Override 
 	public void next(){
-    	if (!this.simulationTerminee()) {
-	    	this.incrementeDate();
+        this.incrementeDate();
+    	if (this.evenementExistant()) {
+            boolean evenementExecute = false;
 	    	Evenement E = this.evenements.first();
-		    if (E.getDate() < this.dateCourrante) {
+		    while (E.getDate() < this.dateCourrante) {
 		    	E.execute();
 		    	this.evenements.remove(E);
+                evenementExecute = true;
+                if (this.evenementExistant()) {
+                    E = this.evenements.first();
+                }
+                else
+                    break;
 		    }
-	    dessine();
+            if (evenementExecute)
+                dessine();
     	}
     }
 
@@ -88,7 +96,7 @@ public class Simulateur implements Simulable {
 		return this.evenements;
 	}
 	
-	public boolean simulationTerminee() {
-		return (this.evenements.size() == 0);
+	public boolean evenementExistant() {
+		return (this.evenements.size() > 0);
 	}
 }
