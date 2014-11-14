@@ -7,8 +7,14 @@ import ihm.*;
 public class RunSimulation {
 	public static void main(String[] args) {
 		Simulateur simu = new Simulateur(args);
+		ManagerTest M = new ManagerTest(simu);
+		simu.setManager(M);
 	}
 }
+
+
+
+
 /*
 class Simulateur implements Simulable {
 

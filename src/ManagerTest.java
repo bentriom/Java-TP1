@@ -1,5 +1,5 @@
 /** 
- * Manager test, qui va créer
+ * Manager test, qui va crï¿½er
  * @author Moud
  *
  */
@@ -14,10 +14,10 @@ public final class ManagerTest extends Manager {
 	 */
 	@Override
 	public void manage() {
-		EvenementMsg evt = new EvenementMsg(1,"coucou\n");
-		if (this.simu == null)
-			System.out.println("pb!!\n");
-		this.simu.ajouteEvenement(evt);
+		this.simu.getEvts().clear();
+		this.simu.ajouteEvenement(new EvenementMsg(2,"decale gwada a gauche\n"));
+		this.simu.ajouteEvenement(new EvenementMsg(4,"decale gwada a droite\n"));
+		this.simu.ajouteEvenement(new EvenementMsg(5,"maladie du bouger bouger\n"));
 	}
 
 }

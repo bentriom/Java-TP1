@@ -9,7 +9,7 @@ public class Simulateur implements Simulable {
     private IGSimulateur ihm;
     private DonneesSimulation data;
 	private long dateCourrante = 0;
-	private long dateEvtMax = 0;
+	private Manager manager;
 	ComparateurEvenements C = new ComparateurEvenements();
 	private TreeSet<Evenement> evenements = new TreeSet<Evenement>(C);
     
@@ -33,16 +33,34 @@ public class Simulateur implements Simulable {
 			System.out.println("\n\t**format du fichier " + args[0] + " invalide: " + e.getMessage());
 		}
 	}
+	
+	public Simulateur(String[] args, Manager M) {
+		this(args);
+		this.manager = M;
+	}
 
+	public void setManager(Manager M) {
+		this.manager = M;
+		this.manager.manage();
+	}
     
     @Override 
 	public void next(){
-    	Evenement E = evenements.first();
-    	
+    	if (!this.simulationTerminee()) {
+	    	this.incrementeDate();
+	    	Evenement E = this.evenements.first();
+		    if (E.getDate() < this.dateCourrante) {
+		    	E.execute();
+		    	this.evenements.remove(E);
+		    }
+	    dessine();
+    	}
     }
 
     @Override 
 	public void restart(){
+    	this.manager.manage();
+    	this.dateCourrante = 0;
     }
     
 
@@ -64,8 +82,6 @@ public class Simulateur implements Simulable {
 	 */
 	public void ajouteEvenement(Evenement e) {
 		this.evenements.add(e);
-		if (dateEvtMax < e.getDate())
-			dateEvtMax = e.getDate();
 	}
 	
 	public TreeSet<Evenement> getEvts() {
@@ -73,6 +89,6 @@ public class Simulateur implements Simulable {
 	}
 	
 	public boolean simulationTerminee() {
-		return (dateCourrante > dateEvtMax);
+		return (this.evenements.size() == 0);
 	}
 }
