@@ -16,7 +16,7 @@ public class Carte {
 		this.nbColonnes = colonnes;
 		this.tailleCases = taillecase;
 		this.tabCases = tabCases;
-		tabCases[0][0] = new Case(0, 0, tabCases[0][0].getNature(),this);
+		this.tabCases[0][0] = new Case(0, 0, tabCases[0][0].getNature(),this);
 	}
 	
 	/* Constructeur Carte terrain libre*/
@@ -28,9 +28,10 @@ public class Carte {
 		this.tabCases = new Case[lignes][colonnes];
 		for(int i=0; i<lignes; i++) {
 			for(int j=0; j<colonnes; j++) {
-				this.tabCases[i][j] = new Case(i,j,NatureTerrain.TERRAIN_LIBRE);
+				this.tabCases[i][j] = new Case(i,j,NatureTerrain.TERRAIN_LIBRE,this);
 			}
 		}
+		
 	}
 	
 	/* Constructeur de copie */
@@ -39,6 +40,7 @@ public class Carte {
 		this.nbColonnes = carte.nbColonnes;
 		this.tailleCases = carte.tailleCases;
 		this.tabCases = carte.tabCases;
+		this.tabCases[0][0] = new Case(0, 0, tabCases[0][0].getNature(),this);
 	}
 	
 	public int getNbLignes() {
@@ -76,13 +78,13 @@ public class Carte {
 		if(this.voisinExiste(source,d)) {
 			switch(d) {
 			case  NORD:
-				return this.tabCases[source.getLigne()][source.getColonne()-1];
-			case  EST:
-				return this.tabCases[source.getLigne()+1][source.getColonne()];
-			case  OUEST:
 				return this.tabCases[source.getLigne()-1][source.getColonne()];
-			case  SUD:
+			case  EST:
 				return this.tabCases[source.getLigne()][source.getColonne()+1];
+			case  OUEST:
+				return this.tabCases[source.getLigne()][source.getColonne()-1];
+			case  SUD:
+				return this.tabCases[source.getLigne()+1][source.getColonne()];
 			default:
 				return source; // Pour satisfaire le compilateur
 			}

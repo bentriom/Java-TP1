@@ -10,14 +10,28 @@ public final class ManagerTest extends Manager {
 	}
 
 	/* Ceci est un manager test
-	 * Il va creer des messages a afficher selon certaines dates
+	 * Il va faire bouger un robot puis un autre
 	 */
 	@Override
 	public void manage() {
 		this.simu.getEvts().clear();
-		this.simu.ajouteEvenement(new EvenementMsg(2,"decale gwada a gauche\n"));
-		this.simu.ajouteEvenement(new EvenementMsg(4,"decale gwada a droite\n"));
-		this.simu.ajouteEvenement(new EvenementMsg(5,"maladie du bouger bouger\n"));
+		
+		for(int i=1;i<20;i+=2) {
+			this.simu.ajouteEvenement(new DeplacementElementaire(i,
+				this.simu.getData().getRobot(0),Direction.NORD));
+		}
+		for(int i=2;i<20;i+=2) {
+			this.simu.ajouteEvenement(new DeplacementElementaire(i,
+				this.simu.getData().getRobot(0),Direction.SUD));
+		}
+		for(int i=20;i<40;i+=2) {
+			this.simu.ajouteEvenement(new DeplacementElementaire(i,
+				this.simu.getData().getRobot(2),Direction.OUEST));
+		}
+		for(int i=21;i<40;i+=2) {
+			this.simu.ajouteEvenement(new DeplacementElementaire(i,
+				this.simu.getData().getRobot(2),Direction.EST));
+		}
 	}
 
 }

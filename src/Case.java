@@ -18,11 +18,11 @@ public class Case {
 	}
 
 	/* Constructeur */
-	public Case(int l, int c, NatureTerrain n, Carte map) {
+	public Case(int l, int c, NatureTerrain n, Carte m) {
 		this.ligne = l;
 		this.colonne = c;
 		this.nature = n;
-		Case.map = map;
+		Case.map = m;
 	}
 	
 	/* Constructeur de copie */
@@ -47,6 +47,8 @@ public class Case {
 	}
 
 	public Case getVoisin(Direction d) {
+		if (map == null)
+			System.out.println("c la mrd2\n");
 		return map.getVoisin(this, d);
 	}
 
