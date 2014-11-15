@@ -51,6 +51,14 @@ public class DonneesSimulation {
 		return this.incendies.get(numIncendie);
 	}
 	
+	public Incendie getIncendie(Case c) {
+		for (Incendie i : this.incendies) {
+			if (i.getPosition() == c)
+				return i;
+		}
+		return null;
+	}
+	
 	public void ajouteIncendie(Incendie i) {
 		this.incendies.add(i);
 	}	

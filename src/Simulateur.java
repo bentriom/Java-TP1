@@ -94,6 +94,20 @@ public class Simulateur implements Simulable {
 	public void ajouteEvenement(Evenement e) {
 		this.evenements.add(e);
 	}
+	// Pour pouvoir réajuster les dates après création de l'evenement
+	public void ajouteEvenement(long date, Evenement e) {
+		e.setDate(date);
+		this.evenements.add(e);
+	}
+	
+	public int ajouteEvenement(long date_debut, LinkedList<Evenement> ListeE) {
+		int index=0;
+		for(Evenement E : ListeE) {
+			ajouteEvenement(date_debut+index,E);
+			index++;
+		}
+		return index;
+	}
 	
 	public TreeSet<Evenement> getEvts() {
 		return this.evenements;

@@ -23,4 +23,12 @@ public class Incendie {
     public Case getPosition() {
         return position;
     }
+    
+    public int getWaterNeed() {
+    	return this.waterNeed;
+    }
+    
+    public void setWaterNeed(int w) {
+    	this.waterNeed = w;
+    }
 }
