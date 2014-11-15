@@ -16,6 +16,7 @@ public class Carte {
 		this.nbColonnes = colonnes;
 		this.tailleCases = taillecase;
 		this.tabCases = tabCases;
+		tabCases[0][0] = new Case(0, 0, tabCases[0][0].getNature(),this);
 	}
 	
 	/* Constructeur Carte terrain libre*/
