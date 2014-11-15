@@ -10,6 +10,7 @@ public class Simulateur implements Simulable {
     private DonneesSimulation data;
 	private long dateCourrante = 0;
 	private Manager manager;
+	private String fichier;
 	ComparateurEvenements C = new ComparateurEvenements();
 	private TreeSet<Evenement> evenements = new TreeSet<Evenement>(C);
     
@@ -21,6 +22,7 @@ public class Simulateur implements Simulable {
 		}
 		
 		try {
+			fichier = args[0];
 			data = LecteurDonnees.creeDonnees(args[0]);
 			int col = data.getCarte().getNbColonnes();
 			int lig = data.getCarte().getNbLignes();
@@ -33,53 +35,61 @@ public class Simulateur implements Simulable {
 			System.out.println("\n\t**format du fichier " + args[0] + " invalide: " + e.getMessage());
 		}
 	}
-	
-	public Simulateur(String[] args, Manager M) {
-		this(args);
-		this.manager = M;
-	}
 
 	public void setManager(Manager M) {
 		this.manager = M;
 		this.manager.manage();
 	}
     
+	/* Implémentation de l'interface Simulable */
     @Override 
 	public void next(){
-    	if (!this.simulationTerminee()) {
-	    	this.incrementeDate();
+    	this.incrementeDate();
+    	boolean evenementExecute = false;
+    	if (this.evenementExistant()) {
 	    	Evenement E = this.evenements.first();
-		    if (E.getDate() < this.dateCourrante) {
+		    while (E.getDate() < this.dateCourrante) {
 		    	E.execute();
+		    	evenementExecute = true;
 		    	this.evenements.remove(E);
+		    	if (this.evenementExistant()) {
+		    		E = this.evenements.first();
+		    	}
+		    	else
+		    		break;
 		    }
-	    dessine();
+		    if (evenementExecute)
+		    	dessine();
     	}
     }
 
     @Override 
 	public void restart(){
-    	this.manager.manage();
+    	/* manage() supprime la liste d'evenements du simulateur et la recreer */
+    	try {
+			data = LecteurDonnees.creeDonnees(fichier);
+	        dessine();
+		} catch (FileNotFoundException e) {
+			System.out.println("fichier " + fichier + " inconnu ou illisible");
+		} catch (ExceptionFormatDonnees e) {
+			System.out.println("\n\t**format du fichier " + fichier + " invalide: " + e.getMessage());
+		}
     	this.dateCourrante = 0;
+    	this.manager.manage();
     }
-    
-
    
     private void dessine(){
 		Affichage.dessineCases(data.getCarte(), ihm);
 		Affichage.dessineIncendies(data, ihm);
 		Affichage.dessineRobots(data, ihm);
     }
-
     
-	/* Méthodes */
+	/* Incrémente la date */
 	public void incrementeDate() {
 		this.dateCourrante++;
 	}
 	
-	/* On ajoute les evenements dans le desordre
-	 * Le manager se chargera de mieux organiser la liste d'evts
-	 */
+	/* Méthodes sur les événements */
 	public void ajouteEvenement(Evenement e) {
 		this.evenements.add(e);
 	}
@@ -88,7 +98,12 @@ public class Simulateur implements Simulable {
 		return this.evenements;
 	}
 	
-	public boolean simulationTerminee() {
-		return (this.evenements.size() == 0);
+	public boolean evenementExistant() {
+		return !(this.evenements.size() == 0);
+	}
+	
+	/* Accès aux donnees lues : robots et incendies */
+	public DonneesSimulation getData() {
+		return this.data;
 	}
 }
