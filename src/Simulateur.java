@@ -38,13 +38,14 @@ public class Simulateur implements Simulable {
 
 	public void setManager(Manager M) {
 		this.manager = M;
-		this.manager.manage();
 	}
     
 	/* Implémentation de l'interface Simulable */
     @Override 
 	public void next(){
         this.incrementeDate();
+        /* On manage a la date */
+        this.manager.manage();
     	if (this.evenementExistant()) {
             boolean evenementExecute = false;
 	    	Evenement E = this.evenements.first();
