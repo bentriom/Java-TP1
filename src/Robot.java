@@ -41,13 +41,9 @@ public abstract class Robot {
         }
         position = c;
     }
-    
-    public void moveVoisin(Direction dir) {
-    	this.setPosition(this.position.getVoisin(dir));	
-    }
-    
-    public Evenement moveTo(Direction dir) {
-    	return new DeplacementElementaire(0,this,dir);
+
+    public Evenement EvtmoveTo(Case pos) {
+    	return new EvtDeplacement(0,this,pos);
     }
     
     
@@ -120,14 +116,13 @@ public abstract class Robot {
     	return new DeverserEau(date,incendie,this);
     }
     
-    public LinkedList<Evenement> eteindreIncendie(long date_absolue, Incendie incendie) {
-    	LinkedList<Evenement> ListeEvts = new LinkedList<Evenement>();
-    	double nombreDeverse =  this.timeDeverserEau(incendie.getWaterNeed());
-    	System.out.println("On est dans eteindreincendie, water = " + String.valueOf(waterVol));
-    	for(int i=0; i < nombreDeverse; i++) {
-    		ListeEvts.add(deverserSurIncendie(date_absolue+i,incendie));
-    	}
-    	return ListeEvts;
+    public LinkedList<Evenement> eteindreIncendie(long date_absolue, Incendie incendie) { 
+    	/* Cree la liste de deplacements via l'algo */
+    	/* Mettre a jour les dates selon la date absolue */
+    	
+    	/* Cree evenement deverser */
+    	
+    	return null;
     }
     
     public boolean isBusy(){

@@ -11,7 +11,10 @@ public class DeverserEau extends Evenement {
 
 	@Override
 	public void execute() {
-		System.out.println("ok on passe ici");
+		System.out.println("Ok on va deverser eau");
 		this.robot.deverserEau(this.incendie);
+		if (this.incendie.getWaterNeed() <= 0) {
+			System.out.println("On vient de supprimer un incendie");
+		}
 	}
 }
