@@ -4,7 +4,7 @@ import java.util.TreeSet;
 import java.util.Comparator;
 import java.util.LinkedList;
 
-public class Astar {
+public class Driver {
 
 	private Robot robot;
 	private Carte map;
@@ -13,7 +13,7 @@ public class Astar {
 	private Case goal;
 	private Case start;
 	
-	public Astar(Carte map, Robot robot){
+	public Driver(Carte map, Robot robot){
 		this.map = map;
 		this.robot = robot;
 		gScore = new double[map.getNbColonnes()][map.getNbLignes()];
@@ -71,7 +71,7 @@ public class Astar {
 		}
 	}
 		
-	public double Compute(Case start, Case goal) {
+	public double aStar(Case start, Case goal, boolean nextTo) {
 		this.start = start;
 		this.goal = goal;
 		TreeSet<Case> closedSet = new TreeSet<Case>(new fScoreComp()); 
@@ -90,6 +90,10 @@ public class Astar {
 			closedSet.add(current);
 			LinkedList<Case> neighbors = getNeighbor(current);
 			for(Case neighbor : neighbors){
+				if (neighbor == goal && nextTo) {
+					this.goal = current;
+					return fromStartScore(current);
+				}
 				if (closedSet.contains(neighbor)){
 					continue;
 				}
@@ -116,24 +120,68 @@ public class Astar {
 		return -1;		
 	}
 	
+	public Case findWater(Case start, boolean nextTo) {
+		this.start = start;
+		TreeSet<Case> closedSet = new TreeSet<Case>(new fScoreComp()); 
+		TreeSet<Case> openSet = new TreeSet<Case>(new fScoreComp()); 
+		openSet.add(start);
+		fromStartScore(start, 0);
+		
+		while(!openSet.isEmpty()) {
+			Case current = openSet.pollFirst();
+			if (current.getNature() == NatureTerrain.EAU) {
+				this.goal = current;
+				return current;
+			}
+			closedSet.add(current);
+			LinkedList<Case> neighbors = getNeighbor(current);
+			for(Case neighbor : neighbors){
+				if  (neighbor.getNature() == NatureTerrain.EAU && nextTo){
+					this.goal = current;
+					return current;
+				}
+				if (closedSet.contains(neighbor) || 
+						robot.getVitesse(neighbor.getNature()) == 0){
+					continue;
+				}
+				double tryStartScore = fromStartScore(current) +
+						neighborCost(current, neighbor);
+				
+				if (!openSet.contains(neighbor) || 
+						tryStartScore < fromStartScore(neighbor)){
+					//came_from
+					fromStartScore(neighbor, tryStartScore); 
+					if (!openSet.contains(neighbor)){
+						openSet.add(neighbor);
+					}
+				}		
+			}
+			
+		}
+		return start;		
+	}
+	
 	private Case cameFrom(Case c){
 		double eps = 0.001;
 		LinkedList<Case> neighbors = getNeighbor(c);
 		Case precCase = neighbors.getFirst();
 		for(Case neighbor : neighbors){
+			// peut utiliser valeur non init
+			if (fromStartScore(precCase)>fromStartScore(neighbor)) {
+				precCase = neighbor;
+			}
 			if (fromStartScore(c) - 
 					fromStartScore(neighbor) - 
 					neighborCost(c, neighbor) <= eps) {
 				return neighbor;
 			}
 		}
-		//PB
 		return precCase;
 	}
 	
-	public LinkedList<Evenement> pathFinder(Case start, Case goal){
+	public LinkedList<Evenement> pathFinder(Case start, Case goal, boolean nextTo){
 		if ((this.start != start) || (this.goal != goal)) {
-			Compute(start, goal);
+			aStar(start, goal, nextTo);
 		}
 		Case current = goal;
 		LinkedList<Evenement> totalPath = new LinkedList<Evenement>();
