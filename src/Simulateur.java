@@ -26,8 +26,9 @@ public class Simulateur implements Simulable {
 			data = LecteurDonnees.creeDonnees(args[0]);
 			int col = data.getCarte().getNbColonnes();
 			int lig = data.getCarte().getNbLignes();
+			int casePX = Math.min(800/col, 600/lig);
 			int taille = data.getCarte().getTailleCases();
-			ihm = new IGSimulateur(col, lig, 30, this);
+			ihm = new IGSimulateur(col, lig, casePX, this);
 	        dessine();
 		} catch (FileNotFoundException e) {
 			System.out.println("fichier " + args[0] + " inconnu ou illisible");

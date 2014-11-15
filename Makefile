@@ -43,7 +43,7 @@ exeLecture:
 	java -classpath bin TestLecteurDonnees cartes/carteSujet.txt
 
 exeDessin:
-	java -classpath bin:bin/ihm.jar RunSimulation cartes/carteSujet.txt
+	java -classpath bin:bin/ihm.jar RunSimulation cartes/spiralOfMadness-50x50.map
 
 clean:
 	rm -rf bin/*.class
