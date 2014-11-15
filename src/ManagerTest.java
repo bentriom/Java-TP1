@@ -3,6 +3,9 @@
  * @author Moud
  *
  */
+
+import java.util.LinkedList;
+
 public final class ManagerTest extends Manager {
 	
 	public ManagerTest(Simulateur s) {
@@ -14,14 +17,20 @@ public final class ManagerTest extends Manager {
 	 */
 	@Override
 	public void manage() {
+		LinkedList<Evenement> evtlist = new LinkedList<Evenement>();
 		this.simu.getEvts().clear();
 		
 		Robot robot = this.simu.getData().getRobot(1);
 		Incendie incendie = this.simu.getData().getIncendie(4);
 		int temps_absolu = 0;
 		
+		Carte map = this.simu.getData().getCarte();
+		robot.moveToFar(map.getCase(0, 0));
+		
+		this.simu.ajouteEvenement(0, evtlist);
+		
 		if (!robot.isBusy()) {
-			robot.eteindreIncendie(temps_absolu, incendie);
+			evtlist = robot.eteindreIncendie(temps_absolu, incendie);
 		}
 		
 		/*

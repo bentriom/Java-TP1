@@ -8,7 +8,6 @@ public class Case {
 	private int ligne;
 	private int colonne;
 	private NatureTerrain nature;
-	private boolean estIncendie = false;
 	static Carte map;
 	
 	/* Constructeur */

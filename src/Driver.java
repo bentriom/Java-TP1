@@ -10,6 +10,7 @@ public class Driver {
 	private Carte map;
 	private double[][] gScore;
 	private double[][] fScore;
+	private Case[][] cameFrom;
 	private Case goal;
 	private Case start;
 	
@@ -18,11 +19,14 @@ public class Driver {
 		this.robot = robot;
 		gScore = new double[map.getNbColonnes()][map.getNbLignes()];
 		fScore = new double[map.getNbColonnes()][map.getNbLignes()];
+		cameFrom = new Case[map.getNbColonnes()][map.getNbLignes()];
 	}
 	
 	private double manhattanDistance(Case c1, Case c2){
-		return Math.abs(c1.getLigne() - c2.getLigne() +
+		double res = Math.abs(c1.getLigne() - c2.getLigne() +
 				Math.abs(c1.getColonne() - c2.getColonne()));
+		res = map.getTailleCases()*res;
+		return res/robot.getVitesse(NatureTerrain.TERRAIN_LIBRE);
 	}
 	
 	private double neighborCost(Case c1, Case c2){
@@ -77,7 +81,6 @@ public class Driver {
 		TreeSet<Case> closedSet = new TreeSet<Case>(new fScoreComp()); 
 		TreeSet<Case> openSet = new TreeSet<Case>(new fScoreComp()); 
 		openSet.add(start);
-		// came_from[]
 		fromStartScore(start, 0);
 		toGoalScore(start, fromStartScore(start) + 
 				manhattanDistance(start, goal));
@@ -105,7 +108,7 @@ public class Driver {
 				
 				if (!openSet.contains(neighbor) || 
 						tryStartScore < fromStartScore(neighbor)){
-					//came_from
+					cameFrom[neighbor.getColonne()][neighbor.getLigne()] = current;
 					fromStartScore(neighbor, tryStartScore); 
 					toGoalScore(neighbor,
 							fromStartScore(neighbor) + 
@@ -162,7 +165,7 @@ public class Driver {
 	}
 	
 	private Case cameFrom(Case c){
-		double eps = 0.001;
+		double eps = 1;
 		LinkedList<Case> neighbors = getNeighbor(c);
 		Case precCase = neighbors.getFirst();
 		for(Case neighbor : neighbors){
@@ -185,10 +188,10 @@ public class Driver {
 		}
 		Case current = goal;
 		LinkedList<Evenement> totalPath = new LinkedList<Evenement>();
-		// insert
+		totalPath.addLast( new EvtDeplacement((long)fromStartScore(current), robot, current));
 		while (current != start) {
-			current = cameFrom(current);
-			//insert
+			current = cameFrom[current.getColonne()][current.getLigne()];
+			totalPath.addFirst( new EvtDeplacement((long)fromStartScore(current), robot, current));
 		}
 		return totalPath;
 		

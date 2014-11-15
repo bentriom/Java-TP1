@@ -62,13 +62,13 @@ public class Carte {
 	public boolean voisinExiste(Case source, Direction d) {	
 		switch(d) {
 			case NORD:
-				return (source.getColonne() >= 1);
+				return (source.getLigne() >= 1);
 			case EST:
-				return (source.getLigne() <= this.nbLignes-2);		
+				return (source.getColonne() <= this.nbColonnes-2);		
 			case OUEST:
-				return (source.getLigne() >= 1);			
+				return (source.getColonne() >= 1);			
 			case SUD:
-				return (source.getColonne() <= this.nbColonnes-2);			
+				return (source.getLigne() <= this.nbLignes-2);			
 			default:
 				return false;
 		}

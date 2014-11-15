@@ -30,8 +30,16 @@ public abstract class Robot {
     
     public double timeToMoveTo(Case c) {
     	return 0;
+    	
     }
 
+    public LinkedList<Evenement> moveToFar(Case c) {
+    	Driver tomTom = new Driver(Case.map, this);
+		tomTom.aStar(position, c, false);
+		LinkedList<Evenement> evtList = tomTom.pathFinder(position, c, false);
+		return evtList;
+    }
+    
     public void moveTo(Case c) {
         if (Math.abs(c.getLigne() - position.getLigne()) +
         		Math.abs(c.getColonne() - position.getColonne()) < 2){

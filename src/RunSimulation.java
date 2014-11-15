@@ -9,6 +9,7 @@ public class RunSimulation {
 		Simulateur simu = new Simulateur(args);
 		ManagerTest M = new ManagerTest(simu);
 		simu.setManager(M);
+		M.manage();
 	}
 }
 
