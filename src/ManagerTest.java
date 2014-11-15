@@ -27,6 +27,8 @@ public final class ManagerTest extends Manager {
 		Carte map = this.simu.getData().getCarte();
 		robot.moveToFar(map.getCase(0, 0));
 		
+		this.simu.ajouteEvenement(2, new EvtDeplacement(1,robot,map.getCase(1, 1)));
+		
 		this.simu.ajouteEvenement(0, evtlist);
 		
 		if (!robot.isBusy()) {
