@@ -93,8 +93,16 @@ public abstract class Robot {
     public int deverserEau(int vol) {
     	double nbOpD = Math.ceil(Math.min(vol, waterVol)/getWaterOutFlow());
         int nbOp = (int) nbOpD;
+        int deverse;
+    	if (vol < waterVol) { 
+    		deverse = nbOp*getWaterOutFlow();
+    		this.waterVol -= deverse;
+    	} else {
+    		deverse = waterVol;
+    		this.waterVol = 0;
+    	}
         this.waterVol -= nbOp*getWaterOutFlow();
-        return nbOp*getWaterOutFlow();
+        return deverse;
     }
     
     public void deverserEau(Incendie incendie) {
