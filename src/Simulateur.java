@@ -100,15 +100,11 @@ public class Simulateur implements Simulable {
 	}
 	
 	public boolean evenementExistant() {
-<<<<<<< HEAD
 		return !(this.evenements.size() == 0);
 	}
 	
 	/* Accès aux donnees lues : robots et incendies */
 	public DonneesSimulation getData() {
 		return this.data;
-=======
-		return (this.evenements.size() > 0);
->>>>>>> 7ce1a99ba4cbf31aff0ba47d1095dc426f403be2
 	}
 }
