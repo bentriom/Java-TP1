@@ -9,6 +9,10 @@ public abstract class Evenement implements Comparable<Evenement> {
 	public long getDate() {
 		return this.date;
 	}
+	
+	public void setDate(long d) {
+		this.date = d;
+	}
 
 	public int compareTo(Evenement E) {
 		long res = (E.getDate() - this.date);

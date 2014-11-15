@@ -8,6 +8,7 @@ public class Case {
 	private int ligne;
 	private int colonne;
 	private NatureTerrain nature;
+	private boolean estIncendie = false;
 	static Carte map;
 	
 	/* Constructeur */
@@ -73,7 +74,7 @@ public class Case {
 	
 	@Override
 	public String toString() {
-		return this.nature.toString();
+		return "(" + String.valueOf(ligne) + "," + String.valueOf(colonne) + ")" +this.nature.toString();
 	}
 	
 

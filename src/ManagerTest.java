@@ -16,22 +16,21 @@ public final class ManagerTest extends Manager {
 	public void manage() {
 		this.simu.getEvts().clear();
 		
-		for(int i=1;i<20;i+=2) {
-			this.simu.ajouteEvenement(new DeplacementElementaire(i,
-				this.simu.getData().getRobot(0),Direction.NORD));
-		}
-		for(int i=2;i<20;i+=2) {
-			this.simu.ajouteEvenement(new DeplacementElementaire(i,
-				this.simu.getData().getRobot(0),Direction.SUD));
-		}
-		for(int i=20;i<40;i+=2) {
-			this.simu.ajouteEvenement(new DeplacementElementaire(i,
-				this.simu.getData().getRobot(2),Direction.OUEST));
-		}
-		for(int i=21;i<40;i+=2) {
-			this.simu.ajouteEvenement(new DeplacementElementaire(i,
-				this.simu.getData().getRobot(2),Direction.EST));
-		}
+		Robot robot = this.simu.getData().getRobot(1);
+		int temps_absolu = 0;
+		
+		this.simu.ajouteEvenement(temps_absolu,robot.moveTo(Direction.OUEST));
+		temps_absolu++;
+		this.simu.ajouteEvenement(temps_absolu,robot.remplirEau());
+		temps_absolu++;
+		this.simu.ajouteEvenement(temps_absolu,robot.moveTo(Direction.NORD));
+		temps_absolu++;
+		
+		Incendie incendie1 = this.simu.getData().getIncendie(4);
+		System.out.println("Ok on va creer les evts pour eteindre le bail");
+		this.simu.ajouteEvenement(temps_absolu,robot.eteindreIncendie(temps_absolu,incendie1));
+		
+		/* On regarde le nb d'evts */
+		System.out.println("evenements = " + String.valueOf(this.simu.getEvts().size()));
 	}
-
 }

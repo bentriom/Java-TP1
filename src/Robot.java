@@ -3,6 +3,7 @@
  * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
  */
 
+import java.util.LinkedList;
 public abstract class Robot {
 
 	
@@ -16,6 +17,7 @@ public abstract class Robot {
     	this.busy = false;
     }
 
+    /* Gestion de la position */
     public Case getPosition() {
         return position;
     }
@@ -40,6 +42,14 @@ public abstract class Robot {
         position = c;
     }
     
+    public void moveVoisin(Direction dir) {
+    	this.setPosition(this.position.getVoisin(dir));	
+    }
+    
+    public Evenement moveTo(Direction dir) {
+    	return new DeplacementElementaire(0,this,dir);
+    }
+    
     
     abstract public int getWaterOutFlow();
     abstract public double getFullingTime();
@@ -47,12 +57,15 @@ public abstract class Robot {
     abstract public int getWaterVolMax();
     abstract public String image();
 
+    /* Gestion de l'eau */
     public int getWaterVol() {
        return waterVol;
     }
 
     public double remplir() {
     	boolean nearWater = false; 
+    	System.out.println("On va remplir de leau !" + String.valueOf(this.waterVol));
+    	System.out.println("Stock eau avant = ");
     	for (Direction d : Direction.values()){
     		nearWater = (position.getVoisin(d).getNature() == NatureTerrain.EAU) || nearWater;      		
     	}
@@ -62,7 +75,13 @@ public abstract class Robot {
     	} else {
 		    System.out.println("Vous essayez de remplir le robot sans eau !");
     	}
+    	System.out.println("Stock eau apres = " + String.valueOf(this.waterVol));
     	return getFullingTime();
+    }
+
+    /* Cree l'evenement pour que le robot se remplisse (en une fois) */
+    public Evenement remplirEau() {
+    	return new RemplirRobot(0,this);
     }
 
     public double timeDeverserEau(int vol) {
@@ -74,8 +93,33 @@ public abstract class Robot {
     public int deverserEau(int vol) {
     	double nbOpD = Math.ceil(Math.min(vol, waterVol)/getWaterOutFlow());
         int nbOp = (int) nbOpD;
-        waterVol -= nbOp*getWaterOutFlow();
+        this.waterVol -= nbOp*getWaterOutFlow();
         return nbOp*getWaterOutFlow();
+    }
+    
+    public void deverserEau(Incendie incendie) {
+    	int waterNeed = incendie.getWaterNeed();
+    	waterNeed -= this.deverserEau(waterNeed);
+    	incendie.setWaterNeed(waterNeed);
+    	System.out.println("Eau restant : " + String.valueOf(waterNeed) + "robot eau : " + String.valueOf(this.getWaterVol()));
+    	if (waterNeed <= 0) {
+    		System.out.println("Suppression d'incendie");
+    	}
+    }
+
+    /* Cree l'evenement pour deverser une fois */
+    public Evenement deverserSurIncendie(long date, Incendie incendie) {
+    	return new DeverserEau(date,incendie,this);
+    }
+    
+    public LinkedList<Evenement> eteindreIncendie(long date_absolue, Incendie incendie) {
+    	LinkedList<Evenement> ListeEvts = new LinkedList<Evenement>();
+    	double nombreDeverse =  this.timeDeverserEau(incendie.getWaterNeed());
+    	System.out.println("On est dans eteindreincendie, water = " + String.valueOf(waterVol));
+    	for(int i=0; i < nombreDeverse; i++) {
+    		ListeEvts.add(deverserSurIncendie(date_absolue+i,incendie));
+    	}
+    	return ListeEvts;
     }
     
     public boolean isBusy(){
@@ -89,6 +133,5 @@ public abstract class Robot {
     public void unBusy(){
     	busy = false;
     }
-    
     
 }
