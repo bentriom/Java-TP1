@@ -186,15 +186,15 @@ public class Driver {
 		return precCase;
 	}
 	
-	public LinkedList<Evenement> pathFinder(){
+	public LinkedList<Evenement> pathFinder(long dateAbs){
 		Case current = this.goal;
 		LinkedList<Evenement> totalPath = new LinkedList<Evenement>();
-		totalPath.addLast( new EvtDeplacement((long)fromStartScore(current), robot, current));
+		totalPath.addLast( new EvtDeplacement(dateAbs + (long)fromStartScore(current), robot, current));
 		while (current != this.start) {
 			System.out.println(current);
 			current = cameFrom[current.getColonne()][current.getLigne()];
 			double cost = fromStartScore(current);
-			totalPath.addFirst( new EvtDeplacement((long)cost, robot, current));
+			totalPath.addFirst( new EvtDeplacement(dateAbs + (long)cost, robot, current));
 			System.out.println("temps, case : " + cost + ", " + current);
 		}
 		return totalPath;

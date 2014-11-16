@@ -33,10 +33,11 @@ public abstract class Robot {
 		return tomTom.aStar(position, c, true);    	
     }
 
-    public LinkedList<Evenement> moveToFar(Case c) {
+    
+    public LinkedList<Evenement> moveToFar(Case c, long dateAbs) {
     	Driver tomTom = new Driver(Case.map, this);
     	tomTom.aStar(position, c, canBeNextTo());
-		LinkedList<Evenement> evtList = tomTom.pathFinder();
+		LinkedList<Evenement> evtList = tomTom.pathFinder(dateAbs);
 		this.busy();
 		return evtList;
     }
@@ -44,7 +45,7 @@ public abstract class Robot {
     public LinkedList<Evenement> fetchWater(long dateAbs) {
     	Driver tomTom = new Driver(Case.map, this);
     	double tempsVoyage = tomTom.findWater(position, canBeNextTo());
-		LinkedList<Evenement> evtList = tomTom.pathFinder();
+		LinkedList<Evenement> evtList = tomTom.pathFinder(dateAbs);
 		evtList.add(this.remplirEau((long) tempsVoyage + dateAbs));
 		double tempsRemplissage = this.getFullingTime();
     	//evtList.add(this.imUnbusy(dateAbs + (long)(tempsVoyage + tempsRemplissage)));	
@@ -132,7 +133,7 @@ public abstract class Robot {
     
     /* Méthode qui agit sur l'incendie */
     public void deverserEau(Incendie incendie) {
-    	boolean nearFire = false;
+    	boolean nearFire = (incendie.getPosition() == position);
     	for (Direction d : Direction.values()){
     		nearFire = (incendie.getPosition() == position.getVoisin(d) || nearFire);      		
     	}	
@@ -169,7 +170,7 @@ public abstract class Robot {
     	Driver tomTom = new Driver(Case.map, this);
     	long tempsVoyage = 
     			(long) tomTom.aStar(position, incendie.getPosition(), canBeNextTo());
-		evtsList = tomTom.pathFinder();
+		evtsList = tomTom.pathFinder(dateAbs);
 		long tempsDeverse = (long) timeDeverserEau(incendie.getWaterNeed());
 	    evtsList.add(this.deverserEau(tempsVoyage + dateAbs,incendie));
     	/* Evenement pour dire qu'il est libre */
