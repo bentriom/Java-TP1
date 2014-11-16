@@ -41,6 +41,9 @@ public class Affichage {
 					Incendie fire;
 					for (int numIncendie= 0; numIncendie < nbIncendies; numIncendie++){
 						fire = data.getIncendie(numIncendie);
+						if (fire.getWaterNeed() <= 0){
+							continue;
+						}
 						ihm.paintImage(fire.getPosition().getColonne(), 
 								fire.getPosition().getLigne(), 
 								"images/feu.png", 1, 1);
