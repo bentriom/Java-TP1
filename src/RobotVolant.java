@@ -46,6 +46,11 @@ public class RobotVolant extends Robot {
     }
     
     @Override
+    public String specifString(){
+    	return " volant ";
+    }
+    
+    @Override
     public double remplir() {
     	boolean nearWater = false; 
     	nearWater = (this.getPosition().getNature() == NatureTerrain.EAU) || nearWater;

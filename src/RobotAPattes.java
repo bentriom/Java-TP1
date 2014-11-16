@@ -54,6 +54,11 @@ public class RobotAPattes extends Robot {
     }
     
     @Override
+    public String specifString(){
+    	return " a pattes ";
+    }
+    
+    @Override
     public String image(){
     	return "images/patte.png";
     }

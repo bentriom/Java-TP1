@@ -50,6 +50,11 @@ public class RobotAChenille extends Robot {
     public int getWaterVolMax() {
          return waterVolMax;
     }
+
+    @Override
+    public String specifString(){
+    	return " a chenilles ";
+    }
     
     @Override
     public String image(){

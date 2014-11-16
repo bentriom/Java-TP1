@@ -50,6 +50,11 @@ public class RobotARoue extends Robot {
     }
     
     @Override
+    public String specifString(){
+    	return " a roues ";
+    }
+    
+    @Override
     public String image(){
     	return "images/roue.png";
     }

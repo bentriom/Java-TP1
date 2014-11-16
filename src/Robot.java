@@ -72,6 +72,7 @@ public abstract class Robot {
     abstract public double getOutTime();
     abstract public int getWaterVolMax();
     abstract public String image();
+    abstract public String specifString();
 
     public boolean canBeNextTo(){
     	return true;
@@ -184,8 +185,9 @@ public abstract class Robot {
     	return new EvtImUnbusy(date_absolue,this);
     }
     
+ 
     @Override
     public String toString(){
-    	return " robot a la case : " + position.toString() + " de vitesse : " + this.getVitesse(NatureTerrain.TERRAIN_LIBRE);
+    	return " robot " + this.specifString() + " a la case : " + position.toString() + " de vitesse : " + this.getVitesse(NatureTerrain.TERRAIN_LIBRE);
     }
 }
