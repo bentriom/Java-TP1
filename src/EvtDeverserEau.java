@@ -15,5 +15,6 @@ public class EvtDeverserEau extends Evenement {
 		if (this.incendie.getWaterNeed() <= 0) {
 			System.out.println("On vient de supprimer un incendie");
 		}
+		this.robot.unBusy();
 	}
 }
