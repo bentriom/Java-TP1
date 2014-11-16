@@ -137,6 +137,7 @@ public abstract class Robot {
     	waterNeed -= this.deverserEau(waterNeed);
     	incendie.setWaterNeed(waterNeed);
     	System.out.println("Eau necessaire apres = " + String.valueOf(waterNeed));
+    	System.out.println("Position robot = " + this.position.toString()+ " et position incendie = " + incendie.getPosition().toString());
     	if (waterNeed <= 0) {
     		incendie = null;
     	}

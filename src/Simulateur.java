@@ -106,7 +106,7 @@ public class Simulateur implements Simulable {
 	public int ajouteEvenement(long date_debut, LinkedList<Evenement> ListeE) {
 		int index=0;
 		for(Evenement E : ListeE) {
-			System.out.println("evt num "+ String.valueOf(index) + "date = " + String.valueOf(E.getDate()));
+			System.out.println("evt num "+ String.valueOf(index) + " date = " + String.valueOf(E.getDate()+date_debut));
 			ajouteEvenement(E.getDate()+date_debut,E);
 			index++;
 		}
