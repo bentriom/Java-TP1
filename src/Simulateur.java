@@ -50,7 +50,11 @@ public class Simulateur implements Simulable {
     	if (manager.end()){
     		Affichage.fin(data, ihm);
     		System.out.println("La simulation est finie");
-    		Thread.sleep(1000);
+    		try {
+    			Thread.sleep(1000);
+    		} catch (InterruptedException e){ 
+    			System.out.println("Le programme a ete ferme");
+    		}
     	}
         this.manager.manage();
         this.incrementeDate();
@@ -111,7 +115,6 @@ public class Simulateur implements Simulable {
 	public int ajouteEvenement(long date_debut, LinkedList<Evenement> ListeE) {
 		int index=0;
 		for(Evenement E : ListeE) {
-			System.out.println("evt num "+ String.valueOf(index) + "date = " + String.valueOf(E.getDate()));
 			ajouteEvenement(E.getDate()+date_debut,E);
 			index++;
 		}
