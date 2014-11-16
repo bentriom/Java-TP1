@@ -30,7 +30,9 @@ testLecture:
 	
 runSimulation:
 	javac -d bin -classpath bin/ihm.jar -sourcepath src src/RunSimulation.java
-	
+
+runSimulationTest:
+	javac -d bin -classpath bin/ihm.jar -sourcepath src src/RunSimulationTest.java
 # Execution:
 # on peut taper directement la ligne de commande :
 #   > java -classpath bin TestIHM
@@ -45,6 +47,10 @@ exeLecture:
 exeDessin:
 
 	java -classpath bin:bin/ihm.jar RunSimulation cartes/carteSujet.txt
+
+exeTestCmd:
+
+	java -classpath bin:bin/ihm.jar RunSimulationTest cartes/carteSujet.txt
 
 clean:
 	rm -rf bin/*.class

@@ -49,11 +49,10 @@ public class Manager3 extends Manager {
 					intNextest = i;
 				}
 			}
-			
-			vivaciteFeu[intNextest] -= robot.getWaterVol();
-			// ajout_evt : beginning derverser eau, date = coutMin
-			moveEvents.addAll(robot.moveToFar(nextest.getPosition()));
-			// ajout evt : fin de derversage, date = coutMin + watertime
+			if (nextest != null){
+				vivaciteFeu[intNextest] -= robot.getWaterVol();
+				moveEvents.addAll(robot.eteindreIncendie(dateCour, nextest));
+			}
 		}
 	}
 

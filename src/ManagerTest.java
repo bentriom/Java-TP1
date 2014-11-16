@@ -19,6 +19,8 @@ public final class ManagerTest extends Manager {
 	public void manage() {
 		LinkedList<Evenement> evtlist = new LinkedList<Evenement>();
 		
+		Robot robot2 = this.simu.getData().getRobot(2);
+		Robot robot0 = this.simu.getData().getRobot(0);
 		Robot robot = this.simu.getData().getRobot(1);
 		Incendie incendie = this.simu.getData().getIncendie(4);
 		Carte map = this.simu.getData().getCarte();
@@ -27,8 +29,30 @@ public final class ManagerTest extends Manager {
 			System.out.println(robot.toString() + " : pas busy");
 			evtlist = robot.moveToFar(map.getCase(0, 0));
 			robot.busy();;
-			this.simu.ajouteEvenement(2, evtlist);
+
+			this.simu.ajouteEvenement(0, evtlist);
+			//System.out.println("taille evts enregistres apres bail : " + this.simu.getEvts().size());
+
 		}
+		
+		if (!robot0.isBusy()) {			
+			System.out.println(robot.toString() + " : pas busy");
+			evtlist = robot2.fetchWater(0);
+			robot.busy();;
+			this.simu.ajouteEvenement(0, evtlist);
+			//System.out.println("taille evts enregistres apres bail : " + this.simu.getEvts().size());
+		}
+		
+		if (!robot2.isBusy()) {			
+			System.out.println(robot.toString() + " : pas busy");
+			evtlist = robot2.eteindreIncendie(0, this.simu.getData().getIncendie(5));
+			robot.busy();;
+			this.simu.ajouteEvenement(0, evtlist);
+			//System.out.println("taille evts enregistres apres bail : " + this.simu.getEvts().size());
+		}
+		robot2.busy();
+		robot.busy();
+		robot0.busy();
 		
 		
 		/*
