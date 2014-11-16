@@ -150,29 +150,21 @@ public abstract class Robot {
     }*/
     
     /* Cette méthode envoie un robot eteindre un incendie
-     * Tant que l'incendie n'est pas eteint (supprime de la liste)
-     * - on va a l'incendie
-     * - on deverse ce qu'on a
-     * - on va se remplir
+     * Il va a l'incendie et deverse UNE FOIS
      */
     public LinkedList<Evenement> eteindreIncendie(long date_absolue, Robot robot, Incendie incendie) { 
     	LinkedList<Evenement> evtsListe = new LinkedList<Evenement>();
     	long date_en_cours = date_absolue;
-    	/* Tant que l'incendie n'est pas eteint */
-    	while (incendie != null) {
-	    	/* Cree la liste de deplacements via l'algo */
-	    	evtsListe = robot.moveToFar(incendie.getPosition());
-	    	/* Mettre a jour les dates selon la date absolue */
-	    	for(Evenement E : evtsListe) {
-	    		date_en_cours += E.getDate();
-	    		E.setDate(date_en_cours);
-	    	}
-	    	evtsListe.add(robot.deverserEau(date_en_cours,incendie));
-	    	evtsListe.add(robot.remplirEau(date_en_cours));
-    	}  	
+	    /* Cree la liste de deplacements via l'algo */
+	    evtsListe = robot.moveToFar(incendie.getPosition());
+	    /* Mettre a jour les dates selon la date absolue */
+	    for(Evenement E : evtsListe) {
+	    	date_en_cours += E.getDate();
+	    	E.setDate(date_en_cours);
+	    }
+	    evtsListe.add(robot.deverserEau(date_en_cours,incendie));
     	/* Evenement pour dire qu'il est libre */
-    	evtsListe.add(robot.imUnbusy(date_en_cours));
-    	
+    	evtsListe.add(robot.imUnbusy(date_en_cours));	
     	return evtsListe;
     }
     
