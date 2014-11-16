@@ -50,6 +50,10 @@ public final class ManagerTest extends Manager {
 			this.simu.ajouteEvenement(0, evtlist);
 			//System.out.println("taille evts enregistres apres bail : " + this.simu.getEvts().size());
 		}
+		robot2.busy();
+		robot.busy();
+		robot0.busy();
+		
 		
 		/*
 		this.simu.ajouteEvenement(temps_absolu,robot.moveTo(Direction.OUEST));
