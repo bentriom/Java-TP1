@@ -54,6 +54,7 @@ public class Manager3 extends Manager {
 				moveEvents.addAll(robot.eteindreIncendie(dateCour, nextest));
 			}
 		}
+		this.simu.ajouteEvenement(0,moveEvents);
 	}
 
 }

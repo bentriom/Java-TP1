@@ -36,15 +36,15 @@ public final class ManagerTest extends Manager {
 		}
 		
 		if (!robot0.isBusy()) {			
-			System.out.println(robot.toString() + " : pas busy");
-			evtlist = robot2.fetchWater(0);
+			System.out.println(robot0.toString() + " : pas busy");
+			evtlist = robot0.fetchWater(0);
 			robot.busy();;
 			this.simu.ajouteEvenement(0, evtlist);
 			//System.out.println("taille evts enregistres apres bail : " + this.simu.getEvts().size());
 		}
 		
 		if (!robot2.isBusy()) {			
-			System.out.println(robot.toString() + " : pas busy");
+			System.out.println(robot2.toString() + " : pas busy");
 			evtlist = robot2.eteindreIncendie(0, this.simu.getData().getIncendie(5));
 			robot.busy();;
 			this.simu.ajouteEvenement(0, evtlist);
