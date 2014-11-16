@@ -43,9 +43,11 @@ public abstract class Robot {
     
     public LinkedList<Evenement> fetchWater(long dateAbs) {
     	Driver tomTom = new Driver(Case.map, this);
-    	long date = (long) tomTom.findWater(position, canBeNextTo());
+    	double tempsVoyage = tomTom.findWater(position, canBeNextTo());
 		LinkedList<Evenement> evtList = tomTom.pathFinder();
-		evtList.add(this.remplirEau(date + dateAbs));
+		evtList.add(this.remplirEau((long) tempsVoyage + dateAbs));
+		double tempsRemplissage = this.getFullingTime();
+    	evtList.add(this.imUnbusy(dateAbs + (long)(tempsVoyage + tempsRemplissage)));	
 		this.busy();
 		return evtList;
     }
@@ -162,6 +164,7 @@ public abstract class Robot {
 	    evtsList.add(this.deverserEau(tempsVoyage + dateAbs,incendie));
     	/* Evenement pour dire qu'il est libre */
     	evtsList.add(this.imUnbusy(dateAbs + tempsVoyage + tempsDeverse));	
+    	this.busy();
     	return evtsList;
     }
     

@@ -130,8 +130,8 @@ public class Driver {
 	
 	public double findWater(Case start, boolean nextTo) {
 		this.start = start;
-		PriorityQueue<Case> closedSet = new PriorityQueue<Case>(0, new fScoreComp()); 
-		PriorityQueue<Case> openSet = new PriorityQueue<Case>(0, new fScoreComp()); 
+		PriorityQueue<Case> closedSet = new PriorityQueue<Case>(1, new fScoreComp()); 
+		PriorityQueue<Case> openSet = new PriorityQueue<Case>(1, new fScoreComp()); 
 		openSet.add(start);
 		fromStartScore(start, 0);
 		
