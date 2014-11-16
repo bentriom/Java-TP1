@@ -45,6 +45,16 @@ public class Manager2 extends Manager {
 				moveEvents.addAll(nextest.eteindreIncendie(dateCour, fire));
 		}
 		this.simu.ajouteEvenement(0,moveEvents);
+		
+		/* On va afficher les evenements par robot */
+		for(int i=0; i < this.simu.getData().getSizeRobot(); i++) {
+			Robot r = this.simu.getData().getRobot(i);
+			System.out.println("Robot de type : " + r.specifString());
+			for(Evenement E : this.simu.getEvts()) {
+				System.out.println(E);
+			}
+			System.out.print("\n ------ \n");
+		}
 		//System.out.println("evenements = " + this.simu.getEvts());
 	}
 

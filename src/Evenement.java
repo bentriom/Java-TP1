@@ -1,9 +1,11 @@
 
 public abstract class Evenement implements Comparable<Evenement> {
 	protected long date;
+	protected Robot robot;
 	
-	public Evenement(long d) {
+	public Evenement(long d, Robot r) {
 		this.date = d;
+		this.robot = r;
 	}
 	
 	public long getDate() {
