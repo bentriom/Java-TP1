@@ -52,13 +52,17 @@ public class RobotVolant extends Robot {
     
     @Override
     public double remplir() {
-    	boolean nearWater = false; 
-    	nearWater = (this.getPosition().getNature() == NatureTerrain.EAU) || nearWater;
-    	if (nearWater) {
-    		waterVol = getWaterVolMax(); 
-    	} else {
-		    System.out.println("Vous essayez de remplir le robot sans eau !");
-    	}
-    	return getFullingTime();
+       	boolean nearWater = false; 
+       	System.out.println("On va remplir de leau pour le robot " + this.specifString());
+       	System.out.println("Stock eau avant = ");
+       	nearWater = (this.getPosition().getNature() == NatureTerrain.EAU);
+       	if (nearWater) {
+       		waterVol = getWaterVolMax(); 
+       	} else {
+       		System.out.println("Vous essayez de remplir le robot " + this.specifString() + " sans eau !");
+       	}
+       	System.out.println("Stock eau apres = " + String.valueOf(this.waterVol));
+       	return getFullingTime();
+
     }
 }

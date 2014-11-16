@@ -120,7 +120,7 @@ public abstract class Robot {
     	double nbOpD = Math.ceil(Math.min(vol, waterVol)/getWaterOutFlow());
         int nbOp = (int) nbOpD;
         int deverse;
-    	if (vol < waterVol) { 
+    	if (vol < waterVol - getWaterOutFlow()) { 
     		deverse = nbOp*getWaterOutFlow();
     		this.waterVol -= deverse;
     	} else {
