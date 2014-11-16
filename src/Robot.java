@@ -185,7 +185,6 @@ public abstract class Robot {
     	return new EvtImUnbusy(date_absolue,this);
     }
     
- 
     @Override
     public String toString(){
     	return " robot " + this.specifString() + " a la case : " + position.toString() + " de vitesse : " + this.getVitesse(NatureTerrain.TERRAIN_LIBRE);
