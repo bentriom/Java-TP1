@@ -52,4 +52,8 @@ public class Affichage {
 		   		e.printStackTrace();
 		   	}
    	}	
+   
+   public static void fin(DonneesSimulation data, IGSimulateur ihm){
+ 
+   }
 }

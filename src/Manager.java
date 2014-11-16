@@ -1,6 +1,7 @@
 
 public abstract class Manager {
 	protected Simulateur simu;
+	protected boolean simulationTerminee = false;
 	
 	public Manager(Simulateur s) {
 		this.simu = s;
@@ -11,4 +12,8 @@ public abstract class Manager {
 	}
 	
 	public abstract void manage();
+	
+	public boolean end(){
+		return simulationTerminee;
+	}
 }
