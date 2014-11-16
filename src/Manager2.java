@@ -14,7 +14,10 @@ public class Manager2 extends Manager {
 		if (clock % 10 != 0){
 			return;
 		}
+		
+		/* Liste d'evenements qui vont etre envoyes au simulateur */
 		LinkedList<Evenement> moveEvents = new LinkedList<Evenement>();
+		
 		DonneesSimulation data = simu.getData();
 		long dateCour = simu.getDate();
 		int nbIncendies = data.getSizeIncendie();
@@ -29,7 +32,7 @@ public class Manager2 extends Manager {
 					continue;
 				}
 				if (robot.getWaterVol() <= 0) {
-					moveEvents = robot.fetchWater(dateCour);
+					moveEvents.addAll(robot.fetchWater(dateCour));
 				}
 				double coutLoc = robot.timeToMoveTo(fire.getPosition());
 				if ( coutLoc <= coutMin && coutLoc >= 0){
@@ -37,8 +40,12 @@ public class Manager2 extends Manager {
 					coutMin = coutLoc;
 				}
 			}
-			moveEvents.addAll(nextest.eteindreIncendie(dateCour, fire));
+			
+			if (nextest != null)
+				moveEvents.addAll(nextest.eteindreIncendie(dateCour, fire));
 		}
+		this.simu.ajouteEvenement(0,moveEvents);
+		//System.out.println("evenements = " + this.simu.getEvts());
 	}
 
 }
