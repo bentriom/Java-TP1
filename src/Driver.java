@@ -186,9 +186,6 @@ public class Driver {
 	}
 	
 	public LinkedList<Evenement> pathFinder(Case start, Case goal, boolean nextTo){
-		if ((this.start != start) || (this.goal != goal)) {
-			aStar(start, goal, nextTo);
-		}
 		aStar(start, goal, nextTo);
 		Case current = goal;
 		LinkedList<Evenement> totalPath = new LinkedList<Evenement>();

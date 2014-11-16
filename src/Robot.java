@@ -29,13 +29,12 @@ public abstract class Robot {
     abstract public double getVitesse(NatureTerrain n);
     
     public double timeToMoveTo(Case c) {
-    	return 0;
-    	
+    	Driver tomTom = new Driver(Case.map, this);
+		return tomTom.aStar(position, c, true);    	
     }
 
     public LinkedList<Evenement> moveToFar(Case c) {
     	Driver tomTom = new Driver(Case.map, this);
-		//tomTom.aStar(position, c, false);
 		LinkedList<Evenement> evtList = tomTom.pathFinder(position, c, false);
 		this.busy();
 		return evtList;
