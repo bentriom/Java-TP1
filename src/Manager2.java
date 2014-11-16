@@ -47,14 +47,19 @@ public class Manager2 extends Manager {
 		this.simu.ajouteEvenement(0,moveEvents);
 		
 		/* On va afficher les evenements par robot */
+		/*
 		for(int i=0; i < this.simu.getData().getSizeRobot(); i++) {
 			Robot r = this.simu.getData().getRobot(i);
 			System.out.println("Robot de type : " + r.specifString());
+			if (r.isBusy())
+				System.out.println("Je suis busy");
+			else
+				System.out.println("je suis pas busy");
 			for(Evenement E : this.simu.getEvts()) {
 				System.out.println(E);
 			}
-			System.out.print("\n ------ \n");
-		}
+			System.out.print("\n ------ date = " + String.valueOf(clock) + "\n");
+		}*/
 		//System.out.println("evenements = " + this.simu.getEvts());
 	}
 
