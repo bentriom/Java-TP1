@@ -85,16 +85,20 @@ public abstract class Robot {
     }
 
     /* Cree l'evenement pour que le robot se remplisse (en une fois) */
-    public Evenement remplirEau() {
-    	return new RemplirRobot(0,this);
+    public Evenement remplirEau(long date_absolue) {
+    	return new RemplirRobot(date_absolue+(int)this.getFullingTime(),this);
     }
 
+    /* Méthode math pour savoir en combien de temps on va deverse
+     * Prend : le volume que l'on veut deverser
+     * Renvoie : date relative de l'evenement deverser */
     public double timeDeverserEau(int vol) {
     	double nbOpD = Math.ceil(Math.min(vol, waterVol)/getWaterOutFlow());
         int nbOp = (int) nbOpD;
         return nbOp*getOutTime();
     }
     
+    /* Méthode math pour savoir ce qu'on deverse */
     public int deverserEau(int vol) {
     	double nbOpD = Math.ceil(Math.min(vol, waterVol)/getWaterOutFlow());
         int nbOp = (int) nbOpD;
@@ -110,28 +114,52 @@ public abstract class Robot {
         return deverse;
     }
     
+    /* Méthode qui agit sur l'incendie */
     public void deverserEau(Incendie incendie) {
     	int waterNeed = incendie.getWaterNeed();
     	waterNeed -= this.deverserEau(waterNeed);
     	incendie.setWaterNeed(waterNeed);
     	System.out.println("Eau restant : " + String.valueOf(waterNeed) + "robot eau : " + String.valueOf(this.getWaterVol()));
     	if (waterNeed <= 0) {
-    		System.out.println("Suppression d'incendie");
+    		incendie = null;
     	}
+    }
+    
+    public Evenement deverserEau(long date_absolue,Incendie incendie) {
+    	return new EvtDeverserEau(date_absolue+(int)this.timeDeverserEau(incendie.getWaterNeed()), incendie, this);
     }
 
     /* Cree l'evenement pour deverser une fois */
+    /*
     public Evenement deverserSurIncendie(long date, Incendie incendie) {
-    	return new DeverserEau(date,incendie,this);
-    }
+    	return new EvtDeverserEau(date,incendie,this);
+    }*/
     
-    public LinkedList<Evenement> eteindreIncendie(long date_absolue, Incendie incendie) { 
-    	/* Cree la liste de deplacements via l'algo */
-    	/* Mettre a jour les dates selon la date absolue */
+    /* Cette méthode envoie un robot eteindre un incendie
+     * Tant que l'incendie n'est pas eteint (supprime de la liste)
+     * - on va a l'incendie
+     * - on deverse ce qu'on a
+     * - on va se remplir
+     */
+    public LinkedList<Evenement> eteindreIncendie(long date_absolue, Robot robot, Incendie incendie) { 
+    	LinkedList<Evenement> evtsListe = new LinkedList<Evenement>();
+    	long date_en_cours = date_absolue;
+    	/* Tant que l'incendie n'est pas eteint */
+    	while (incendie != null) {
+	    	/* Cree la liste de deplacements via l'algo */
+	    	evtsListe = robot.moveToFar(incendie.getPosition());
+	    	/* Mettre a jour les dates selon la date absolue */
+	    	for(Evenement E : evtsListe) {
+	    		date_en_cours += E.getDate();
+	    		E.setDate(date_en_cours);
+	    	}
+	    	evtsListe.add(robot.deverserEau(date_en_cours,incendie));
+	    	evtsListe.add(robot.remplirEau(date_en_cours));
+    	}  	
+    	/* Evenement pour dire qu'il est libre */
+    	evtsListe.add(robot.imUnbusy(date_en_cours));
     	
-    	/* Cree evenement deverser */
-    	
-    	return null;
+    	return evtsListe;
     }
     
     public boolean isBusy(){
@@ -144,6 +172,10 @@ public abstract class Robot {
     
     public void unBusy(){
     	busy = false;
+    }
+    
+    public Evenement imUnbusy(long date_absolue) {
+    	return new EvtImUnbusy(date_absolue,this);
     }
     
     @Override
