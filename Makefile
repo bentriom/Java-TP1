@@ -47,6 +47,10 @@ exeLecture:
 exeDessin:
 
 	java -classpath bin:bin/ihm.jar RunSimulation cartes/spiralOfMadness-50x50.map
+	
+exeMini:
+
+	java -classpath bin:bin/ihm.jar RunSimulation cartes/carteMinimale.txt
 
 exeTestCmd:
 
