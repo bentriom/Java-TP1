@@ -143,7 +143,7 @@ public abstract class Robot {
     }
     
     public Evenement deverserEau(long date_absolue,Incendie incendie) {
-    	return new EvtDeverserEau(date_absolue+(int)this.timeDeverserEau(incendie.getWaterNeed()), incendie, this);
+    	return new EvtDeverserEau(date_absolue+(long)this.timeDeverserEau(incendie.getWaterNeed()), incendie, this);
     }
 
     /* Cree l'evenement pour deverser une fois */

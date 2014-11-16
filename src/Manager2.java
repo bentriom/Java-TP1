@@ -24,6 +24,9 @@ public class Manager2 extends Manager {
 		int nbRobots = data.getSizeRobot();
 		for (int i=0; i<nbIncendies; i++){
 			Incendie fire= simu.getData().getIncendie(i);
+			if (fire.getWaterNeed() <= 0) {
+				continue;
+			}
 			double coutMin = Double.MAX_VALUE;
 			Robot nextest = null;
 			for (int r=0; r<nbRobots; r++){
