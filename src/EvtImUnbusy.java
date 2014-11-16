@@ -1,8 +1,6 @@
 
 public class EvtImUnbusy extends Evenement {
 
-	private Robot robot;
-	
 	public EvtImUnbusy(long d, Robot r) {	
 		super(d,r);
 		System.out.println("Je construis un evt unbusy de date = " + String.valueOf(d));

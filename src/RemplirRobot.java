@@ -8,6 +8,7 @@ public class RemplirRobot extends Evenement {
 	@Override
 	public void execute() {
 		this.robot.remplir();
+		this.robot.unBusy();
 	}
 
 }
