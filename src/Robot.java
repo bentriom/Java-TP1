@@ -86,7 +86,7 @@ public abstract class Robot {
     public double remplir() {
     	boolean nearWater = false; 
     	System.out.println("On va remplir de leau pour le robot " + this.specifString());
-    	System.out.println("Stock eau avant = ");
+    	System.out.println("Stock eau avant = " + String.valueOf(this.waterVol));
     	for (Direction d : Direction.values()){
     		nearWater = (position.getVoisin(d).getNature() == NatureTerrain.EAU) || nearWater;      		
     	}
@@ -134,9 +134,10 @@ public abstract class Robot {
     /* Méthode qui agit sur l'incendie */
     public void deverserEau(Incendie incendie) {
     	int waterNeed = incendie.getWaterNeed();
+    	System.out.println("Eau necessaire avant = " + String.valueOf(waterNeed));
     	waterNeed -= this.deverserEau(waterNeed);
     	incendie.setWaterNeed(waterNeed);
-    	System.out.println("Eau restant : " + String.valueOf(waterNeed) + " robot " + this.specifString() + " eau : " + String.valueOf(this.getWaterVol()));
+    	System.out.println("Eau necessaire apres = " + String.valueOf(waterNeed));
     	if (waterNeed <= 0) {
     		incendie = null;
     	}
