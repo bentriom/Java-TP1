@@ -14,6 +14,6 @@ public abstract class Manager {
 	public abstract void manage();
 	
 	public boolean end(){
-		return (simulationTerminee || simu.getEvts().isEmpty());
+		return (simulationTerminee);
 	}
 }

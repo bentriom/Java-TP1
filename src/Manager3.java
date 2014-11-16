@@ -40,15 +40,17 @@ public class Manager3 extends Manager {
 			int intNextest = 0;
 			for (int i=0; i<nbIncendies; i++){
 				Incendie fire= simu.getData().getIncendie(i);
+				double coutLoc = robot.timeToMoveTo(fire.getPosition());
+				if ( coutLoc < 0 ){
+					continuer = true;
+				}
 				if (vivaciteFeu[i] <= 0){
 					continue;
 				}
-				double coutLoc = robot.timeToMoveTo(fire.getPosition());
 				if ( coutLoc <= coutMin && coutLoc >= 0){
 					nextest = fire;
 					coutMin = coutLoc;
 					intNextest = i;
-					continuer = true;
 				}
 			}
 			if (nextest != null){

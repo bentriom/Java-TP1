@@ -27,7 +27,7 @@ public class Simulateur implements Simulable {
 			data = LecteurDonnees.creeDonnees(args[0]);
 			int col = data.getCarte().getNbColonnes();
 			int lig = data.getCarte().getNbLignes();
-			int casePX = Math.min(800/col, 600/lig);
+			int casePX = Math.min(800.0/col, 600.0/lig);
 			int taille = data.getCarte().getTailleCases();
 			ihm = new IGSimulateur(col, lig, casePX, this);
 			clock = new Horloge();
@@ -50,7 +50,7 @@ public class Simulateur implements Simulable {
     	if (manager.end()){
     		Affichage.fin(data, ihm);
     		System.out.println("La simulation est finie");
-    		Thread.sleep(10000);
+    		Thread.sleep(1000);
     	}
         this.manager.manage();
         this.incrementeDate();

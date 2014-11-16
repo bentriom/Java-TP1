@@ -31,6 +31,10 @@ public class Manager2 extends Manager {
 			Robot nextest = null;
 			for (int r=0; r<nbRobots; r++){
 				Robot robot = simu.getData().getRobot(r);
+				double coutLoc = robot.timeToMoveTo(fire.getPosition());
+				if ( coutLoc < 0 ){
+					continuer = true;
+				}
 				if (robot.isBusy()) {
 					continue;
 				}
@@ -38,7 +42,6 @@ public class Manager2 extends Manager {
 					moveEvents.addAll(robot.fetchWater(dateCour));
 					continuer = true;
 				}
-				double coutLoc = robot.timeToMoveTo(fire.getPosition());
 				if ( coutLoc <= coutMin && coutLoc >= 0){
 					nextest = robot;
 					coutMin = coutLoc;
