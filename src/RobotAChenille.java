@@ -1,6 +1,6 @@
 public class RobotAChenille extends Robot {
 
-    static double speed = 60/60/60;
+    static double speed = 60;
     static final int waterVolMax = 10000;
     static final double inTime = 30*60;
     static final int outFlow = 10000;

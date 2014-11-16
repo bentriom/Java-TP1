@@ -1,6 +1,6 @@
 public class RobotARoue extends Robot {
 
-    static double speed = 80/60/60;
+    static double speed = 80;
     static final int waterVolMax = 5000;
     static final double inTime = 10*60;
     static final int outFlow = 100;

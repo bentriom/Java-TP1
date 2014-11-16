@@ -35,7 +35,7 @@ public abstract class Robot {
 
     public LinkedList<Evenement> moveToFar(Case c) {
     	Driver tomTom = new Driver(Case.map, this);
-		tomTom.aStar(position, c, false);
+		//tomTom.aStar(position, c, false);
 		LinkedList<Evenement> evtList = tomTom.pathFinder(position, c, false);
 		return evtList;
     }

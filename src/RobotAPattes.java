@@ -1,6 +1,6 @@
 public class RobotAPattes extends Robot {
 
-    static double speed = 30/60/60;
+    static double speed = 30;
     static final int waterVolMax = 2^32-1;
     static final double inTime = 0;
     static final int outFlow = 10;
