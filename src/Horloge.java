@@ -12,7 +12,7 @@ public class Horloge {
 	}
 	
 	public void increDate(){
-		date+=100;
+		date+=30;
 	}
 	
 	
