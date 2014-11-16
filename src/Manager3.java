@@ -3,6 +3,7 @@ import java.util.LinkedList;
 
 public class Manager3 extends Manager {
 	private int clock = 0;
+	private int[] vivaciteFeu = new int[simu.getData().getSizeIncendie()];
 	
 	public Manager3(Simulateur s) {
 		super(s);
@@ -14,13 +15,12 @@ public class Manager3 extends Manager {
 		if (clock % 10 != 0){
 			return;
 		}
+		boolean continuer = false;
 		LinkedList<Evenement> moveEvents = new LinkedList<Evenement>();
 		DonneesSimulation data = simu.getData();
 		int nbIncendies = data.getSizeIncendie();
 		int nbRobots = data.getSizeRobot();
 		long dateCour = simu.getDate();
-		
-		int[] vivaciteFeu = new int[nbIncendies];
 		for (int i=0; i<nbIncendies; i++){
 			Incendie fire= simu.getData().getIncendie(i);
 			vivaciteFeu[i] = fire.getWaterNeed();
@@ -33,6 +33,7 @@ public class Manager3 extends Manager {
 			}
 			if (robot.getWaterVol() <= 0) {
 				moveEvents.addAll(robot.fetchWater(dateCour));
+				continuer = true;
 			}
 			double coutMin = Double.MAX_VALUE;
 			Incendie nextest = null;
@@ -47,6 +48,7 @@ public class Manager3 extends Manager {
 					nextest = fire;
 					coutMin = coutLoc;
 					intNextest = i;
+					continuer = true;
 				}
 			}
 			if (nextest != null){
@@ -55,6 +57,8 @@ public class Manager3 extends Manager {
 			}
 		}
 		this.simu.ajouteEvenement(0,moveEvents);
+		simulationTerminee = !continuer; 
+		return;
 	}
 
 }

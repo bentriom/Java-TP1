@@ -47,6 +47,11 @@ public class Simulateur implements Simulable {
     @Override 
 	public void next(){
         /* On manage a la date tous les 100 */
+    	if (manager.end()){
+    		Affichage.fin(data, ihm);
+    		System.out.println("La simulation est finie");
+    		Thread.sleep(10000);
+    	}
         this.manager.manage();
         this.incrementeDate();
     	if (this.evenementExistant()) {
