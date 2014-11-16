@@ -132,6 +132,14 @@ public abstract class Robot {
     
     /* Méthode qui agit sur l'incendie */
     public void deverserEau(Incendie incendie) {
+    	boolean nearFire = false;
+    	for (Direction d : Direction.values()){
+    		nearFire = (incendie.getPosition() == position.getVoisin(d) || nearFire);      		
+    	}	
+    	if (!nearFire){
+    		System.out.println("robot " + this.specifString() + " : NO FIRE " );
+    		return;
+    	}
     	int waterNeed = incendie.getWaterNeed();
     	waterNeed -= this.deverserEau(waterNeed);
     	incendie.setWaterNeed(waterNeed);
