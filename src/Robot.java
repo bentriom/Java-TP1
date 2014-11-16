@@ -35,8 +35,9 @@ public abstract class Robot {
 
     public LinkedList<Evenement> moveToFar(Case c) {
     	Driver tomTom = new Driver(Case.map, this);
-		tomTom.aStar(position, c, false);
+		//tomTom.aStar(position, c, false);
 		LinkedList<Evenement> evtList = tomTom.pathFinder(position, c, false);
+		this.busy();
 		return evtList;
     }
     
@@ -145,4 +146,8 @@ public abstract class Robot {
     	busy = false;
     }
     
+    @Override
+    public String toString(){
+    	return " robot a la case : " + position.toString() + " de vitesse : " + this.getVitesse(NatureTerrain.TERRAIN_LIBRE);
+    }
 }

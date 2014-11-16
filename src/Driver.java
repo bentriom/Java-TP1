@@ -1,6 +1,6 @@
 
 
-import java.util.TreeSet;
+import java.util.PriorityQueue;
 import java.util.Comparator;
 import java.util.LinkedList;
 
@@ -67,10 +67,12 @@ public class Driver {
 		@Override
 		public int compare(Case c, Case v){
 			double diff =  toGoalScore(c) - toGoalScore(v);
+			if (c.equals(v))
+				return 0;
 			if (diff < 0){
 				return -1;
 			} else if (diff == 0){
-				return 0;
+				return 1;
 			} else {
 				return 1;
 			}
@@ -80,15 +82,15 @@ public class Driver {
 	public double aStar(Case start, Case goal, boolean nextTo) {
 		this.start = start;
 		this.goal = goal;
-		TreeSet<Case> closedSet = new TreeSet<Case>(new fScoreComp()); 
-		TreeSet<Case> openSet = new TreeSet<Case>(new fScoreComp()); 
-		openSet.add(start);
+		PriorityQueue<Case> closedSet = new PriorityQueue<Case>(1, new fScoreComp()); 
+		PriorityQueue<Case> openSet = new PriorityQueue<Case>(1, new fScoreComp()); 
 		fromStartScore(start, 0);
+		openSet.add(start);
 		toGoalScore(start, fromStartScore(start) + 
 				manhattanDistance(start, goal));
 		
 		while(!openSet.isEmpty()) {
-			Case current = openSet.pollFirst();
+			Case current = openSet.poll();
 			if (current == goal) {
 				return fromStartScore(goal);
 			}
@@ -111,7 +113,9 @@ public class Driver {
 				if (!openSet.contains(neighbor) || 
 						tryStartScore < fromStartScore(neighbor)){
 					cameFrom[neighbor.getColonne()][neighbor.getLigne()] = current;
+					openSet.remove(neighbor);
 					fromStartScore(neighbor, tryStartScore); 
+					openSet.add(neighbor);
 					toGoalScore(neighbor,
 							fromStartScore(neighbor) + 
 							manhattanDistance(neighbor, goal));
@@ -120,20 +124,19 @@ public class Driver {
 					}
 				}		
 			}
-			
 		}
 		return -1;		
 	}
 	
 	public Case findWater(Case start, boolean nextTo) {
 		this.start = start;
-		TreeSet<Case> closedSet = new TreeSet<Case>(new fScoreComp()); 
-		TreeSet<Case> openSet = new TreeSet<Case>(new fScoreComp()); 
+		PriorityQueue<Case> closedSet = new PriorityQueue<Case>(0, new fScoreComp()); 
+		PriorityQueue<Case> openSet = new PriorityQueue<Case>(0, new fScoreComp()); 
 		openSet.add(start);
 		fromStartScore(start, 0);
 		
 		while(!openSet.isEmpty()) {
-			Case current = openSet.pollFirst();
+			Case current = openSet.poll();
 			if (current.getNature() == NatureTerrain.EAU) {
 				this.goal = current;
 				return current;
@@ -188,12 +191,16 @@ public class Driver {
 		if ((this.start != start) || (this.goal != goal)) {
 			aStar(start, goal, nextTo);
 		}
+		aStar(start, goal, nextTo);
 		Case current = goal;
 		LinkedList<Evenement> totalPath = new LinkedList<Evenement>();
 		totalPath.addLast( new EvtDeplacement((long)fromStartScore(current), robot, current));
-		while (current != start && current != null) {
+		while (current != start) {
+			System.out.println(current);
 			current = cameFrom[current.getColonne()][current.getLigne()];
-			totalPath.addFirst( new EvtDeplacement((long)fromStartScore(current), robot, current));
+			double cost = fromStartScore(current);
+			totalPath.addFirst( new EvtDeplacement((long)cost, robot, current));
+			System.out.println("temps, case : " + cost + ", " + current);
 		}
 		return totalPath;
 		

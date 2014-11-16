@@ -246,8 +246,8 @@ public class LecteurDonnees {
 
 				}	
 			} else {
-				int vitesse = Integer.parseInt(s);
-				System.out.print(vitesse);				
+				double vitesse = (double) Integer.parseInt(s);
+								
 				switch (n) {
 					case DRONE : 
 						rob = new RobotVolant(map.getCase(lig, col), 0, vitesse);
@@ -263,6 +263,8 @@ public class LecteurDonnees {
 						break;
 					default : rob = new RobotARoue(map.getCase(lig, col), 0, vitesse);
 				}
+				vitesse = rob.getVitesse(NatureTerrain.TERRAIN_LIBRE);
+				System.out.print(vitesse);
 			}	
 			verifieLigneTerminee();
 			System.out.println();

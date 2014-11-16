@@ -1,6 +1,6 @@
 public class RobotVolant extends Robot {
 
-    static double speed = 100/60/60;
+    private double speed = 100.0*(1000.0/3600.0);
     static final int waterVolMax = 10000;
     static final double inTime = 30*60;
     static final int outFlow = 10000;
@@ -12,7 +12,7 @@ public class RobotVolant extends Robot {
     
     public RobotVolant(Case c, int waterVol, double speed){
     	super(c, waterVol);
-    	RobotVolant.speed = Math.min(speed, 150/60/60);
+    	this.speed = Math.min(speed, 150.0)*(1000.0/3600.0);
     }
     
     @Override

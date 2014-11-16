@@ -22,18 +22,16 @@ public final class ManagerTest extends Manager {
 		
 		Robot robot = this.simu.getData().getRobot(1);
 		Incendie incendie = this.simu.getData().getIncendie(4);
+		Carte map = this.simu.getData().getCarte();
 		int temps_absolu = 0;
 		
-		Carte map = this.simu.getData().getCarte();
-		robot.moveToFar(map.getCase(0, 0));
-		
-		this.simu.ajouteEvenement(2, new EvtDeplacement(1,robot,map.getCase(1, 1)));
-		
-		this.simu.ajouteEvenement(0, evtlist);
-		
 		if (!robot.isBusy()) {
-			evtlist = robot.eteindreIncendie(temps_absolu, incendie);
+			
+			System.out.println(robot.toString() + " : pas busy");
+			evtlist = robot.moveToFar(map.getCase(0, 0));
+			System.out.println("taille liste : " + evtlist.size());
 		}
+		this.simu.ajouteEvenement(0, evtlist);
 		
 		/*
 		this.simu.ajouteEvenement(temps_absolu,robot.moveTo(Direction.OUEST));
