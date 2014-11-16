@@ -26,12 +26,15 @@ public final class ManagerTest extends Manager {
 		int temps_absolu = 0;
 
 		
-		this.simu.ajouteEvenement(0, evtlist);
+		
 		
 		if (!robot.isBusy()) {
+			
+			System.out.println(robot.toString() + " : pas busy");
 			evtlist = robot.moveToFar(map.getCase(0, 0));
-			evtlist = robot.eteindreIncendie(temps_absolu, incendie);
+			System.out.println("taille liste : " + evtlist.size());
 		}
+		this.simu.ajouteEvenement(0, evtlist);
 		
 		/*
 		this.simu.ajouteEvenement(temps_absolu,robot.moveTo(Direction.OUEST));

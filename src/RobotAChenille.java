@@ -1,6 +1,6 @@
 public class RobotAChenille extends Robot {
 
-    static double speed = 60;
+    static double speed = 60.0*(1000.0/3600.0);
     static final int waterVolMax = 10000;
     static final double inTime = 30*60;
     static final int outFlow = 10000;
@@ -12,7 +12,7 @@ public class RobotAChenille extends Robot {
     
     public RobotAChenille(Case c, int waterVol, double speed){
     	super(c, waterVol);
-    	RobotAChenille.speed = Math.min(speed, 80/60/60);
+    	RobotAChenille.speed = Math.min(speed, 80)*(1000.0/3600.0);
     }
     
     @Override

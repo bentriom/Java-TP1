@@ -146,4 +146,8 @@ public abstract class Robot {
     	busy = false;
     }
     
+    @Override
+    public String toString(){
+    	return " robot a la case : " + position.toString() + " de vitesse : " + this.getVitesse(NatureTerrain.TERRAIN_LIBRE);
+    }
 }

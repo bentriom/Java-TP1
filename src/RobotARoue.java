@@ -1,6 +1,6 @@
 public class RobotARoue extends Robot {
 
-    static double speed = 80;
+    static double speed = 80.0*(1000.0/3600.0);
     static final int waterVolMax = 5000;
     static final double inTime = 10*60;
     static final int outFlow = 100;
@@ -12,7 +12,7 @@ public class RobotARoue extends Robot {
     
     public RobotARoue(Case c, int waterVol, double speed){
     	super(c, waterVol);
-    	RobotARoue.speed = speed;
+    	RobotARoue.speed = speed*(1000.0/3600.0);
     }
     
     @Override
