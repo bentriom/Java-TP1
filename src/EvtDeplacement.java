@@ -5,12 +5,10 @@
  */
 public class EvtDeplacement extends Evenement {
 
-	private Robot robot;
 	private Case position;
 	
 	public EvtDeplacement(long d, Robot r, Case c) {
-		super(d);
-		this.robot = r;
+		super(d,r);
 		this.position = c;
 	}
 	

@@ -1,12 +1,11 @@
 
 public class EvtDeverserEau extends Evenement {
+	
 	private Incendie incendie;
-	private Robot robot;
 	
 	public EvtDeverserEau(long d, Incendie i, Robot r) {
-		super(d);
+		super(d,r);
 		this.incendie = i;
-		this.robot = r;
 	}
 
 	@Override

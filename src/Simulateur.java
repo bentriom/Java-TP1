@@ -47,10 +47,7 @@ public class Simulateur implements Simulable {
     @Override 
 	public void next(){
         /* On manage a la date tous les 100 */
-        if (Horloge.getDate() % this.pasDeManage == 0) {
-        	this.manager.manage();
-        	System.out.println("date actuelle ok = " + String.valueOf(Horloge.getDate()));
-        }
+        this.manager.manage();
         this.incrementeDate();
     	if (this.evenementExistant()) {
             boolean evenementExecute = false;
