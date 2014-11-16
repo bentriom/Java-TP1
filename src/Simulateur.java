@@ -6,10 +6,10 @@ import ihm.*;
 
 public class Simulateur implements Simulable {
 
-	private int pas_de_manage = 100;
+	private int pasDeManage = 100;
     private IGSimulateur ihm;
     private DonneesSimulation data;
-	private long dateCourrante = 0;
+	private Horloge clock;
 	private Manager manager;
 	private String fichier;
 	ComparateurEvenements C = new ComparateurEvenements();
@@ -30,6 +30,7 @@ public class Simulateur implements Simulable {
 			int casePX = Math.min(800/col, 600/lig);
 			int taille = data.getCarte().getTailleCases();
 			ihm = new IGSimulateur(col, lig, casePX, this);
+			clock = new Horloge();
 	        dessine();
 		} catch (FileNotFoundException e) {
 			System.out.println("fichier " + args[0] + " inconnu ou illisible");
@@ -46,15 +47,15 @@ public class Simulateur implements Simulable {
     @Override 
 	public void next(){
         /* On manage a la date tous les 100 */
-        if (this.dateCourrante % this.pas_de_manage == 0) {
+        if (Horloge.getDate() % this.pasDeManage == 0) {
         	this.manager.manage();
-        	System.out.println("date actuelle ok = " + String.valueOf(this.dateCourrante));
+        	System.out.println("date actuelle ok = " + String.valueOf(Horloge.getDate()));
         }
         this.incrementeDate();
     	if (this.evenementExistant()) {
             boolean evenementExecute = false;
 	    	Evenement E = this.evenements.first();
-		    while (E.getDate() < this.dateCourrante) {
+		    while (E.getDate() < Horloge.getDate()) {
 		    	E.execute();
 		    	evenementExecute = true;
 		    	this.evenements.remove(E);
@@ -81,7 +82,6 @@ public class Simulateur implements Simulable {
 		} catch (ExceptionFormatDonnees e) {
 			System.out.println("\n\t**format du fichier " + fichier + " invalide: " + e.getMessage());
 		}
-    	this.dateCourrante = 0;
     	this.manager.manage();
     }
    
@@ -93,7 +93,7 @@ public class Simulateur implements Simulable {
     
 	/* Incrémente la date */
 	public void incrementeDate() {
-		this.dateCourrante++;
+		clock.increDate();
 	}
 	
 	/* Méthodes sur les événements */
@@ -131,6 +131,6 @@ public class Simulateur implements Simulable {
 	
 	/* Accès a la date courante */
 	public long getDate() {
-		return this.dateCourrante;
+		return Horloge.getDate();
 	}
 }

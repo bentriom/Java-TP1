@@ -152,20 +152,16 @@ public abstract class Robot {
     /* Cette méthode envoie un robot eteindre un incendie
      * Il va a l'incendie et deverse UNE FOIS
      */
-    public LinkedList<Evenement> eteindreIncendie(long date_absolue, Robot robot, Incendie incendie) { 
-    	LinkedList<Evenement> evtsListe = new LinkedList<Evenement>();
-    	long date_en_cours = date_absolue;
-	    /* Cree la liste de deplacements via l'algo */
-	    evtsListe = robot.moveToFar(incendie.getPosition());
-	    /* Mettre a jour les dates selon la date absolue */
-	    for(Evenement E : evtsListe) {
-	    	date_en_cours += E.getDate();
-	    	E.setDate(date_en_cours);
-	    }
-	    evtsListe.add(robot.deverserEau(date_en_cours,incendie));
+    public LinkedList<Evenement> eteindreIncendie(long dateAbs, Incendie incendie) { 
+    	LinkedList<Evenement> evtsList = new LinkedList<Evenement>();
+    	Driver tomTom = new Driver(Case.map, this);
+    	long tempVoyage = 
+    			(long) tomTom.aStar(position, incendie.getPosition(), canBeNextTo());
+		evtsList = tomTom.pathFinder();
+	    evtsList.add(this.deverserEau(tempVoyage + dateAbs,incendie));
     	/* Evenement pour dire qu'il est libre */
-    	evtsListe.add(robot.imUnbusy(date_en_cours));	
-    	return evtsListe;
+    	evtsList.add(this.imUnbusy(dateAbs));	
+    	return evtsList;
     }
     
     public boolean isBusy(){

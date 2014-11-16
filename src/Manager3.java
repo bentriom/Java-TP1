@@ -52,7 +52,7 @@ public class Manager3 extends Manager {
 			
 			vivaciteFeu[intNextest] -= robot.getWaterVol();
 			// ajout_evt : beginning derverser eau, date = coutMin
-			moveEvents = robot.moveToFar(nextest.getPosition());
+			moveEvents.addAll(robot.moveToFar(nextest.getPosition()));
 			// ajout evt : fin de derversage, date = coutMin + watertime
 		}
 	}
