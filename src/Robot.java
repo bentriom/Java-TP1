@@ -35,7 +35,16 @@ public abstract class Robot {
 
     public LinkedList<Evenement> moveToFar(Case c) {
     	Driver tomTom = new Driver(Case.map, this);
-		LinkedList<Evenement> evtList = tomTom.pathFinder(position, c, false);
+    	tomTom.aStar(position, c, canBeNextTo());
+		LinkedList<Evenement> evtList = tomTom.pathFinder();
+		this.busy();
+		return evtList;
+    }
+    
+    public LinkedList<Evenement> fetchWater() {
+    	Driver tomTom = new Driver(Case.map, this);
+    	tomTom.findWater(position, canBeNextTo());
+		LinkedList<Evenement> evtList = tomTom.pathFinder();
 		this.busy();
 		return evtList;
     }
@@ -60,6 +69,10 @@ public abstract class Robot {
     abstract public double getOutTime();
     abstract public int getWaterVolMax();
     abstract public String image();
+
+    public boolean canBeNextTo(){
+    	return true;
+    }
 
     /* Gestion de l'eau */
     public int getWaterVol() {
@@ -88,6 +101,7 @@ public abstract class Robot {
     	return new RemplirRobot(date_absolue+(int)this.getFullingTime(),this);
     }
 
+    
     /* Méthode math pour savoir en combien de temps on va deverse
      * Prend : le volume que l'on veut deverser
      * Renvoie : date relative de l'evenement deverser */

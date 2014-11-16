@@ -128,4 +128,9 @@ public class Simulateur implements Simulable {
 	public DonneesSimulation getData() {
 		return this.data;
 	}
+	
+	/* Accès a la date courante */
+	public long getDate() {
+		return this.dateCourrante;
+	}
 }

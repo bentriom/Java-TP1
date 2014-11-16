@@ -187,12 +187,11 @@ public class Driver {
 		return precCase;
 	}
 	
-	public LinkedList<Evenement> pathFinder(Case start, Case goal, boolean nextTo){
-		aStar(start, goal, nextTo);
-		Case current = goal;
+	public LinkedList<Evenement> pathFinder(){
+		Case current = this.goal;
 		LinkedList<Evenement> totalPath = new LinkedList<Evenement>();
 		totalPath.addLast( new EvtDeplacement((long)fromStartScore(current), robot, current));
-		while (current != start) {
+		while (current != this.start) {
 			System.out.println(current);
 			current = cameFrom[current.getColonne()][current.getLigne()];
 			double cost = fromStartScore(current);
