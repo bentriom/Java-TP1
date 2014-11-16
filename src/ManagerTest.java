@@ -18,23 +18,20 @@ public final class ManagerTest extends Manager {
 	@Override
 	public void manage() {
 		LinkedList<Evenement> evtlist = new LinkedList<Evenement>();
-		this.simu.getEvts().clear();
 		
 		Robot robot = this.simu.getData().getRobot(1);
 		Incendie incendie = this.simu.getData().getIncendie(4);
 		Carte map = this.simu.getData().getCarte();
 		int temps_absolu = 0;
-
-		
-		
-		
-		if (!robot.isBusy()) {
-			
+		//System.out.println("taille evts enregistres : " + this.simu.getEvts().size());
+		if (!robot.isBusy()) {			
 			System.out.println(robot.toString() + " : pas busy");
 			evtlist = robot.moveToFar(map.getCase(0, 0));
-			System.out.println("taille liste : " + evtlist.size());
+			robot.busy();;
+			this.simu.ajouteEvenement(2, evtlist);
+			//System.out.println("taille evts enregistres apres bail : " + this.simu.getEvts().size());
 		}
-		this.simu.ajouteEvenement(0, evtlist);
+		
 		
 		/*
 		this.simu.ajouteEvenement(temps_absolu,robot.moveTo(Direction.OUEST));
@@ -48,8 +45,5 @@ public final class ManagerTest extends Manager {
 		System.out.println("Ok on va creer les evts pour eteindre le bail");
 		this.simu.ajouteEvenement(temps_absolu,robot.eteindreIncendie(temps_absolu,incendie1));
 		*/
-		
-		/* On regarde le nb d'evts */
-		System.out.println("evenements = " + String.valueOf(this.simu.getEvts().size()));
 	}
 }

@@ -55,6 +55,8 @@ public class Driver {
 	}
 		
 	private double fromStartScore(Case c) {
+		if (c == null)
+			System.out.println("Cest nul mdr!!!");
 		return gScore[c.getColonne()][c.getLigne()];
 	}
 	private void fromStartScore(Case c, double set) {

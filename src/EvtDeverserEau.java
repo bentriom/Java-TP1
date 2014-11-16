@@ -1,9 +1,9 @@
 
-public class DeverserEau extends Evenement {
+public class EvtDeverserEau extends Evenement {
 	private Incendie incendie;
 	private Robot robot;
 	
-	public DeverserEau(long d, Incendie i, Robot r) {
+	public EvtDeverserEau(long d, Incendie i, Robot r) {
 		super(d);
 		this.incendie = i;
 		this.robot = r;
