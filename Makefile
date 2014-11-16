@@ -46,7 +46,7 @@ exeLecture:
 
 exeDessin:
 
-	java -classpath bin:bin/ihm.jar RunSimulation cartes/carteSujet.txt
+	java -classpath bin:bin/ihm.jar RunSimulation cartes/carteMinimale.txt
 
 exeTestCmd:
 

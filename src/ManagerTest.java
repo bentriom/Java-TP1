@@ -8,6 +8,8 @@ import java.util.LinkedList;
 
 public final class ManagerTest extends Manager {
 	
+	private boolean dejapasse = false;
+	
 	public ManagerTest(Simulateur s) {
 		super(s);
 	}
@@ -17,43 +19,16 @@ public final class ManagerTest extends Manager {
 	 */
 	@Override
 	public void manage() {
+		long dateCour = this.simu.getDate();
 		LinkedList<Evenement> evtlist = new LinkedList<Evenement>();
-		
-		Robot robot2 = this.simu.getData().getRobot(2);
-		Robot robot0 = this.simu.getData().getRobot(0);
-		Robot robot = this.simu.getData().getRobot(1);
-		Incendie incendie = this.simu.getData().getIncendie(4);
-		Carte map = this.simu.getData().getCarte();
-		int temps_absolu = 0;
-		if (!robot.isBusy()) {			
-			System.out.println(robot.toString() + " : pas busy");
-			evtlist = robot.moveToFar(map.getCase(0, 0));
-			robot.busy();;
-
+		if (!dejapasse) {
+			Robot robot = this.simu.getData().getRobot(0);
+			Incendie incendie = this.simu.getData().getIncendie(0);
+			evtlist.addAll(robot.fetchWater(dateCour));
+			evtlist.addAll(robot.eteindreIncendie(1600,incendie));
 			this.simu.ajouteEvenement(0, evtlist);
-			//System.out.println("taille evts enregistres apres bail : " + this.simu.getEvts().size());
-
+			this.dejapasse = true;
 		}
-		
-		if (!robot0.isBusy()) {			
-			System.out.println(robot0.toString() + " : pas busy");
-			evtlist = robot0.fetchWater(0);
-			robot.busy();;
-			this.simu.ajouteEvenement(0, evtlist);
-			//System.out.println("taille evts enregistres apres bail : " + this.simu.getEvts().size());
-		}
-		
-		if (!robot2.isBusy()) {			
-			System.out.println(robot2.toString() + " : pas busy");
-			evtlist = robot2.eteindreIncendie(0, this.simu.getData().getIncendie(5));
-			robot.busy();;
-			this.simu.ajouteEvenement(0, evtlist);
-			//System.out.println("taille evts enregistres apres bail : " + this.simu.getEvts().size());
-		}
-		robot2.busy();
-		robot.busy();
-		robot0.busy();
-		
 		
 		/*
 		this.simu.ajouteEvenement(temps_absolu,robot.moveTo(Direction.OUEST));

@@ -7,7 +7,7 @@ import ihm.*;
 public class RunSimulation {
 	public static void main(String[] args) {
 		Simulateur simu = new Simulateur(args);
-		Manager M = new Manager3(simu);
+		Manager M = new ManagerTest(simu);
 		simu.setManager(M);
 		M.manage();
 	}
