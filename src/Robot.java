@@ -47,7 +47,7 @@ public abstract class Robot {
 		LinkedList<Evenement> evtList = tomTom.pathFinder();
 		evtList.add(this.remplirEau((long) tempsVoyage + dateAbs));
 		double tempsRemplissage = this.getFullingTime();
-    	evtList.add(this.imUnbusy(dateAbs + (long)(tempsVoyage + tempsRemplissage)));	
+    	//evtList.add(this.imUnbusy(dateAbs + (long)(tempsVoyage + tempsRemplissage)));	
 		this.busy();
 		return evtList;
     }
@@ -86,7 +86,7 @@ public abstract class Robot {
     public double remplir() {
     	boolean nearWater = false; 
     	System.out.println("On va remplir de leau pour le robot " + this.specifString());
-    	System.out.println("Stock eau avant = ");
+    	System.out.println("Stock eau avant = " + String.valueOf(this.waterVol));
     	for (Direction d : Direction.values()){
     		nearWater = (position.getVoisin(d).getNature() == NatureTerrain.EAU) || nearWater;      		
     	}
@@ -120,7 +120,7 @@ public abstract class Robot {
     	double nbOpD = Math.ceil(((double)Math.min(vol, waterVol))/((double)getWaterOutFlow()));
         int nbOp = (int) nbOpD;
         int deverse;
-    	if (vol < waterVol) { 
+    	if (vol < waterVol - getWaterOutFlow()) { 
     		deverse = Math.min(nbOp*getWaterOutFlow(), waterVol);
     		this.waterVol -= deverse;
     	} else {
@@ -164,7 +164,7 @@ public abstract class Robot {
 		long tempsDeverse = (long) timeDeverserEau(incendie.getWaterNeed());
 	    evtsList.add(this.deverserEau(tempsVoyage + dateAbs,incendie));
     	/* Evenement pour dire qu'il est libre */
-    	evtsList.add(this.imUnbusy(dateAbs + tempsVoyage + tempsDeverse));	
+    	//evtsList.add(this.imUnbusy(dateAbs + tempsVoyage + tempsDeverse));	
     	this.busy();
     	return evtsList;
     }
