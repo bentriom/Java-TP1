@@ -37,6 +37,7 @@ public abstract class Robot {
     	Driver tomTom = new Driver(Case.map, this);
 		//tomTom.aStar(position, c, false);
 		LinkedList<Evenement> evtList = tomTom.pathFinder(position, c, false);
+		this.busy();
 		return evtList;
     }
     

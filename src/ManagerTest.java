@@ -22,14 +22,14 @@ public final class ManagerTest extends Manager {
 		
 		Robot robot = this.simu.getData().getRobot(1);
 		Incendie incendie = this.simu.getData().getIncendie(4);
-		int temps_absolu = 0;
-		
 		Carte map = this.simu.getData().getCarte();
-		robot.moveToFar(map.getCase(0, 0));
+		int temps_absolu = 0;
+
 		
 		this.simu.ajouteEvenement(0, evtlist);
 		
 		if (!robot.isBusy()) {
+			evtlist = robot.moveToFar(map.getCase(0, 0));
 			evtlist = robot.eteindreIncendie(temps_absolu, incendie);
 		}
 		

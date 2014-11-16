@@ -194,7 +194,7 @@ public class Driver {
 		LinkedList<Evenement> totalPath = new LinkedList<Evenement>();
 		totalPath.addLast( new EvtDeplacement((long)fromStartScore(current), robot, current));
 		while (current != start) {
-			System.out.println(current);
+			//System.out.println(current);
 			current = cameFrom[current.getColonne()][current.getLigne()];
 			totalPath.addFirst( new EvtDeplacement((long)fromStartScore(current), robot, current));
 		}
