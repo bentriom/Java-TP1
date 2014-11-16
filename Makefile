@@ -44,7 +44,7 @@ exeLecture:
 
 exeDessin:
 
-	java -classpath bin:bin/ihm.jar RunSimulation cartes/map_perso.map
+	java -classpath bin:bin/ihm.jar RunSimulation cartes/carteSujet.txt
 
 clean:
 	rm -rf bin/*.class

@@ -6,6 +6,7 @@ import ihm.*;
 
 public class Simulateur implements Simulable {
 
+	private int pas_de_manage = 100;
     private IGSimulateur ihm;
     private DonneesSimulation data;
 	private long dateCourrante = 0;
@@ -44,9 +45,12 @@ public class Simulateur implements Simulable {
 	/* Implémentation de l'interface Simulable */
     @Override 
 	public void next(){
+        /* On manage a la date tous les 100 */
+        if (this.dateCourrante % this.pas_de_manage == 0) {
+        	this.manager.manage();
+        	System.out.println("date actuelle ok = " + String.valueOf(this.dateCourrante));
+        }
         this.incrementeDate();
-        /* On manage a la date */
-        this.manager.manage();
     	if (this.evenementExistant()) {
             boolean evenementExecute = false;
 	    	Evenement E = this.evenements.first();
@@ -105,7 +109,8 @@ public class Simulateur implements Simulable {
 	public int ajouteEvenement(long date_debut, LinkedList<Evenement> ListeE) {
 		int index=0;
 		for(Evenement E : ListeE) {
-			ajouteEvenement(date_debut+index,E);
+			System.out.println("evt num "+ String.valueOf(index) + "date = " + String.valueOf(E.getDate()));
+			ajouteEvenement(E.getDate()+date_debut,E);
 			index++;
 		}
 		return index;
