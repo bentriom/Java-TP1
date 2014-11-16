@@ -1,13 +1,14 @@
 public class RobotAPattes extends Robot {
 
     static double speed = 30.0*(1000.0/3600.0);
-    static final int waterVolMax = 2^32-1;
+    static final int waterVolMax = Integer.MAX_VALUE;
     static final double inTime = 0;
     static final int outFlow = 10;
     static final double outTime = 1;
 
     public RobotAPattes(Case c, int waterVol){
     	super(c, waterVol);
+    	this.waterVol = waterVolMax;
     }
     
     public RobotAPattes(Case c, int waterVol, double speed){
