@@ -50,6 +50,11 @@ public class RobotVolant extends Robot {
     	return " volant ";
     }
     
+    public boolean canBeNextTo(){
+    	return false;
+    }
+
+    
     @Override
     public double remplir() {
        	boolean nearWater = false; 
