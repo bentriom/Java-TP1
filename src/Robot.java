@@ -117,11 +117,11 @@ public abstract class Robot {
     
     /* Méthode math pour savoir ce qu'on deverse */
     public int deverserEau(int vol) {
-    	double nbOpD = Math.ceil(Math.min(vol, waterVol)/getWaterOutFlow());
+    	double nbOpD = Math.ceil(((double)Math.min(vol, waterVol))/((double)getWaterOutFlow()));
         int nbOp = (int) nbOpD;
         int deverse;
-    	if (vol < waterVol - getWaterOutFlow()) { 
-    		deverse = nbOp*getWaterOutFlow();
+    	if (vol < waterVol) { 
+    		deverse = Math.min(nbOp*getWaterOutFlow(), waterVol);
     		this.waterVol -= deverse;
     	} else {
     		deverse = waterVol;
