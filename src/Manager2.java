@@ -37,10 +37,7 @@ public class Manager2 extends Manager {
 					coutMin = coutLoc;
 				}
 			}
-			// ajout_evt : beginning derverser eau, date = coutMin
-			moveEvents.addAll(nextest.moveToFar(fire.getPosition()));
-			// ajout evt : fin de derversage, date = coutMin + watertime
-			nbIncendies = data.getSizeIncendie();
+			moveEvents.addAll(nextest.eteindreIncendie(dateCour, fire));
 		}
 	}
 

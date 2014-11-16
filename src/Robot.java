@@ -155,12 +155,13 @@ public abstract class Robot {
     public LinkedList<Evenement> eteindreIncendie(long dateAbs, Incendie incendie) { 
     	LinkedList<Evenement> evtsList = new LinkedList<Evenement>();
     	Driver tomTom = new Driver(Case.map, this);
-    	long tempVoyage = 
+    	long tempsVoyage = 
     			(long) tomTom.aStar(position, incendie.getPosition(), canBeNextTo());
 		evtsList = tomTom.pathFinder();
-	    evtsList.add(this.deverserEau(tempVoyage + dateAbs,incendie));
+		long tempsDeverse = (long) timeDeverserEau(incendie.getWaterNeed());
+	    evtsList.add(this.deverserEau(tempsVoyage + dateAbs,incendie));
     	/* Evenement pour dire qu'il est libre */
-    	evtsList.add(this.imUnbusy(dateAbs));	
+    	evtsList.add(this.imUnbusy(dateAbs + tempsVoyage + tempsDeverse));	
     	return evtsList;
     }
     
