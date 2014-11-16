@@ -41,10 +41,11 @@ public abstract class Robot {
 		return evtList;
     }
     
-    public LinkedList<Evenement> fetchWater() {
+    public LinkedList<Evenement> fetchWater(long dateAbs) {
     	Driver tomTom = new Driver(Case.map, this);
-    	tomTom.findWater(position, canBeNextTo());
+    	long date = (long) tomTom.findWater(position, canBeNextTo());
 		LinkedList<Evenement> evtList = tomTom.pathFinder();
+		evtList.add(this.remplirEau(date + dateAbs));
 		this.busy();
 		return evtList;
     }

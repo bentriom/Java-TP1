@@ -128,7 +128,7 @@ public class Driver {
 		return -1;		
 	}
 	
-	public Case findWater(Case start, boolean nextTo) {
+	public double findWater(Case start, boolean nextTo) {
 		this.start = start;
 		PriorityQueue<Case> closedSet = new PriorityQueue<Case>(0, new fScoreComp()); 
 		PriorityQueue<Case> openSet = new PriorityQueue<Case>(0, new fScoreComp()); 
@@ -139,14 +139,14 @@ public class Driver {
 			Case current = openSet.poll();
 			if (current.getNature() == NatureTerrain.EAU) {
 				this.goal = current;
-				return current;
+				return fromStartScore(current);
 			}
 			closedSet.add(current);
 			LinkedList<Case> neighbors = getNeighbor(current);
 			for(Case neighbor : neighbors){
 				if  (neighbor.getNature() == NatureTerrain.EAU && nextTo){
 					this.goal = current;
-					return current;
+					return fromStartScore(current);
 				}
 				if (closedSet.contains(neighbor) || 
 						robot.getVitesse(neighbor.getNature()) == 0){
@@ -157,7 +157,7 @@ public class Driver {
 				
 				if (!openSet.contains(neighbor) || 
 						tryStartScore < fromStartScore(neighbor)){
-					//came_from
+					cameFrom[neighbor.getColonne()][neighbor.getLigne()] = current;
 					fromStartScore(neighbor, tryStartScore); 
 					if (!openSet.contains(neighbor)){
 						openSet.add(neighbor);
@@ -166,7 +166,7 @@ public class Driver {
 			}
 			
 		}
-		return start;		
+		return -1;		
 	}
 	
 	private Case cameFrom(Case c){

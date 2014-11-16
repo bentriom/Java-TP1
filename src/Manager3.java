@@ -14,10 +14,11 @@ public class Manager3 extends Manager {
 		if (clock % 10 != 0){
 			return;
 		}
+		LinkedList<Evenement> moveEvents = new LinkedList<Evenement>();
 		DonneesSimulation data = simu.getData();
 		int nbIncendies = data.getSizeIncendie();
 		int nbRobots = data.getSizeRobot();
-		LinkedList<Evenement> moveEvents;
+		long dateCour = simu.getDate();
 		
 		int[] vivaciteFeu = new int[nbIncendies];
 		for (int i=0; i<nbIncendies; i++){
@@ -31,7 +32,7 @@ public class Manager3 extends Manager {
 				continue;
 			}
 			if (robot.getWaterVol() <= 0) {
-				robot.fetchWater();
+				moveEvents.addAll(robot.fetchWater(dateCour));
 			}
 			double coutMin = Double.MAX_VALUE;
 			Incendie nextest = null;

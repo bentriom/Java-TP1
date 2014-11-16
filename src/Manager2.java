@@ -14,7 +14,7 @@ public class Manager2 extends Manager {
 		if (clock % 10 != 0){
 			return;
 		}
-		LinkedList<Evenement> moveEvents;
+		LinkedList<Evenement> moveEvents = new LinkedList<Evenement>();
 		DonneesSimulation data = simu.getData();
 		long dateCour = simu.getDate();
 		int nbIncendies = data.getSizeIncendie();
@@ -29,8 +29,7 @@ public class Manager2 extends Manager {
 					continue;
 				}
 				if (robot.getWaterVol() <= 0) {
-					robot.fetchWater();
-					robot.remplirEau(dateCour);
+					moveEvents = robot.fetchWater(dateCour);
 				}
 				double coutLoc = robot.timeToMoveTo(fire.getPosition());
 				if ( coutLoc <= coutMin && coutLoc >= 0){
@@ -39,9 +38,9 @@ public class Manager2 extends Manager {
 				}
 			}
 			// ajout_evt : beginning derverser eau, date = coutMin
-			moveEvents = moveEvents.add(nextest.moveToFar(fire.getPosition()));
+			moveEvents.addAll(nextest.moveToFar(fire.getPosition()));
 			// ajout evt : fin de derversage, date = coutMin + watertime
-			 nbIncendies = data.getSizeIncendie();
+			nbIncendies = data.getSizeIncendie();
 		}
 	}
 
