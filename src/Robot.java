@@ -127,7 +127,6 @@ public abstract class Robot {
     		deverse = waterVol;
     		this.waterVol = 0;
     	}
-        this.waterVol -= nbOp*getWaterOutFlow();
         return deverse;
     }
     

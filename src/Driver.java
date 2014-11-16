@@ -113,15 +113,14 @@ public class Driver {
 				if (!openSet.contains(neighbor) || 
 						tryStartScore < fromStartScore(neighbor)){
 					cameFrom[neighbor.getColonne()][neighbor.getLigne()] = current;
-					openSet.remove(neighbor);
+				
 					fromStartScore(neighbor, tryStartScore); 
-					openSet.add(neighbor);
+
+					openSet.remove(neighbor);
 					toGoalScore(neighbor,
 							fromStartScore(neighbor) + 
 							manhattanDistance(neighbor, goal));
-					if (!openSet.contains(neighbor)){
-						openSet.add(neighbor);
-					}
+					openSet.add(neighbor);
 				}		
 			}
 		}
@@ -159,9 +158,9 @@ public class Driver {
 						tryStartScore < fromStartScore(neighbor)){
 					cameFrom[neighbor.getColonne()][neighbor.getLigne()] = current;
 					fromStartScore(neighbor, tryStartScore); 
-					if (!openSet.contains(neighbor)){
-						openSet.add(neighbor);
-					}
+					openSet.remove(neighbor);
+					toGoalScore(neighbor, fromStartScore(neighbor));
+					openSet.add(neighbor);
 				}		
 			}
 			
