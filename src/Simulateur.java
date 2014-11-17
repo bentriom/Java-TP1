@@ -56,6 +56,8 @@ public class Simulateur implements Simulable {
     			System.out.println("Le programme a ete ferme");
     		}
     	}
+    	
+    	
         this.manager.manage();
         this.incrementeDate();
     	if (this.evenementExistant()) {

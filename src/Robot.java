@@ -116,9 +116,10 @@ public abstract class Robot {
      * Prend : le volume que l'on veut deverser
      * Renvoie : date relative de l'evenement deverser */
     public double timeDeverserEau(int vol) {
-    	double nbOpD = Math.ceil(Math.min(vol, waterVol)/getWaterOutFlow());
+    	double nbOpD = Math.ceil(((double)Math.min(vol, waterVol))/((double)getWaterOutFlow()));
         int nbOp = (int) nbOpD;
-        return nbOp*getOutTime();
+        return Math.min(nbOp*getOutTime(),
+        		getWaterVolMax()*((double)getOutTime())/((double)getWaterOutFlow()));
     }
     
     /* Méthode math pour savoir ce qu'on deverse */
@@ -152,9 +153,6 @@ public abstract class Robot {
     	incendie.setWaterNeed(waterNeed);
     	System.out.println("Eau necessaire apres = " + String.valueOf(waterNeed));
     	System.out.println("Position robot = " + this.position.toString()+ " et position incendie = " + incendie.getPosition().toString());
-    	if (waterNeed <= 0) {
-    		incendie = null;
-    	}
     }
     
     public Evenement deverserEau(long date_absolue,Incendie incendie) {
@@ -180,9 +178,10 @@ public abstract class Robot {
     			(long) tomTom.aStar(position, incendie.getPosition(), canBeNextTo());
 		evtsList = tomTom.pathFinder(dateAbs);
 		long tempsDeverse = (long) timeDeverserEau(incendie.getWaterNeed());
-	    evtsList.add(this.deverserEau(tempsVoyage + dateAbs,incendie));
+		Evenement evt = this.deverserEau(tempsVoyage + dateAbs,incendie);
+	    evtsList.add(evt);
     	/* Evenement pour dire qu'il est libre */
-    	//evtsList.add(this.imUnbusy(dateAbs + tempsVoyage + tempsDeverse));.
+    	//evtsList.add(this.imUnbusy(dateAbs + tempsVoyage + tempsDeverse));
 	    if(!evtsList.isEmpty()){
 	    	this.busy();
 	    }
