@@ -1,6 +1,7 @@
 
 public abstract class Manager {
 	protected Simulateur simu;
+	protected boolean nothingHappens = false;
 	protected boolean simulationTerminee = false;
 	
 	public Manager(Simulateur s) {
@@ -14,6 +15,6 @@ public abstract class Manager {
 	public abstract void manage();
 	
 	public boolean end(){
-		return (simulationTerminee);
+		return (simulationTerminee && nothingHappens && simu.getEvts().isEmpty());
 	}
 }
