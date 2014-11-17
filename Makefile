@@ -35,10 +35,11 @@ runSimulation:
 runSimulationTest:
 	javac -d bin -classpath bin/ihm.jar -sourcepath src src/RunSimulationTest.java
 
-
+#simulateur pour le manager2
 XeMan2:
 	javac -d bin -classpath bin/ihm.jar -sourcepath src src/XeMan2.java
 
+#simulateur pour le manager3
 XeMan3:
 	javac -d bin -classpath bin/ihm.jar -sourcepath src src/XeMan3.java
 
@@ -50,9 +51,13 @@ XeMan3:
 exeIHM:
 	java -classpath bin:bin/ihm.jar TestIHM
 
+# execution pour le manager2
+# pour changer de carte : 
+# make XeMan2 && make exeMan2 map="mushroomOfHell-20x20.map"
 exeMan2 :
 	java -classpath bin:bin/ihm.jar XeMan2 cartes/$(map)
 
+# execution pour le manager3
 exeMan3 :
 	java -classpath bin:bin/ihm.jar XeMan3 cartes/$(map)
 
