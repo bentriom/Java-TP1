@@ -49,13 +49,8 @@ public abstract class Robot {
     	Driver tomTom = new Driver(Case.map, this);
     	double tempsVoyage = tomTom.findWater(position, canBeNextTo());
 		LinkedList<Evenement> evtList = tomTom.pathFinder(dateAbs);
-<<<<<<< HEAD
 		evtList.add(this.remplirEau((long) tempsVoyage + dateAbs));	
-=======
-		evtList.add(this.remplirEau((long) tempsVoyage + dateAbs));
-		double tempsRemplissage = this.getFullingTime();
-    	evtList.add(this.imUnbusy(dateAbs + (long)(tempsVoyage + tempsRemplissage)));	
->>>>>>> ca0a7bcc7485a90462651512b881dbc5e964012a
+
 	    if(!evtList.isEmpty()){
 	    	this.busy();
 	    }
