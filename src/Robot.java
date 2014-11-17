@@ -51,7 +51,7 @@ public abstract class Robot {
 		LinkedList<Evenement> evtList = tomTom.pathFinder(dateAbs);
 		evtList.add(this.remplirEau((long) tempsVoyage + dateAbs));
 		double tempsRemplissage = this.getFullingTime();
-    	//evtList.add(this.imUnbusy(dateAbs + (long)(tempsVoyage + tempsRemplissage)));	
+    	evtList.add(this.imUnbusy(dateAbs + (long)(tempsVoyage + tempsRemplissage)));	
 	    if(!evtList.isEmpty()){
 	    	this.busy();
 	    }
@@ -181,7 +181,7 @@ public abstract class Robot {
 		Evenement evt = this.deverserEau(tempsVoyage + dateAbs,incendie);
 	    evtsList.add(evt);
     	/* Evenement pour dire qu'il est libre */
-    	//evtsList.add(this.imUnbusy(dateAbs + tempsVoyage + tempsDeverse));
+    	evtsList.add(this.imUnbusy(dateAbs + tempsVoyage + tempsDeverse));
 	    if(!evtsList.isEmpty()){
 	    	this.busy();
 	    }

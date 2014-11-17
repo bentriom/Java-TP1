@@ -14,6 +14,7 @@ public class Simulateur implements Simulable {
 	private String fichier;
 	ComparateurEvenements C = new ComparateurEvenements();
 	private TreeSet<Evenement> evenements = new TreeSet<Evenement>(C);
+	boolean print = true;
     
 	// constructeur lisant les donnees
 	public Simulateur(String[] args) {
@@ -48,9 +49,17 @@ public class Simulateur implements Simulable {
 	public void next(){
         /* On manage a la date tous les 100 */
     	if (manager.end()){
-    		Affichage.fin(data, ihm);
-    		System.out.println("La simulation est finie");
     		try {
+    		if (print) {
+    			System.out.println("La simulation est finie");
+        		Affichage.fin(data, ihm);
+
+    			Thread.sleep(2000);
+        		Affichage.fin(data, ihm);
+
+    			print = false;
+    		}
+
     			Thread.sleep(1000);
     		} catch (InterruptedException e){ 
     			System.out.println("Le programme a ete ferme");

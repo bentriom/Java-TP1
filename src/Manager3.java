@@ -15,7 +15,6 @@ public class Manager3 extends Manager {
 		if (clock % 10 != 0){
 			return;
 		}
-		simulationTerminee = nothingHappens;
 		boolean continuer = false;
 		LinkedList<Evenement> moveEvents = new LinkedList<Evenement>();
 		DonneesSimulation data = simu.getData();
@@ -60,7 +59,7 @@ public class Manager3 extends Manager {
 			}
 		}
 		this.simu.ajouteEvenement(0,moveEvents);
-		nothingHappens = !continuer; 
+		simulationTerminee = !continuer; 
 		return;
 	}
 
