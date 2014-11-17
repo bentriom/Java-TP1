@@ -27,7 +27,7 @@ public class Simulateur implements Simulable {
 			data = LecteurDonnees.creeDonnees(args[0]);
 			int col = data.getCarte().getNbColonnes();
 			int lig = data.getCarte().getNbLignes();
-			int casePX = Math.min(800.0/col, 600.0/lig);
+			int casePX = (int) Math.ceil( Math.min(800.0/col, 600.0/lig));
 			int taille = data.getCarte().getTailleCases();
 			ihm = new IGSimulateur(col, lig, casePX, this);
 			clock = new Horloge();

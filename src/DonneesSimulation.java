@@ -38,6 +38,10 @@ public class DonneesSimulation {
 		return robots.get(numRobot);
 	}
 	
+	public LinkedList<Robot> getRobots() {
+		return robots;
+	}
+	
 	public void ajouteRobot(Robot r) {
 		this.robots.add(r);
 	}
@@ -57,6 +61,10 @@ public class DonneesSimulation {
 				return i;
 		}
 		return null;
+	}
+	
+	public LinkedList<Incendie> getIncendies() {
+		return incendies;
 	}
 	
 	public void ajouteIncendie(Incendie i) {

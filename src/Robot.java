@@ -43,13 +43,18 @@ public abstract class Robot {
     }
     
     public LinkedList<Evenement> fetchWater(long dateAbs) {
+    	if (this.isBusy()) {
+    		return null;
+    	}
     	Driver tomTom = new Driver(Case.map, this);
     	double tempsVoyage = tomTom.findWater(position, canBeNextTo());
 		LinkedList<Evenement> evtList = tomTom.pathFinder(dateAbs);
 		evtList.add(this.remplirEau((long) tempsVoyage + dateAbs));
 		double tempsRemplissage = this.getFullingTime();
     	//evtList.add(this.imUnbusy(dateAbs + (long)(tempsVoyage + tempsRemplissage)));	
-		this.busy();
+	    if(!evtList.isEmpty()){
+	    	this.busy();
+	    }
 		return evtList;
     }
     
@@ -58,7 +63,7 @@ public abstract class Robot {
         		Math.abs(c.getColonne() - position.getColonne()) < 2){
             position = c;
         } else { 
-		    System.out.println("Vous essayez de bouger le robot sur une case invalide !");
+		    System.out.println("Vous essayez de bouger le robot " + this.specifString() + "sur une case invalide !");
         }
         position = c;
     }
@@ -166,6 +171,9 @@ public abstract class Robot {
      * Il va a l'incendie et deverse UNE FOIS
      */
     public LinkedList<Evenement> eteindreIncendie(long dateAbs, Incendie incendie) { 
+    	if (this.isBusy()) {
+    		return null;
+    	}
     	LinkedList<Evenement> evtsList = new LinkedList<Evenement>();
     	Driver tomTom = new Driver(Case.map, this);
     	long tempsVoyage = 
@@ -174,8 +182,10 @@ public abstract class Robot {
 		long tempsDeverse = (long) timeDeverserEau(incendie.getWaterNeed());
 	    evtsList.add(this.deverserEau(tempsVoyage + dateAbs,incendie));
     	/* Evenement pour dire qu'il est libre */
-    	//evtsList.add(this.imUnbusy(dateAbs + tempsVoyage + tempsDeverse));	
-    	this.busy();
+    	//evtsList.add(this.imUnbusy(dateAbs + tempsVoyage + tempsDeverse));.
+	    if(!evtsList.isEmpty()){
+	    	this.busy();
+	    }
     	return evtsList;
     }
     

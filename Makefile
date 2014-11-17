@@ -19,6 +19,7 @@
 #   -d : repertoire dans lequel sont places les .class compiles
 #   -classpath : repertoire dans lequel sont cherches les .class deja compiles
 #   -sourcepath : repertoire dans lequel sont cherches les .java (dependances)
+map ?= carteSujet.txt
 
 all: testIHM testLecture
 
@@ -33,6 +34,14 @@ runSimulation:
 
 runSimulationTest:
 	javac -d bin -classpath bin/ihm.jar -sourcepath src src/RunSimulationTest.java
+
+
+XeMan2:
+	javac -d bin -classpath bin/ihm.jar -sourcepath src src/XeMan2.java
+
+XeMan3:
+	javac -d bin -classpath bin/ihm.jar -sourcepath src src/XeMan3.java
+
 # Execution:
 # on peut taper directement la ligne de commande :
 #   > java -classpath bin TestIHM
@@ -41,20 +50,23 @@ runSimulationTest:
 exeIHM:
 	java -classpath bin:bin/ihm.jar TestIHM
 
+exeMan2 :
+	java -classpath bin:bin/ihm.jar XeMan2 cartes/$(map)
+
+exeMan3 :
+	java -classpath bin:bin/ihm.jar XeMan3 cartes/$(map)
+
 exeLecture:
 	java -classpath bin TestLecteurDonnees cartes/carteSujet.txt
 
 exeDessin:
-
 	java -classpath bin:bin/ihm.jar RunSimulation cartes/spiralOfMadness-50x50.map
 	
 exeMini:
-
 	java -classpath bin:bin/ihm.jar RunSimulation cartes/carteMinimale.txt
 
 exeTestCmd:
-
-	java -classpath bin:bin/ihm.jar RunSimulationTest cartes/carteSujet.txt
+	java -classpath bin:bin/ihm.jar RunSimulation cartes/carteSujet.txt
 
 clean:
 	rm -rf bin/*.class
