@@ -10,6 +10,7 @@ public abstract class Robot {
     private Case position;
     protected int waterVol;
     private boolean busy;
+    private static Carte map;
 
     public Robot(Case c, int waterVol){
     	this.position = c;
@@ -17,6 +18,10 @@ public abstract class Robot {
     	this.busy = false;
     }
 
+    public static void setMap(Carte map){
+    	Robot.map = map;
+    }
+    
     /* Gestion de la position */
     public Case getPosition() {
         return position;
@@ -29,14 +34,20 @@ public abstract class Robot {
     abstract public double getVitesse(NatureTerrain n);
     
     public double timeToMoveTo(Case c) {
-    	Driver tomTom = new Driver(Case.map, this);
+    	if (this.isBusy()){
+    		// return -1;
+    	}
+    	Driver tomTom = new Driver(map, this);
 		return tomTom.aStar(position, c, true);    	
     }
 
     
-    public LinkedList<Evenement> moveToFar(Case c, long dateAbs) {
-    	Driver tomTom = new Driver(Case.map, this);
-    	tomTom.aStar(position, c, canBeNextTo());
+    public LinkedList<Evenement> moveToFar(Case c, long dateAbs, boolean nextTo) {
+    	if (this.isBusy()){
+    		return null;
+    	}
+    	Driver tomTom = new Driver(map, this);
+    	tomTom.aStar(position, c, nextTo);
 		LinkedList<Evenement> evtList = tomTom.pathFinder(dateAbs);
 		this.busy();
 		return evtList;
@@ -46,7 +57,7 @@ public abstract class Robot {
     	if (this.isBusy()) {
     		return null;
     	}
-    	Driver tomTom = new Driver(Case.map, this);
+    	Driver tomTom = new Driver(map, this);
     	double tempsVoyage = tomTom.findWater(position, canBeNextTo());
 		LinkedList<Evenement> evtList = tomTom.pathFinder(dateAbs);
 		evtList.add(this.remplirEau((long) tempsVoyage + dateAbs));	
@@ -91,7 +102,7 @@ public abstract class Robot {
     public double remplir() {
     	boolean nearWater = false; 
     	for (Direction d : Direction.values()){
-    		nearWater = (position.getVoisin(d).getNature() == NatureTerrain.EAU) || nearWater;      		
+    		nearWater = (map.getVoisin(position, d).getNature() == NatureTerrain.EAU) || nearWater;      		
     	}
     	nearWater = (position.getNature() == NatureTerrain.EAU) || nearWater;
     	if (nearWater) {
@@ -137,7 +148,7 @@ public abstract class Robot {
     public void deverserEau(Incendie incendie) {
     	boolean nearFire = (incendie.getPosition() == position);
     	for (Direction d : Direction.values()){
-    		nearFire = (incendie.getPosition() == position.getVoisin(d) || nearFire);      		
+    		nearFire = (incendie.getPosition() == map.getVoisin(position, d) || nearFire);      		
     	}	
     	if (!nearFire){
     		System.out.println("robot " + this.specifString() + " : NO FIRE " );
@@ -166,7 +177,7 @@ public abstract class Robot {
     		return null;
     	}
     	LinkedList<Evenement> evtsList = new LinkedList<Evenement>();
-    	Driver tomTom = new Driver(Case.map, this);
+    	Driver tomTom = new Driver(map, this);
     	long tempsVoyage = 
     			(long) tomTom.aStar(position, incendie.getPosition(), canBeNextTo());
 		evtsList = tomTom.pathFinder(dateAbs);
