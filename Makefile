@@ -65,7 +65,7 @@ exeLecture:
 	java -classpath bin TestLecteurDonnees cartes/carteSujet.txt
 
 exeDessin:
-	java -classpath bin:bin/ihm.jar RunSimulation cartes/carteSujet.txt
+	java -classpath bin:bin/ihm.jar RunSimulation cartes/mushroomOfHell-20x20.map
 	
 exeMini:
 	java -classpath bin:bin/ihm.jar RunSimulation cartes/carteMinimale.txt
