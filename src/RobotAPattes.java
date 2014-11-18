@@ -1,4 +1,7 @@
-
+/**
+ * Classe finale héritée de robot qui décrit un robot à pattes
+ * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
+ */
 public class RobotAPattes extends Robot {
 
     static double speed = 30.0*(1000.0/3600.0);

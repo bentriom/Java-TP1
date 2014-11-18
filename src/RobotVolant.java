@@ -1,3 +1,7 @@
+/**
+ * Classe finale héritée de robot qui décrit un robot volant 
+ * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
+ */
 
 public class RobotVolant extends Robot {
 

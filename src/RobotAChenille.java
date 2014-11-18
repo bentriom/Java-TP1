@@ -1,4 +1,7 @@
-
+/**
+ * Classe finale héritée de robot qui décrit un robot à chenille 
+ * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
+ */
 public class RobotAChenille extends Robot {
 
     static double speed = 60.0*(1000.0/3600.0);
