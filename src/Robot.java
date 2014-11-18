@@ -115,7 +115,7 @@ public abstract class Robot {
 
     /* Cree l'evenement pour que le robot se remplisse (en une fois) */
     public Evenement remplirEau(long date_absolue) {
-    	return new RemplirRobot(date_absolue+(long)this.getFullingTime(),this);
+    	return new EvtRemplirRobot(date_absolue+(long)this.getFullingTime(),this);
     }
 
     
