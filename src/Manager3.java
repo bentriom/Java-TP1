@@ -41,6 +41,7 @@ public class Manager3 extends Manager {
 			i = 0;
 			for (Incendie fire : simu.getData().getIncendies()){
 				if (vivaciteFeu[i] <= 0){
+					i++;
 					continue;
 				}
 
