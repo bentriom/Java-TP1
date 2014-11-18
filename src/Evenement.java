@@ -4,7 +4,7 @@ public abstract class Evenement implements Comparable<Evenement> {
 	protected Robot robot;
 	
 	public Evenement(long d, Robot r) {
-		this.date = d;
+		this.date = Simulateur.getDate() + d;
 		this.robot = r;
 	}
 	

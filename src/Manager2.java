@@ -17,7 +17,7 @@ public class Manager2 extends Manager {
 		/* Liste d'evenements qui vont etre envoyes au simulateur */
 		LinkedList<Evenement> moveEvents = new LinkedList<Evenement>();
 		boolean continuer = false;
-		long dateCour = simu.getDate();
+		long dateCour = Simulateur.getDate();
 		for (Incendie fire : simu.getData().getIncendies()){
 			if (fire.getWaterNeed() <= 0) {
 				continue;
@@ -29,7 +29,7 @@ public class Manager2 extends Manager {
 					continue;
 				}
 				if (robot.getWaterVol() <= 0) {
-					moveEvents.addAll(robot.fetchWater(dateCour));
+					moveEvents.addAll(robot.fetchWater());
 					continuer = true;
 					continue;
 				}
@@ -42,9 +42,9 @@ public class Manager2 extends Manager {
 			}
 			
 			if (nextest != null)
-				moveEvents.addAll(nextest.eteindreIncendie(dateCour, fire));
+				moveEvents.addAll(nextest.eteindreIncendie(fire));
 		}
-		this.simu.ajouteEvenement(0,moveEvents);
+		this.simu.ajouteEvenement(moveEvents);
 		simulationTerminee = !continuer; 
 		
 	}

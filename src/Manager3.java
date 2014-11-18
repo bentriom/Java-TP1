@@ -18,7 +18,7 @@ public class Manager3 extends Manager {
 		boolean continuer = false;
 		LinkedList<Evenement> moveEvents = new LinkedList<Evenement>();
 		//DonneesSimulation data = simu.getData();
-		long dateCour = simu.getDate();
+		long dateCour = Simulateur.getDate();
 		int i=0;
 		for (Incendie fire : simu.getData().getIncendies()){
 			vivaciteFeu[i] = fire.getWaterNeed();
@@ -31,7 +31,7 @@ public class Manager3 extends Manager {
 				continue;
 			}
 			if (robot.getWaterVol() <= 0) {
-				moveEvents.addAll(robot.fetchWater(dateCour));
+				moveEvents.addAll(robot.fetchWater());
 				continuer = true;
 				continue;
 			}
@@ -55,11 +55,11 @@ public class Manager3 extends Manager {
 			}
 			if (nextest != null){
 				vivaciteFeu[intNextest] -= Math.min(robot.getWaterVol(),vivaciteFeu[intNextest]) ;
-				moveEvents.addAll(robot.eteindreIncendie(dateCour, nextest));
+				moveEvents.addAll(robot.eteindreIncendie(nextest));
 				continuer = true;
 			}
 		}
-		this.simu.ajouteEvenement(0,moveEvents);
+		this.simu.ajouteEvenement(moveEvents);
 		simulationTerminee = !continuer; 
 		return;
 	}

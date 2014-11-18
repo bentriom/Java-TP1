@@ -18,7 +18,7 @@ public class Simulateur implements Simulable {
 	private int pasDeManage = 100;
     private IGSimulateur ihm;
     private DonneesSimulation data;
-	private long clock;
+	private static long clock;
 	private Manager manager;
 	private String fichier;
 	ComparateurEvenements C = new ComparateurEvenements();
@@ -27,7 +27,7 @@ public class Simulateur implements Simulable {
     
 	/**
 	 *  Constructeur lisant les donnees dans le fichier texte indiqué
-	 *  Initialise l'interface graphique et le manager
+	 *  Initialise l'interface graphique et le manager.
 	 * @param args 
 	 * 			nom de la carte à utiliser
 	 */
@@ -54,11 +54,19 @@ public class Simulateur implements Simulable {
 		}
 	}
 
+	/**
+	 * Modifie le manager utilisé par le simulateur
+	 * @param M nouveau manager utilisé
+	 */
 	public void setManager(Manager M) {
 		this.manager = M;
 	}
     
-	/* Implémentation de l'interface Simulable */
+
+	/** 
+	 * Implémentation de l'interface Simulable.
+	 * next() passe au temps suivant de la simulation
+	 */
     @Override 
 	public void next(){
 
@@ -82,6 +90,11 @@ public class Simulateur implements Simulable {
     	}
     }
 
+    /**	 
+     * Implémentation de l'interface Simulable.
+	 * restart() redemarre la simulation en relisant les données
+     * 
+     */
     @Override 
 	public void restart(){
     	/* manage() supprime la liste d'evenements du simulateur et la recreer */
@@ -96,6 +109,9 @@ public class Simulateur implements Simulable {
     	this.manager.manage();
     }
    
+    /**
+     * Met à jour l'affichage des données
+     */
     private void dessine(){
 		Affichage.dessineCases(data.getCarte(), ihm);
 		Affichage.dessineIncendies(data, ihm);
@@ -105,45 +121,81 @@ public class Simulateur implements Simulable {
 
 	
 	/* Méthodes sur les événements */
+    
+    /**
+     * Ajoute un evenement à executer
+     * 
+     * @param e l'evenement a executer 
+     */
 	public void ajouteEvenement(Evenement e) {
 		this.evenements.add(e);
 	}
+	
+	/**
+	 * Ajoute l'evenement e a la date  : date(evenement) + date
+	 * @param date date a ajouter a celle de l'evenement
+	 * @param e evenement a ajouter
+	 */
 	// Pour pouvoir réajuster les dates après création de l'evenement
 	public void ajouteEvenement(long date, Evenement e) {
 		e.setDate(date);
 		this.evenements.add(e);
 	}
 	
-	public int ajouteEvenement(long date_debut, LinkedList<Evenement> ListeE) {
+	
+	/**
+	 * Ajoute une liste d'evenements
+	 * 
+	 * @param ListeE liste d'evenement a ajouter
+	 * @return le nombre d'evenements ajoutés
+	 */
+	public int ajouteEvenement(LinkedList<Evenement> ListeE) {
 		int index=0;
 		for(Evenement E : ListeE) {
-			ajouteEvenement(E.getDate()+date_debut,E);
+			ajouteEvenement(E);
 			index++;
 		}
 		return index;
 	}
 	
+	/**
+	 * Permet d'acceder a l'ensemble des evenements a venir
+	 * (utile pour le debuggage)
+	 * @return l'ensemble des evenements programmés
+	 */
 	public TreeSet<Evenement> getEvts() {
 		return this.evenements;
 	}
 	
+	/**
+	 * Test si il reste des evenements
+	 * @return true  si il y a des evenements a venir
+	 */
 	public boolean evenementExistant() {
 		return !(this.evenements.size() == 0);
 	}
 	
-	/* Accès aux donnees lues : robots et incendies */
+	/**
+	 *  Accès aux donnees lues : robots et incendies 
+	 *  @return les données de simulation
+	 */
 	public DonneesSimulation getData() {
 		return this.data;
 	}
 	
 	
-	/* Incrémente la date */
+	/**
+	 *  Incrémente la date 
+	 */
 	private void incrementeDate() {
-		clock += 100;
+		clock += 30;
 	}
 	
-	/* Accès a la date courante */
-	public long getDate() {
+	/**
+	 * Accès a la date courante 
+	 * @return date courante du simulateur
+	 */
+	public static long getDate() {
 		return clock;
 	}
 }
