@@ -9,7 +9,6 @@ public class Case {
 	private int ligne;
 	private int colonne;
 	private NatureTerrain nature;
-	static Carte map;
 	
 	/* Constructeur */
 	public Case(int l, int c, NatureTerrain n) {
@@ -17,14 +16,7 @@ public class Case {
 		this.colonne = c;
 		this.nature = n;
 	}
-
-	/* Constructeur */
-	public Case(int l, int c, NatureTerrain n, Carte m) {
-		this.ligne = l;
-		this.colonne = c;
-		this.nature = n;
-		Case.map = m;
-	}
+ 
 	
 	/* Constructeur de copie */
 	public Case(Case c) {
@@ -39,10 +31,6 @@ public class Case {
 		return this.colonne;
 	}
 	
-	public Carte getMap() {
-		return map;
-	}
-	
 	public NatureTerrain getNature() {
 		return this.nature;
 	}
@@ -50,12 +38,7 @@ public class Case {
 	public void setNature(NatureTerrain n) {
 		this.nature = n;
 	}
-
-	public Case getVoisin(Direction d) {
-		if (map == null)
-			System.out.println("c la mrd2\n");
-		return map.getVoisin(this, d);
-	}
+ 
 
 	public String image() {
 	    String s;

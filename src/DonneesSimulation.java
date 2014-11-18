@@ -23,6 +23,7 @@ public class DonneesSimulation {
 		this.carte = map;
 		this.incendies = incendies;
 		this.robots = robots;
+		Robot.setMap(map);
 	}
 	
 	/* Méthodes pour la carte : un seul accesseur, on utilise ensuite les méthodes de Carte */	

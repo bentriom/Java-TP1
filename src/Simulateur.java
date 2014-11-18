@@ -10,7 +10,7 @@ public class Simulateur implements Simulable {
 	private int pasDeManage = 100;
     private IGSimulateur ihm;
     private DonneesSimulation data;
-	private Horloge clock;
+	private long clock;
 	private Manager manager;
 	private String fichier;
 	ComparateurEvenements C = new ComparateurEvenements();
@@ -32,7 +32,7 @@ public class Simulateur implements Simulable {
 			int casePX = (int) Math.ceil( Math.min(800.0/col, 600.0/lig));
 			int taille = data.getCarte().getTailleCases();
 			ihm = new IGSimulateur(col, lig, casePX, this);
-			clock = new Horloge();
+			clock = 0;
 	        dessine();
 		} catch (FileNotFoundException e) {
 			System.out.println("fichier " + args[0] + " inconnu ou illisible");
@@ -48,32 +48,13 @@ public class Simulateur implements Simulable {
 	/* Implémentation de l'interface Simulable */
     @Override 
 	public void next(){
-        /* On manage a la date tous les 100 */
-    	if (manager.end()){
-    		try {
-    		if (print) {
-    			System.out.println("La simulation est finie");
-        		Affichage.fin(data, ihm);
 
-    			Thread.sleep(2000);
-        		Affichage.fin(data, ihm);
-
-    			print = false;
-    		}
-
-    			Thread.sleep(1000);
-    		} catch (InterruptedException e){ 
-    			System.out.println("Le programme a ete ferme");
-    		}
-    	}
-    	
-    	
         this.manager.manage();
         this.incrementeDate();
     	if (this.evenementExistant()) {
             boolean evenementExecute = false;
 	    	Evenement E = this.evenements.first();
-		    while (E.getDate() <= Horloge.getDate()) {
+		    while (E.getDate() <= getDate()) {
 		    	E.execute();
 		    	evenementExecute = true;
 		    	this.evenements.remove(E);;
@@ -108,10 +89,7 @@ public class Simulateur implements Simulable {
 		Affichage.dessineRobots(data, ihm);
     }
     
-	/* Incrémente la date */
-	public void incrementeDate() {
-		clock.increDate();
-	}
+
 	
 	/* Méthodes sur les événements */
 	public void ajouteEvenement(Evenement e) {
@@ -145,8 +123,14 @@ public class Simulateur implements Simulable {
 		return this.data;
 	}
 	
+	
+	/* Incrémente la date */
+	private void incrementeDate() {
+		clock += 100;
+	}
+	
 	/* Accès a la date courante */
 	public long getDate() {
-		return Horloge.getDate();
+		return clock;
 	}
 }

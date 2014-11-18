@@ -17,7 +17,6 @@ public class Carte {
 		this.nbColonnes = colonnes;
 		this.tailleCases = taillecase;
 		this.tabCases = tabCases;
-		this.tabCases[0][0] = new Case(0, 0, tabCases[0][0].getNature(),this);
 	}
 	
 	/* Constructeur Carte terrain libre*/
@@ -29,7 +28,7 @@ public class Carte {
 		this.tabCases = new Case[lignes][colonnes];
 		for(int i=0; i<lignes; i++) {
 			for(int j=0; j<colonnes; j++) {
-				this.tabCases[i][j] = new Case(i,j,NatureTerrain.TERRAIN_LIBRE,this);
+				this.tabCases[i][j] = new Case(i,j,NatureTerrain.TERRAIN_LIBRE);
 			}
 		}
 		
@@ -41,7 +40,7 @@ public class Carte {
 		this.nbColonnes = carte.nbColonnes;
 		this.tailleCases = carte.tailleCases;
 		this.tabCases = carte.tabCases;
-		this.tabCases[0][0] = new Case(0, 0, tabCases[0][0].getNature(),this);
+		this.tabCases[0][0] = new Case(0, 0, tabCases[0][0].getNature());
 	}
 	
 	public int getNbLignes() {

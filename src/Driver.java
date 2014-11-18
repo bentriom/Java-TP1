@@ -35,12 +35,17 @@ public class Driver {
 				((double)distance)/(2*robot.getVitesse(c2.getNature()));
 	}
 	
+	/**
+	 * 
+	 * @param c
+	 * @return
+	 */
 	private LinkedList<Case> getNeighbor(Case c){
 		LinkedList<Case> neighbor = new LinkedList<Case>();
 		Case v;
 		for( Direction d : Direction.values()){
-			v = c.getVoisin(d);
-			if(v!=c){
+			v = map.getVoisin(c, d);
+			if(v != c){
 				neighbor.add(v);
 			}
 		}
@@ -191,7 +196,6 @@ public class Driver {
 		LinkedList<Evenement> totalPath = new LinkedList<Evenement>();
 		totalPath.addLast( new EvtDeplacement(dateAbs + (long)fromStartScore(current), robot, current));
 		while (current != this.start) {
-			System.out.println(current);
 			current = cameFrom[current.getColonne()][current.getLigne()];
 			double cost = fromStartScore(current);
 			totalPath.addFirst( new EvtDeplacement(dateAbs + (long)cost, robot, current));
