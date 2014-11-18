@@ -1,20 +1,31 @@
 
+/**
+ * Classe d'Evenement permettant de verser de l'eau sur un incendie
+ * @author dutrieux
+ *
+ */
 public class EvtDeverserEau extends Evenement {
 	
 	private Incendie incendie;
 	
+	/**
+	 * 
+	 * @param d temps dans lequel l'evenement allait être exécuté après sa création
+	 * @param i incendie sur lequel deverser de l'eau
+	 * @param r robot concerné par l'Evenement
+	 */
 	public EvtDeverserEau(long d, Incendie i, Robot r) {
 		super(d,r);
 		this.incendie = i;
 	}
 
+	/**
+	 *  dervers de l'eau sur un incendie
+	 *  apres l'execution, le robot n'est plus occupé.
+	 */
 	@Override
 	public void execute() {
-		System.out.println("Ok on demande a deverser eau par robot " + this.robot.specifString());
 		this.robot.deverserEau(this.incendie);
-		if (this.incendie.getWaterNeed() <= 0) {
-			System.out.println("Le robot " + this.robot.specifString() + " a suppr un incendie");
-		}
 		this.robot.unBusy();
 	}
 }

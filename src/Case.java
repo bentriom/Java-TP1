@@ -10,7 +10,12 @@ public class Case {
 	private int colonne;
 	private NatureTerrain nature;
 	
-	/* Constructeur */
+	/**
+	 * Constructeur de case
+	 * @param l indice de la ligne de la Case
+	 * @param c indice de la colonne de la Case
+	 * @param n nature du terrain de la Case
+	 */
 	public Case(int l, int c, NatureTerrain n) {
 		this.ligne = l;
 		this.colonne = c;
@@ -18,28 +23,50 @@ public class Case {
 	}
  
 	
-	/* Constructeur de copie */
+	/**
+	 * Constructeur de copie de Case
+	 * @param c case à copier
+	 */
 	public Case(Case c) {
 		this(c.ligne,c.colonne,c.nature);
 	}
 	
+	/**
+	 * Accesseur de la ligne de la case
+	 * @return la ligne de la case
+	 */
 	public int getLigne() {
 		return this.ligne;
 	}
 	
+	/**
+	 * Accesseur de la colonne de la case
+	 * @return la colonne de la case
+	 */
 	public int getColonne() {
 		return this.colonne;
 	}
 	
+	/**
+	 * Accesseur de la nature du terrain de la case
+	 * @return la nature du terrain de la case
+	 */
 	public NatureTerrain getNature() {
 		return this.nature;
 	}
 	
+	/**
+	 * Modifier de la nature du terrain de la case
+	 * @param n nouvelle nature du terrain
+	 */
 	public void setNature(NatureTerrain n) {
 		this.nature = n;
 	}
  
-
+	/**
+	 * Renvoie l'image a afficher selon le type de terrain
+	 * @return le chemin vers l'image representant une case de ce type
+	 */
 	public String image() {
 	    String s;
 	    switch(this.nature) {
