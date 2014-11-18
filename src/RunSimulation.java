@@ -1,9 +1,12 @@
+/**
+ * Classe main qui permet de lancer la simulation graphique
+ * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
+ */
 
 import java.awt.Color;
 import java.io.FileNotFoundException;
 
 import ihm.*;
-
 
 public class RunSimulation {
 	public static void main(String[] args) {

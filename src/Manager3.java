@@ -1,5 +1,10 @@
-import java.util.LinkedList;
+/**
+ * Sous-classe de Manager qui implémente une stratégie différente de la stratégie "naive"
+ * Prend en compte l'intensité courrante des différents incendies
+ * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
+ */
 
+import java.util.LinkedList;
 
 public class Manager3 extends Manager {
 	private int clock = 0;

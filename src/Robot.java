@@ -1,7 +1,7 @@
-/*
+/**
  * Classe qui permet de gere les robots
  * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
- */
+ **/
 
 import java.util.LinkedList;
 
@@ -12,30 +12,35 @@ public abstract class Robot {
     private boolean busy;
     private static Carte map;
 
-    /** Constructeur du robot **/
+    /** Constructeur du robot : défini par une position initiale et eau initiale
+     * @param c
+     * @param waterVol
+     * **/
     public Robot(Case c, int waterVol){
     	this.position = c;
     	this.waterVol = waterVol;
     	this.busy = false;
     }
 
-    /** Renvoie la map du robot **/
+    /** Modifieur de la carte du robot
+     * @param map **/
     public static void setMap(Carte map){
     	Robot.map = map;
     }
     
     /* ---------------- Gestion de la position ----------------- */
    
-    /** Renvoie la position du robot **/
+    /** Renvoie la position du robot
+     * @return position du robot **/
     public Case getPosition() {
         return position;
     }
-
-    /** Met à jour la position du robot **/
-    public void setPosition(Case c) {
-        position = c;
-    }
     
+    /** 
+     * Calcul le temps pour que le robot aille à une case
+     * @param c
+     * @return Temps pour aller à la case c
+     */
     public double timeToMoveTo(Case c) {
     	if (this.isBusy()){
     		// return -1;
@@ -44,7 +49,12 @@ public abstract class Robot {
 		return tomTom.aStar(position, c, true);    	
     }
 
-    
+    /**
+     * Méthode pour créer les evenements pour déplacer le robot
+     * @param c
+     * @param nextTo
+     * @return Liste d'evenements pour aller jusque c
+     */
     public LinkedList<Evenement> moveToFar(Case c, boolean nextTo) {
     	if (this.isBusy()){
     		return null;
@@ -56,6 +66,10 @@ public abstract class Robot {
 		return evtList;
     }
     
+    /**
+     * Envoie le robot chercher de l'eau
+     * @return Liste de déplacements jusqu'à une case d'eau + événement remplir
+     */
     public LinkedList<Evenement> fetchWater() {
     	if (this.isBusy()) {
     		return null;
@@ -71,40 +85,88 @@ public abstract class Robot {
 		return evtList;
     }
     
+    /**
+     * Modifieur de la position du robot
+     * @param c
+     */
     public void moveTo(Case c) {
         if (Math.abs(c.getLigne() - position.getLigne()) +
         		Math.abs(c.getColonne() - position.getColonne()) < 2){
-            position = c;
+            this.position = c;
         } else { 
 		    System.out.println("Vous essayez de bouger le robot " + this.specifString() + "sur une case invalide !");
         }
-        position = c;
+        this.position = c;
     }
 
+    /**
+     * Création d'un événement élémentaire
+     * @param pos
+     * @return Evenement de déplacement élémentaire vers pos
+     */
     public Evenement EvtmoveTo(Case pos) {
     	return new EvtDeplacement(0,this,pos);
-    }
+    }    
     
+    /**
+     * Accesseur de la vitesse du robot
+     * @param n
+     * @return Vitesse du robot selon le terrain
+     */
     abstract public double getVitesse(NatureTerrain n);
+    /**
+     * Accesseur du temps pour déverser de l'eau
+     * @return Temps pour déverser de l'eau
+     */
     abstract public int getWaterOutFlow();
+    /**
+     * Accesseur du temps pour se remplir
+     * @return Temps pour se remplir
+     */
     abstract public double getFullingTime();
+    /** 
+     * Accesseur du temps d'une intervention unitaire pour déverser de l'eau
+     * @return Temps d'une intervention unitaire pour déverser de l'eau
+     */
     abstract public double getOutTime();
+    /**
+     * Accesseur du volume maximal d'eau que l'on peut remplir
+     * @return Volume maximal d'eau que l'on peut remplir
+     */
     abstract public int getWaterVolMax();
+
+    /**
+     * Accesseur du chemin de l'image associée au robot qui sera déplacé
+     * @return Chaine de l'image associé au robot qui sera déplacé
+     */
     abstract public String image();
+    /**
+     * Renvoie le type du robot
+     * @return Nom du type du robot
+     */
     abstract public String specifString();
 
+    /**
+     * Indique la facon d'éteindre un incendie
+     * @return Vrai si éteint l'incendie en étant à coté de la case, faux sinon
+     */
     public boolean canBeNextTo(){
     	return true;
     }
 
     /* ---------------- Gestion de l'eau ---------------- */
     
-    /** Retourne le volume d'eau du robot en cours */
+    /**
+     * Accesseur du volume d'eau du robot en cours
+     *  @return Le volume d'eau du robot en cours */
     public int getWaterVol() {
        return waterVol;
     }
 
-    /*  */
+    /**
+     * Rempli le robot à sa contenance maximale
+     * @return le temps que met un robot a se remplir
+     */
     public double remplir() {
     	boolean nearWater = false; 
     	for (Direction d : Direction.values()){
@@ -119,15 +181,17 @@ public abstract class Robot {
     	return getFullingTime();
     }
 
-    /** Créer l'evenement pour que le robot se remplisse (en une fois) */
-    public Evenement remplirEau() {
-    	return new EvtRemplirRobot((long)this.getFullingTime(),this);
+    /** 
+     * Création d'un événement élémentaire
+     * @return L'evenement pour que le robot se remplisse (en une fois) */
+    public Evenement remplirEau(long date_apres_deplacement) {
+    	return new EvtRemplirRobot(date_apres_deplacement+(long)this.getFullingTime(),this);
     }
 
     
     /** Méthode mathématique pour savoir en combien de temps on va deverse
-     * Requiert : le volume que l'on veut deverser
-     * Garantit : date relative de l'evenement deverser */
+     * @param vol
+     * @return date relative de l'evenement deverser */
     public double timeDeverserEau(int vol) {
     	double nbOpD = Math.ceil(((double)Math.min(vol, waterVol))/((double)getWaterOutFlow()));
         int nbOp = (int) nbOpD;
@@ -135,7 +199,10 @@ public abstract class Robot {
         		getWaterVolMax()*((double)getOutTime())/((double)getWaterOutFlow()));
     }
     
-    /** Méthode mathématique pour savoir ce que l'on peut déverser selon la demande d'un volume précis */
+    /** Méthode mathématique pour savoir ce que l'on peut déverser selon la demande d'un volume précis 
+     * @param vol
+     * @return Volume d'eau effectivement déversé sur l'incendie
+     */
     public int deverserEau(int vol) {
     	double nbOpD = Math.ceil(((double)Math.min(vol, waterVol))/((double)getWaterOutFlow()));
         int nbOp = (int) nbOpD;
@@ -151,7 +218,7 @@ public abstract class Robot {
     }
     
     /** Méthode qui agit sur l'incendie 
-     * Requiert : Incendie existant
+     * @param incendie (non null)
      * Garantit : Deverse la quantité d'eau maximale possible du robot sur l'incendie */
     public void deverserEau(Incendie incendie) {
     	boolean nearFire = (incendie.getPosition() == position);
@@ -167,14 +234,21 @@ public abstract class Robot {
     	incendie.setWaterNeed(waterNeed);
     }
     
-    public Evenement deverserEau(Incendie incendie) {
-    	return new EvtDeverserEau((long)this.timeDeverserEau(incendie.getWaterNeed()), incendie, this);
+    /**
+     * Création d'un événement élémentaire
+     * @param date_apres_deplacement
+     * @param incendie
+     * @return Evenement elementaire déverser eau selon date relative
+     */
+    public Evenement deverserEau(long date_apres_deplacement,Incendie incendie) {
+    	return new EvtDeverserEau(date_apres_deplacement+(long)this.timeDeverserEau(incendie.getWaterNeed()), incendie, this);
     }
     
     /** Cette méthode envoie un robot éteindre un incendie
-     * Il crée les evenements nécessaires à partir de la date courrante pour :
-     * - aller à l'incendie
-     * - déverser l'eau qu'il a sur l'incendie
+     * @apram incendie
+     * @return Les evenements nécessaires à partir de la date courrante pour :
+     * @return - aller à l'incendie
+     * @return - déverser l'eau qu'il a sur l'incendie
      */
     public LinkedList<Evenement> eteindreIncendie(Incendie incendie) {
     	if (this.isBusy()) 
@@ -194,21 +268,32 @@ public abstract class Robot {
     	return evtsList;
     }
     
-    /** Indique si le robot est occupé (vrai = occupé) **/
+    /** Indique si le robot est occupé 
+     * @return Vrai si occupé **/
     public boolean isBusy(){
     	return busy;
     }
     
+    /**
+     * Rend le robot occupé
+     */
     public void busy(){
     	busy = true;
     }
     
+    /**
+     * Libère le robot
+     */
     public void unBusy(){
     	busy = false;
     }
     
+    /**
+     * Transforme un robot en une chaine qui le décrit (utile pour le deboggage)
+     * @return Chaine qui décrit le robot
+     */
     @Override
     public String toString(){
-    	return " robot " + this.specifString() + " a la case : " + position.toString() + " de vitesse : " + this.getVitesse(NatureTerrain.TERRAIN_LIBRE);
+    	return "Robot " + this.specifString() + " a la case : " + position.toString() + " de vitesse : " + this.getVitesse(NatureTerrain.TERRAIN_LIBRE);
     }
 }

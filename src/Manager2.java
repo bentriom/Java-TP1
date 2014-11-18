@@ -1,3 +1,8 @@
+/**
+ * Sous-classe de Manager qui implémente la stratégie "naive"
+ * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
+ */
+
 import java.util.LinkedList;
 
 public class Manager2 extends Manager {
