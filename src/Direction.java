@@ -1,4 +1,9 @@
 
+/**
+ * Type énuméré définissant les directions
+ * @author dutrieux, bentriou, biehler
+ *
+ */
 public enum Direction {
 	NORD,
 	EST,

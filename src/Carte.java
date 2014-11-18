@@ -11,7 +11,14 @@ public class Carte {
 	private int tailleCases;
 	private Case [][] tabCases;
 
-	/* Constructeur */
+	/**
+	 * Constructeur de Carte
+	 * @param lignes nombre de lignes sur la carte
+	 * @param colonnes nombre de colonnes sur la carte
+	 * @param taillecase taille des cases en mètre 
+	 * @param tabCases ensemble des cases présentes sur la carte
+	 * 
+	 */
 	public Carte(int lignes, int colonnes, int taillecase, Case [][] tabCases) {
 		this.nbLignes = lignes;
 		this.nbColonnes = colonnes;
@@ -19,7 +26,13 @@ public class Carte {
 		this.tabCases = tabCases;
 	}
 	
-	/* Constructeur Carte terrain libre*/
+	/**
+	 * Constructeur de Carte constituée uniquement de terrain libre
+	 * @param lignes nombre de lignes sur la carte
+	 * @param colonnes nombre de colonnes sur la carte
+	 * @param taillecase taille des cases en mètre 
+	 * 
+	 */
 	public Carte(int lignes, int colonnes, int taillecase) {
 		this.nbLignes = lignes;
 		this.nbColonnes = colonnes;
@@ -34,7 +47,10 @@ public class Carte {
 		
 	}
 	
-	/* Constructeur de copie */
+	/**
+	 *  Constructeur de copie 
+	 *  @param carte carte à copier 
+	 */
 	public Carte(Carte carte) {
 		this.nbLignes = carte.nbLignes;
 		this.nbColonnes = carte.nbColonnes;
@@ -43,22 +59,48 @@ public class Carte {
 		this.tabCases[0][0] = new Case(0, 0, tabCases[0][0].getNature());
 	}
 	
+	/**
+	 * Accesseur du nombre de lignes sur la carte
+	 * @return le nombre de ligne de la carte
+	 */
 	public int getNbLignes() {
 		return this.nbLignes;
 	}
 	
+	
+	/**
+	 * Accesseur du nombre de colonnes sur la carte
+	 * @return le nombre de colonnes de la carte
+	 */
 	public int getNbColonnes() {
 		return this.nbColonnes;
 	}
 	
+
+	/**
+	 * Accesseur de la taille des cases sur la carte
+	 * @return la taille des cases de la carte
+	 */
 	public int getTailleCases() {
 		return this.tailleCases;
 	}
 	
+	/**
+	 * Accesseur d'une case de la carte
+	 * @param l indice de la ligne
+	 * @param c indice de la colonnes
+	 * @return la case voulue
+	 */
 	public Case getCase(int l, int c) {
 		return this.tabCases[l][c];
 	}
 	
+	/**
+	 * Test si le voisin d'une case existe
+	 * @param source case etudiée
+	 * @param d direction dans laquelle on teste si il y a une case voisine
+	 * @return true si le voisin existe
+	 */
 	public boolean voisinExiste(Case source, Direction d) {	
 		switch(d) {
 			case NORD:
@@ -74,6 +116,12 @@ public class Carte {
 		}
 	}
 	
+	/**
+	 * Accesseur d'une case voisine à la case source
+	 * @param source case etudiée
+	 * @param d direction dans laquelle on veux avoir le voisin
+	 * @return la case voisine si elle existe, la case source sinon
+	 */
 	public Case getVoisin(Case source, Direction d) {
 		if(this.voisinExiste(source,d)) {
 			switch(d) {
@@ -92,12 +140,19 @@ public class Carte {
 		return source; // De meme
 	}
 	
-	public void affiche() {
+	/**
+	 * 
+	 * @return La carte sous forme de String
+	 */
+	@Override
+	public String toString() {
+		String s = new String();
 		for(int i=0; i<this.nbLignes; i++) {
 			for(int j=0;j<this.nbColonnes; j++) {
-				System.out.print("(" + this.tabCases[i][j].toString() + ") ");
+				s += "(" + this.tabCases[i][j].toString() + ") ";
 			}
-			System.out.print("\n");
+			s += "\n";
 		}
+		return s;
 	}
 }

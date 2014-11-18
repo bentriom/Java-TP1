@@ -22,7 +22,6 @@ public class Manager2 extends Manager {
 		/* Liste d'evenements qui vont etre envoyes au simulateur */
 		LinkedList<Evenement> moveEvents = new LinkedList<Evenement>();
 		boolean continuer = false;
-		long dateCour = Simulateur.getDate();
 		for (Incendie fire : simu.getData().getIncendies()){
 			if (fire.getWaterNeed() <= 0) {
 				continue;

@@ -23,7 +23,6 @@ public class Manager3 extends Manager {
 		boolean continuer = false;
 		LinkedList<Evenement> moveEvents = new LinkedList<Evenement>();
 		//DonneesSimulation data = simu.getData();
-		long dateCour = Simulateur.getDate();
 		int i=0;
 		for (Incendie fire : simu.getData().getIncendies()){
 			vivaciteFeu[i] = fire.getWaterNeed();
