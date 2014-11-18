@@ -12,26 +12,29 @@ public abstract class Robot {
     private boolean busy;
     private static Carte map;
 
+    /** Constructeur du robot **/
     public Robot(Case c, int waterVol){
     	this.position = c;
     	this.waterVol = waterVol;
     	this.busy = false;
     }
 
+    /** Renvoie la map du robot **/
     public static void setMap(Carte map){
     	Robot.map = map;
     }
     
-    /* Gestion de la position */
+    /* ---------------- Gestion de la position ----------------- */
+   
+    /** Renvoie la position du robot **/
     public Case getPosition() {
         return position;
     }
 
+    /** Met à jour la position du robot **/
     public void setPosition(Case c) {
         position = c;
     }
-
-    abstract public double getVitesse(NatureTerrain n);
     
     public double timeToMoveTo(Case c) {
     	if (this.isBusy()){
@@ -42,25 +45,25 @@ public abstract class Robot {
     }
 
     
-    public LinkedList<Evenement> moveToFar(Case c, long dateAbs, boolean nextTo) {
+    public LinkedList<Evenement> moveToFar(Case c, boolean nextTo) {
     	if (this.isBusy()){
     		return null;
     	}
     	Driver tomTom = new Driver(map, this);
     	tomTom.aStar(position, c, nextTo);
-		LinkedList<Evenement> evtList = tomTom.pathFinder(dateAbs);
+		LinkedList<Evenement> evtList = tomTom.pathFinder();
 		this.busy();
 		return evtList;
     }
     
-    public LinkedList<Evenement> fetchWater(long dateAbs) {
+    public LinkedList<Evenement> fetchWater() {
     	if (this.isBusy()) {
     		return null;
     	}
     	Driver tomTom = new Driver(map, this);
     	double tempsVoyage = tomTom.findWater(position, canBeNextTo());
-		LinkedList<Evenement> evtList = tomTom.pathFinder(dateAbs);
-		evtList.add(this.remplirEau((long) tempsVoyage + dateAbs));	
+		LinkedList<Evenement> evtList = tomTom.pathFinder();
+		evtList.add(this.remplirEau((long) tempsVoyage));	
 
 	    if(!evtList.isEmpty()){
 	    	this.busy();
@@ -82,7 +85,7 @@ public abstract class Robot {
     	return new EvtDeplacement(0,this,pos);
     }
     
-    
+    abstract public double getVitesse(NatureTerrain n);
     abstract public int getWaterOutFlow();
     abstract public double getFullingTime();
     abstract public double getOutTime();
@@ -94,9 +97,9 @@ public abstract class Robot {
     	return true;
     }
 
-    /* ---------- Gestion de l'eau ---------- */
+    /* ---------------- Gestion de l'eau ---------------- */
     
-    /* Retourne le volume d'eau du robot en cours */
+    /** Retourne le volume d'eau du robot en cours */
     public int getWaterVol() {
        return waterVol;
     }
@@ -116,13 +119,13 @@ public abstract class Robot {
     	return getFullingTime();
     }
 
-    /* Cree l'evenement pour que le robot se remplisse (en une fois) */
-    public Evenement remplirEau(long date_absolue) {
-    	return new EvtRemplirRobot(date_absolue+(long)this.getFullingTime(),this);
+    /** Créer l'evenement pour que le robot se remplisse (en une fois) */
+    public Evenement remplirEau() {
+    	return new EvtRemplirRobot((long)this.getFullingTime(),this);
     }
 
     
-    /* Méthode math pour savoir en combien de temps on va deverse
+    /** Méthode mathématique pour savoir en combien de temps on va deverse
      * Requiert : le volume que l'on veut deverser
      * Garantit : date relative de l'evenement deverser */
     public double timeDeverserEau(int vol) {
@@ -132,7 +135,7 @@ public abstract class Robot {
         		getWaterVolMax()*((double)getOutTime())/((double)getWaterOutFlow()));
     }
     
-    /* Méthode math pour savoir ce qu'on deverse selon un volume */
+    /** Méthode mathématique pour savoir ce que l'on peut déverser selon la demande d'un volume précis */
     public int deverserEau(int vol) {
     	double nbOpD = Math.ceil(((double)Math.min(vol, waterVol))/((double)getWaterOutFlow()));
         int nbOp = (int) nbOpD;
@@ -147,7 +150,7 @@ public abstract class Robot {
         return deverse;
     }
     
-    /* Méthode qui agit sur l'incendie 
+    /** Méthode qui agit sur l'incendie 
      * Requiert : Incendie existant
      * Garantit : Deverse la quantité d'eau maximale possible du robot sur l'incendie */
     public void deverserEau(Incendie incendie) {
@@ -164,8 +167,8 @@ public abstract class Robot {
     	incendie.setWaterNeed(waterNeed);
     }
     
-    public Evenement deverserEau(long date_absolue,Incendie incendie) {
-    	return new EvtDeverserEau(date_absolue+(long)this.timeDeverserEau(incendie.getWaterNeed()), incendie, this);
+    public Evenement deverserEau(Incendie incendie) {
+    	return new EvtDeverserEau((long)this.timeDeverserEau(incendie.getWaterNeed()), incendie, this);
     }
     
     /** Cette méthode envoie un robot éteindre un incendie
@@ -173,23 +176,21 @@ public abstract class Robot {
      * - aller à l'incendie
      * - déverser l'eau qu'il a sur l'incendie
      */
-    public LinkedList<Evenement> eteindreIncendie(Incendie incendie) { 
-    	long dateAbs = Simulateur.getDate();
-    	if (this.isBusy()) {
+    public LinkedList<Evenement> eteindreIncendie(Incendie incendie) {
+    	if (this.isBusy()) 
     		return null;
-    	}
+    	
     	LinkedList<Evenement> evtsList = new LinkedList<Evenement>();
     	Driver tomTom = new Driver(map, this);
     	long tempsVoyage = 
     			(long) tomTom.aStar(position, incendie.getPosition(), canBeNextTo());
-		evtsList = tomTom.pathFinder(dateAbs);
-		Evenement evt = this.deverserEau(tempsVoyage + dateAbs,incendie);
+		evtsList = tomTom.pathFinder();
+		Evenement evt = this.deverserEau(tempsVoyage,incendie);
 	    evtsList.add(evt);
 
-	    if(!evtsList.isEmpty()){
+	    if(!evtsList.isEmpty())
 	    	this.busy();
-	    }
-	    
+	    	
     	return evtsList;
     }
     
