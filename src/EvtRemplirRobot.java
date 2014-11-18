@@ -1,7 +1,7 @@
 
-public class RemplirRobot extends Evenement {
+public class EvtRemplirRobot extends Evenement {
 	
-	public RemplirRobot(long d, Robot r) {
+	public EvtRemplirRobot(long d, Robot r) {
 		super(d,r);
 	}
 
