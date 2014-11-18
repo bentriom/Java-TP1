@@ -1,10 +1,18 @@
 
+
 import java.util.*;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 
 import ihm.*;
 
+/**
+ * @author Dutrieux Cyril, Bentriou Mahmoud, Biehler Mathias.
+ * Classe implémentant Simulable,
+ *  effectue l'interface entre l'IG et le programme en soit.
+ *  Gère la date et les évènements, appelle le manager
+ *  
+ */
 public class Simulateur implements Simulable {
 
 	private int pasDeManage = 100;
@@ -17,7 +25,12 @@ public class Simulateur implements Simulable {
 	private TreeSet<Evenement> evenements = new TreeSet<Evenement>(C);
 	boolean print = true;
     
-	// constructeur lisant les donnees
+	/**
+	 *  Constructeur lisant les donnees dans le fichier texte indiqué
+	 *  Initialise l'interface graphique et le manager
+	 * @param args 
+	 * 			nom de la carte à utiliser
+	 */
 	public Simulateur(String[] args) {
 		if (args.length < 1) {
 			System.out.println("Syntaxe: java TestLecteurDonnees <nomDeFichier>");
