@@ -94,11 +94,14 @@ public abstract class Robot {
     	return true;
     }
 
-    /* Gestion de l'eau */
+    /* ---------- Gestion de l'eau ---------- */
+    
+    /* Retourne le volume d'eau du robot en cours */
     public int getWaterVol() {
        return waterVol;
     }
 
+    /*  */
     public double remplir() {
     	boolean nearWater = false; 
     	for (Direction d : Direction.values()){
@@ -120,8 +123,8 @@ public abstract class Robot {
 
     
     /* Méthode math pour savoir en combien de temps on va deverse
-     * Prend : le volume que l'on veut deverser
-     * Renvoie : date relative de l'evenement deverser */
+     * Requiert : le volume que l'on veut deverser
+     * Garantit : date relative de l'evenement deverser */
     public double timeDeverserEau(int vol) {
     	double nbOpD = Math.ceil(((double)Math.min(vol, waterVol))/((double)getWaterOutFlow()));
         int nbOp = (int) nbOpD;
@@ -129,7 +132,7 @@ public abstract class Robot {
         		getWaterVolMax()*((double)getOutTime())/((double)getWaterOutFlow()));
     }
     
-    /* Méthode math pour savoir ce qu'on deverse */
+    /* Méthode math pour savoir ce qu'on deverse selon un volume */
     public int deverserEau(int vol) {
     	double nbOpD = Math.ceil(((double)Math.min(vol, waterVol))/((double)getWaterOutFlow()));
         int nbOp = (int) nbOpD;
@@ -144,7 +147,9 @@ public abstract class Robot {
         return deverse;
     }
     
-    /* Méthode qui agit sur l'incendie */
+    /* Méthode qui agit sur l'incendie 
+     * Requiert : Incendie existant
+     * Garantit : Deverse la quantité d'eau maximale possible du robot sur l'incendie */
     public void deverserEau(Incendie incendie) {
     	boolean nearFire = (incendie.getPosition() == position);
     	for (Direction d : Direction.values()){
@@ -162,17 +167,14 @@ public abstract class Robot {
     public Evenement deverserEau(long date_absolue,Incendie incendie) {
     	return new EvtDeverserEau(date_absolue+(long)this.timeDeverserEau(incendie.getWaterNeed()), incendie, this);
     }
-
-    /* Cree l'evenement pour deverser une fois */
-    /*
-    public Evenement deverserSurIncendie(long date, Incendie incendie) {
-    	return new EvtDeverserEau(date,incendie,this);
-    }*/
     
-    /* Cette méthode envoie un robot eteindre un incendie
-     * Il va a l'incendie et deverse UNE FOIS
+    /** Cette méthode envoie un robot éteindre un incendie
+     * Il crée les evenements nécessaires à partir de la date courrante pour :
+     * - aller à l'incendie
+     * - déverser l'eau qu'il a sur l'incendie
      */
-    public LinkedList<Evenement> eteindreIncendie(long dateAbs, Incendie incendie) { 
+    public LinkedList<Evenement> eteindreIncendie(Incendie incendie) { 
+    	long dateAbs = Simulateur.getDate();
     	if (this.isBusy()) {
     		return null;
     	}
@@ -191,6 +193,7 @@ public abstract class Robot {
     	return evtsList;
     }
     
+    /** Indique si le robot est occupé (vrai = occupé) **/
     public boolean isBusy(){
     	return busy;
     }
