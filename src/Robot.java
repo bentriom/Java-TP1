@@ -13,8 +13,8 @@ public abstract class Robot {
     private static Carte map;
 
     /** Constructeur du robot : défini par une position initiale et eau initiale
-     * @param c
-     * @param waterVol
+     * @param c Position initiale
+     * @param waterVol Quantité d'eau initiale
      * **/
     public Robot(Case c, int waterVol){
     	this.position = c;
@@ -23,10 +23,17 @@ public abstract class Robot {
     }
 
     /** Modifieur de la carte du robot
-     * @param map **/
+     * @param map Carte de la simulation **/
     public static void setMap(Carte map){
     	Robot.map = map;
     }
+    
+    /**
+     * Accesseur de la vitesse du robot
+     * @param n Nature sur laquelle le robot va se déplacer
+     * @return Vitesse du robot selon le terrain
+     */
+    abstract public double getVitesse(NatureTerrain n);
     
     /* ---------------- Gestion de la position ----------------- */
    
@@ -87,7 +94,7 @@ public abstract class Robot {
     
     /**
      * Modifieur de la position du robot, lance une exception si la case n'est pas a coté
-     * @param c
+     * @param c Case voisine où il faut aller
      */
     public void moveTo(Case c) throws ExceptionTeleportation {
         /* Test pour savoir si on se téléporte pas */
@@ -101,19 +108,25 @@ public abstract class Robot {
 
     /**
      * Création d'un événement élémentaire
-     * @param pos
+     * @param pos Case où il faut aller
      * @return Evenement de déplacement élémentaire vers pos
      */
     public Evenement EvtmoveTo(Case pos) {
     	return new EvtDeplacement(0,this,pos);
-    }    
-    
+    }      
+
     /**
-     * Accesseur de la vitesse du robot
-     * @param n
-     * @return Vitesse du robot selon le terrain
+     * Indique la facon d'éteindre un incendie
+     * @return Vrai si éteint l'incendie en étant à coté de la case, faux sinon
      */
-    abstract public double getVitesse(NatureTerrain n);
+    public boolean canBeNextTo(){
+    	return true;
+    }
+
+    /* ---------------- Gestion de l'eau ---------------- */
+    
+    /* -- Méthodes abstract -- */ 
+
     /**
      * Accesseur du temps pour déverser de l'eau
      * @return Temps pour déverser de l'eau
@@ -134,34 +147,13 @@ public abstract class Robot {
      * @return Volume maximal d'eau que l'on peut remplir
      */
     abstract public int getWaterVolMax();
-
-    /**
-     * Accesseur du chemin de l'image associée au robot qui sera déplacé
-     * @return Chaine de l'image associé au robot qui sera déplacé
-     */
-    abstract public String image();
-    /**
-     * Renvoie le type du robot
-     * @return Nom du type du robot
-     */
-    abstract public String specifString();
-
-    /**
-     * Indique la facon d'éteindre un incendie
-     * @return Vrai si éteint l'incendie en étant à coté de la case, faux sinon
-     */
-    public boolean canBeNextTo(){
-    	return true;
-    }
-
-    /* ---------------- Gestion de l'eau ---------------- */
-    
     /**
      * Accesseur du volume d'eau du robot en cours
      *  @return Le volume d'eau du robot en cours */
     public int getWaterVol() {
        return waterVol;
     }
+
 
     /**
      * Rempli le robot à sa contenance maximale
@@ -218,7 +210,7 @@ public abstract class Robot {
     }
     
     /** Méthode qui agit sur l'incendie 
-     * @param incendie (non null)
+     * @param incendie incendie non null
      * Garantit : Deverse la quantité d'eau maximale possible du robot sur l'incendie */
     public void deverserEau(Incendie incendie) {
     	boolean nearFire = (incendie.getPosition() == position);
@@ -236,8 +228,8 @@ public abstract class Robot {
     
     /**
      * Création d'un événement élémentaire
-     * @param date_apres_deplacement
-     * @param incendie
+     * @param date_apres_deplacement Temps que le robot va mettre à aller à l'incendie
+     * @param incendie Incendie que le robot va éteindre
      * @return Evenement elementaire déverser eau selon date relative
      */
     public Evenement deverserEau(long date_apres_deplacement,Incendie incendie) {
@@ -245,7 +237,7 @@ public abstract class Robot {
     }
     
     /** Cette méthode envoie un robot éteindre un incendie
-     * @apram incendie
+     * @param incendie Incendie non null
      * @return Les evenements nécessaires à partir de la date courrante pour :
      * @return - aller à l'incendie
      * @return - déverser l'eau qu'il a sur l'incendie
@@ -287,7 +279,19 @@ public abstract class Robot {
     public void unBusy(){
     	busy = false;
     }
-    
+ 
+
+    /**
+     * Accesseur du chemin de l'image associée au robot qui sera déplacé
+     * @return Chaine de l'image associé au robot qui sera déplacé
+     */
+    abstract public String image();
+    /**
+     * Renvoie le type du robot
+     * @return Nom du type du robot
+     */
+    abstract public String specifString();
+ 
     /**
      * Transforme un robot en une chaine qui le décrit (utile pour le deboggage)
      * @return Chaine qui décrit le robot
