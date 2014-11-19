@@ -65,7 +65,10 @@ public class RobotAPattes extends Robot {
     
     @Override
     public String image(){
-    	return "images/patte.png";
+        if (this.isBusy())
+    	    return "images/patte.png";
+        else
+            return "images/patte_libre.png";
     }
     
     @Override

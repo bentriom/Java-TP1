@@ -61,6 +61,9 @@ public class RobotARoue extends Robot {
     
     @Override
     public String image(){
-    	return "images/roue.png";
+        if (this.isBusy())
+    	    return "images/roue.png";
+        else
+            return "images/roue_libre.png";
     }
 }

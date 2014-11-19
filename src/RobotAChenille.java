@@ -62,6 +62,9 @@ public class RobotAChenille extends Robot {
     
     @Override
     public String image(){
-    	return "images/chenille.png";
+        if (this.isBusy())
+    	    return "images/chenille.png";
+        else
+            return "images/chenille_libre.png";
     }
 }

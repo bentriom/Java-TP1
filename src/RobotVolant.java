@@ -47,7 +47,10 @@ public class RobotVolant extends Robot {
     
     @Override
     public String image(){
-    	return "images/drone.png";
+        if (this.isBusy())
+    	    return "images/drone.png";
+        else
+            return "images/drone_libre.png";
     }
     
     @Override
