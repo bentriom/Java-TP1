@@ -13,6 +13,7 @@ public class Affichage {
 			for (int i = 0; i < lig; i++){
 				for (int j = 0; j < col; j++){
 					Case c = map.getCase(i, j);
+					ihm.reset(j, i);
 					ihm.paintImage(j, i, c.image(), 1, 1);
 				}
 			}
@@ -37,11 +38,14 @@ public class Affichage {
 		   	try {
 					for (Incendie fire : data.getIncendies()){
 						if (fire.getWaterNeed() <= 0){
-							continue;
+							ihm.paintImage(fire.getPosition().getColonne(), 
+									fire.getPosition().getLigne(), 
+									"images/e_fire.png", 1, 1);
+						} else {
+							ihm.paintImage(fire.getPosition().getColonne(), 
+									fire.getPosition().getLigne(), 
+									"images/feu.png", 1, 1);
 						}
-						ihm.paintImage(fire.getPosition().getColonne(), 
-								fire.getPosition().getLigne(), 
-								"images/feu.png", 1, 1);
 					}
 		   	} catch (MapIndexOutOfBoundsException e) {
 		   		e.printStackTrace();
