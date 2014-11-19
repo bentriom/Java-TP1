@@ -16,7 +16,10 @@ public class EvtRemplirRobot extends Evenement {
 	 */
 	@Override
 	public void execute() {
-		this.robot.remplir();
+        try {
+		    this.robot.remplir();
+        }
+        catch (ExceptionRemplirSansEau e) { }
 		this.robot.unBusy();
 	}
 

@@ -1,5 +1,5 @@
 /**
- * Classe qui permet de gere les robots
+ * Classe qui définit les caractéristiques et les actions d'un Robot
  * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
  **/
 
@@ -38,7 +38,7 @@ public abstract class Robot {
     
     /** 
      * Calcul le temps pour que le robot aille à une case
-     * @param c
+     * @param c case à aller
      * @return Temps pour aller à la case c
      */
     public double timeToMoveTo(Case c) {
@@ -51,8 +51,8 @@ public abstract class Robot {
 
     /**
      * Méthode pour créer les evenements pour déplacer le robot
-     * @param c
-     * @param nextTo
+     * @param  c case à aller
+     * @param nextTo booleen renvoyé par canBeNextTo()
      * @return Liste d'evenements pour aller jusque c
      */
     public LinkedList<Evenement> moveToFar(Case c, boolean nextTo) {
@@ -86,17 +86,17 @@ public abstract class Robot {
     }
     
     /**
-     * Modifieur de la position du robot
+     * Modifieur de la position du robot, lance une exception si la case n'est pas a coté
      * @param c
      */
-    public void moveTo(Case c) {
+    public void moveTo(Case c) throws ExceptionTeleportation {
+        /* Test pour savoir si on se téléporte pas */
         if (Math.abs(c.getLigne() - position.getLigne()) +
         		Math.abs(c.getColonne() - position.getColonne()) < 2){
             this.position = c;
-        } else { 
-		    System.out.println("Vous essayez de bouger le robot " + this.specifString() + "sur une case invalide !");
+        } else {
+           throw new ExceptionTeleportation(); 
         }
-        this.position = c;
     }
 
     /**
@@ -167,7 +167,7 @@ public abstract class Robot {
      * Rempli le robot à sa contenance maximale
      * @return le temps que met un robot a se remplir
      */
-    public double remplir() {
+    public double remplir() throws ExceptionRemplirSansEau {
     	boolean nearWater = false; 
     	for (Direction d : Direction.values()){
     		nearWater = (map.getVoisin(position, d).getNature() == NatureTerrain.EAU) || nearWater;      		
@@ -176,7 +176,7 @@ public abstract class Robot {
     	if (nearWater) {
     		waterVol = getWaterVolMax(); 
     	} else {
-		    System.out.println("Vous essayez de remplir le robot " + this.specifString() + " sans eau !");
+		    throw new ExceptionRemplirSansEau(); 
     	}
     	return getFullingTime();
     }

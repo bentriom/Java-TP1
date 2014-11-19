@@ -25,6 +25,9 @@ public class EvtDeplacement extends Evenement {
 	 */
 	@Override
 	public void execute() {
-		this.robot.moveTo(this.position);
+        try {
+		    this.robot.moveTo(this.position);
+        }
+        catch (ExceptionTeleportation e) { }
 	}
 }
