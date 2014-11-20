@@ -1,3 +1,6 @@
+package managerPack;
+import simulation.Simulateur;
+
 /**
  * Classe qui définit un manager de robots selon les incendies
  * Décide des événements à executer 

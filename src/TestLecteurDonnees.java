@@ -1,6 +1,9 @@
 
 import java.io.FileNotFoundException;
 
+import simulation.ExceptionFormatDonnees;
+import simulation.LecteurDonnees;
+
 public class TestLecteurDonnees {
 
 	public static void main(String[] args) {

@@ -1,3 +1,7 @@
+package elements;
+import environnement.Case;
+import environnement.NatureTerrain;
+
 /**
  * Classe finale héritée de robot qui décrit un robot à pattes
  * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux

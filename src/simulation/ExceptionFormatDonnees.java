@@ -1,3 +1,4 @@
+package simulation;
 
 // Pur typage
 public class ExceptionFormatDonnees extends Exception {

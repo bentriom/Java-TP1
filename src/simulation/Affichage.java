@@ -1,11 +1,18 @@
+package simulation;
 
 import ihm.*;
 
 import java.awt.Color;
 import java.io.FileNotFoundException;
 
+import elements.Incendie;
+import elements.Robot;
+import environnement.Carte;
+import environnement.Case;
+
 public class Affichage {
 
+	
     public static void dessineCases(Carte map, IGSimulateur ihm){
     	try {
 			int col = map.getNbColonnes();
@@ -18,6 +25,8 @@ public class Affichage {
 				}
 			}
     	} catch (MapIndexOutOfBoundsException e) {
+    		e.printStackTrace();
+    	} catch (java.util.ConcurrentModificationException e) {
     		e.printStackTrace();
     	}
     }

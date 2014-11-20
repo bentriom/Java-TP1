@@ -1,3 +1,4 @@
+package environnement;
 
 /**
  * Type énuméré définissant les directions

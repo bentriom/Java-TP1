@@ -1,3 +1,6 @@
+package elements;
+import environnement.Case;
+
 /**
  * Classe qui definit l'entite Incendie
  * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux

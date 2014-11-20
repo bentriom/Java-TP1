@@ -1,3 +1,5 @@
+package environnement;
+
 
 /**
  * Classe qui permet de modeliser la carte
