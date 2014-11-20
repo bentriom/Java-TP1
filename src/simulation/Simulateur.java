@@ -190,7 +190,7 @@ public class Simulateur implements Simulable {
 	 *  Incrémente la date 
 	 */
 	private void incrementeDate() {
-		clock += 30;
+		clock += 20;
 	}
 	
 	/**

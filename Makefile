@@ -70,9 +70,17 @@ exeDessin:
 exeMini:
 	java -classpath bin:bin/ihm.jar RunSimulation cartes/carteMinimale.txt
 
-exeTestCmd:
-	java -classpath bin:bin/ihm.jar RunSimulation cartes/carteSujet.txt
-
 clean:
 	rm -rf bin/*.class
 
+testNoFire : XeMan3
+	java -classpath bin:bin/ihm.jar XeMan3 cartes/noFire.map
+
+testNoWater : XeMan3
+	java -classpath bin:bin/ihm.jar XeMan3 cartes/noWater.map
+
+testIncendieOut : XeMan3
+	java -classpath bin:bin/ihm.jar XeMan3 cartes/incendieOut.map
+
+testRobotOut : XeMan3
+	java -classpath bin:bin/ihm.jar XeMan3 cartes/robotOut.map
