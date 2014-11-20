@@ -1,0 +1,68 @@
+%********************************************************************
+% Exemple de squelette latex  utiliser comme base de votre rapport *
+%********************************************************************
+
+% definit le type de document et ses options
+\documentclass[a4paper,11pt]{article}
+
+% des paquetages utiles classiques, en ajouter d'autres selon vos besoins
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsfonts,amsmath,amssymb,amstext,latexsym}
+\usepackage{fullpage}
+\usepackage{graphicx,epsfig}
+\usepackage{url}
+\usepackage{xspace}
+\usepackage[francais]{babel}
+\usepackage{verbatim}
+\usepackage{exscale}
+\usepackage{amsbsy}
+\usepackage{amsopn}
+\usepackage{fancyhdr}
+\usepackage[justification=centering]{caption}
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+\usepackage{mathrsfs}
+\usepackage{dsfont}
+
+% pour ecrire les reponses
+\newtheorem{exercice}{Exercice}
+
+% titre, auteur et date
+\title{Rapport de POO : Simulateur de robots pompiers}
+\author{Cyril \bsc{Dutrieux}, Mathias \bsc{Biehler},  Mahmoud \bsc{Bentriou}}
+\date{\today}
+
+
+%===============
+\begin{document} % le debut du contenu
+%===============
+
+% pour afficher titre, auteur et date
+\maketitle
+
+\tableofcontents
+
+\section{Présentation du programme}
+
+Le but de ce TP libre est de programmer un simulateur de robots pompiers. Ces derniers doivent éteindre tous les incendies d'une carte, affichée par une interface graphique qui nous est fourni. Le simulateur doit afficher les actions des robots dans le temps, et les prises de décision à propos des actions des robots doivent être pris en temps réel. Tout cela doit être développé selon les concepts de la programmation orientée objet.
+
+Pour executer le programmer on utilise un script bash qui laisse le choix du manager à utiliser ainsi que la carte :
+./simulation.sh [numéro manager] [MAP] 
+où [numéro manager] est le numéro du manager à utiliser (2 ou 3) et [MAP] est le nom d'un fichier carte situé dans le dossier cartes.
+
+\section{Choix d'implémentations}
+
+La source est décomposée en plusieurs paquetages :
+\begin{itemize}
+\item Simulateur : regroupe les fichiers propre à la simulation (Simulateur.java, DonneesSimulation.java)
+\item Manager : Regroupe les différents types de Manager (super-classe et classes finales)
+\item Evenements : Regroupe les différents types d'événements élémentaires (se déplacer d'une case..)
+\item IHM : Paquetage d'affichage graphique fournie en bytecode
+\end{itemize}
+
+\section{Attentes vis à vis du programme}
+
+%===============
+\end{document}
+%===============

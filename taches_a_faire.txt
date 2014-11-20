@@ -1,0 +1,4 @@
+- Package
+- Peut-etre améliorer le tableau vivaciteIncendie
+- Mettre un manager de folie (considérer le temps qu'ils vont mettre a se remplir)
+- Faire carte avec deux incendies sur meme case
