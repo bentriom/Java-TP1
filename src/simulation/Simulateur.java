@@ -173,7 +173,7 @@ public class Simulateur implements Simulable {
 	 * Test si il reste des evenements
 	 * @return true  si il y a des evenements a venir
 	 */
-	public boolean evenementExistant() {
+	private boolean evenementExistant() {
 		return !(this.evenements.size() == 0);
 	}
 	

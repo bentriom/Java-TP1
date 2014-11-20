@@ -97,8 +97,13 @@ public class Carte {
 	 * @param c indice de la colonnes
 	 * @return la case voulue
 	 */
-	public Case getCase(int l, int c) {
-		return this.tabCases[l][c];
+	public Case getCase(int l, int c) throws ExceptionOutOfMap {
+        try {
+		    return this.tabCases[l][c];
+        }
+        catch (java.lang.ArrayIndexOutOfBoundsException e) {
+            throw new ExceptionOutOfMap();
+        }
 	}
 	
 	/**

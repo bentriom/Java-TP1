@@ -25,9 +25,6 @@
 \usepackage{mathrsfs}
 \usepackage{dsfont}
 
-% pour ecrire les reponses
-\newtheorem{exercice}{Exercice}
-
 % titre, auteur et date
 \title{Rapport de POO : Simulateur de robots pompiers}
 \author{Cyril \bsc{Dutrieux}, Mathias \bsc{Biehler},  Mahmoud \bsc{Bentriou}}
@@ -47,7 +44,7 @@
 
 \section{Présentation du programme}
 
-Le but de ce TP libre est de programmer un simulateur de robots pompiers. Ces derniers doivent éteindre tous les incendies d'une carte, affichée par une interface graphique qui nous est fourni. Le simulateur doit afficher les actions des robots dans le temps, et les prises de décision à propos des actions des robots doivent être pris en temps réel. Tout cela doit être développé selon les concepts de la programmation orientée objet.
+Le but de ce TP libre est de programmer un simulateur de robots pompiers. Ces derniers doivent éteindre tous les incendies d'une carte, affichée par une interface graphique qui nous est fourni. Le simulateur doit afficher les actions des robots dans le temps, et les décisions à propos des actions des robots doivent être prises en temps réel. Tout cela doit être développé selon les concepts de la programmation orientée objet.
 
 Pour executer le programmer on utilise un script bash qui laisse le choix du manager à utiliser ainsi que la carte : \\
 ./simulation.sh [numéro manager] [MAP] \\
@@ -76,7 +73,9 @@ L'algorithme de plus court chemin A* a besoin d'une file de priorité, nous avon
 
 On a voulu respecter au mieux les différentes dépendances entre classes selon le graphe UML du sujet. 
 La classe DonneesSimulation possède ses éléments: on crée des instances d'objets quand on lit le fichier de la carte, puis on instancie à nouveau les objets par constructeur de copie pour les données de la classe DonneesSimulation, pour que l'agrégation forte (composition) demandée par le sujet soit respectée.
+Par contre, les événements stockés dans la classe Simulateur ne sont pas, contrairement à ce qui est demandé par le graphe UML, (ré)instanciés par cette dernière : ils sont crées par la classe Robot. Dans le sujet, on peut considérer par exemple que le robot "peut de lui-même aller se remplir au point d’eau (ou la berge) le plus proche" (partie 4.2). Ainsi, nous n'avons pas jugé utile que tout événement soit obligatoirement instancié dans la classe Simulateur (un événement n'a d'existence ici que pour être stocké dans la liste d'événements du simulateur).
 
+\newpage
 
 \section{Attentes vis à vis du produit livré}
 

@@ -15,6 +15,7 @@ import elements.RobotVolant;
 import environnement.Carte;
 import environnement.Case;
 import environnement.NatureTerrain;
+import environnement.ExceptionOutOfMap;
 
 /**
  * Lecteur de cartes au format spectifie dans le sujet.
@@ -122,7 +123,6 @@ public class LecteurDonnees {
 	 */
 	private Case lireCase(int lig, int col) throws ExceptionFormatDonnees {
 		ignorerCommentaires();		
-		System.out.print("Case (" + lig + "," + col + "): ");
 		String chaineNature = new String();
 		NatureTerrain n;
 		
@@ -131,15 +131,12 @@ public class LecteurDonnees {
 
 			verifieLigneTerminee();
 			
-			System.out.print("nature = " + chaineNature);
 			n = NatureTerrain.valueOf(chaineNature);
 			
 		} catch (NoSuchElementException e) {
 			throw new ExceptionFormatDonnees("format de case invalide. "
 					+ "Attendu: nature altitude [valeur_specifique]");
 		}
-
-		System.out.println();
 		Case c = new Case(lig, col, n);
 		return c;
 	}
@@ -184,7 +181,17 @@ public class LecteurDonnees {
 						+ "nb litres pour eteindre doit etre > 0");				
 			}
 			verifieLigneTerminee();
-			Incendie fire = new Incendie(map.getCase(lig, col), intensite);
+            Case positionIncendie = null;
+            try {
+            	positionIncendie = map.getCase(lig, col);
+            }
+            catch (ExceptionOutOfMap e) {
+                System.out.println(" ##### Un incendie est placé en dehors de la map : on va le placer en (0,0) #####");
+                try {
+                	positionIncendie = map.getCase(0, 0);
+                } catch (ExceptionOutOfMap e2) { System.out.println("On n'a pas reussi a le placer en (0,0);"); }
+            }
+			Incendie fire = new Incendie(positionIncendie, intensite);
 			System.out.println("position = (" + lig + "," + col
 					+ ");\t intensite = " + intensite);
 			return fire;
@@ -239,21 +246,31 @@ public class LecteurDonnees {
 			String s = scanner.findInLine("(\\d+)");	// 1 or more digit(s) ?
 			// pour lire un flottant:    ("(\\d+(\\.\\d+)?)");
 			Robot rob;
+            Case positionRobot = null;
+            try {
+                positionRobot = map.getCase(lig, col);
+            }
+            catch (ExceptionOutOfMap e) {
+                System.out.println(" ##### Un robot est placé en dehors de la map : on va le placer en (0,0) ##### ");
+                try {
+                	positionRobot = map.getCase(0, 0);
+                } catch (ExceptionOutOfMap e2) { System.out.println("On n'a pas reussi a le placer en (0,0);"); }
+            }
 			if (s == null) {
 				switch (n) {
 					case DRONE : 
-						rob = new RobotVolant(map.getCase(lig, col), 0);
+						rob = new RobotVolant(positionRobot, 0);
 						break;
 					case PATTES : 
-						rob = new RobotAPattes(map.getCase(lig, col), 0);
+						rob = new RobotAPattes(positionRobot, 0);
 						break;
 					case CHENILLES : 
-						rob = new RobotAChenille(map.getCase(lig, col), 0);
+						rob = new RobotAChenille(positionRobot, 0);
 						break;
 					case ROUES : 
-						rob = new RobotARoue(map.getCase(lig, col), 0);
+						rob = new RobotARoue(positionRobot, 0);
 						break;
-					default : rob = new RobotARoue(map.getCase(lig, col), 0);
+					default : rob = new RobotARoue(positionRobot, 0);
 
 				}	
 			} else {
@@ -261,18 +278,18 @@ public class LecteurDonnees {
 								
 				switch (n) {
 					case DRONE : 
-						rob = new RobotVolant(map.getCase(lig, col), 0, vitesse);
+						rob = new RobotVolant(positionRobot, 0, vitesse);
 						break;
 					case PATTES : 
-						rob = new RobotAPattes(map.getCase(lig, col), 0, vitesse);
+						rob = new RobotAPattes(positionRobot, 0, vitesse);
 						break;
 					case CHENILLES : 
-						rob = new RobotAChenille(map.getCase(lig, col), 0, vitesse);
+						rob = new RobotAChenille(positionRobot, 0, vitesse);
 						break;
 					case ROUES : 
-						rob = new RobotARoue(map.getCase(lig, col), 0, vitesse);
+						rob = new RobotARoue(positionRobot, 0, vitesse);
 						break;
-					default : rob = new RobotARoue(map.getCase(lig, col), 0, vitesse);
+					default : rob = new RobotARoue(positionRobot, 0, vitesse);
 				}
 				vitesse = rob.getVitesse(NatureTerrain.TERRAIN_LIBRE);
 				System.out.print(vitesse);
