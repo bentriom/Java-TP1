@@ -1,3 +1,5 @@
+package environnement;
+
 
 /**
  * Classe qui definit l'entite Case, pour définir la classe Carte

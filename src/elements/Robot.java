@@ -1,9 +1,19 @@
+package elements;
 /**
  * Classe qui définit les caractéristiques et les actions d'un Robot
  * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
  **/
 
 import java.util.LinkedList;
+
+import simulation.Evenement;
+import simulation.EvtDeplacement;
+import simulation.EvtDeverserEau;
+import simulation.EvtRemplirRobot;
+import environnement.Carte;
+import environnement.Case;
+import environnement.Direction;
+import environnement.NatureTerrain;
 
 public abstract class Robot {
 

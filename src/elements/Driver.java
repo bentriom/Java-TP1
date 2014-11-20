@@ -1,7 +1,15 @@
+package elements;
 
 import java.util.PriorityQueue;
 import java.util.Comparator;
 import java.util.LinkedList;
+
+import simulation.Evenement;
+import simulation.EvtDeplacement;
+import environnement.Carte;
+import environnement.Case;
+import environnement.Direction;
+import environnement.NatureTerrain;
 /**
  * Class imlémentant le Driver,
  *  entité permettant de calculer le plus court chemin vers différents objectifs

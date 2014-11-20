@@ -1,3 +1,4 @@
+package managerPack;
 /**
  * Sous-classe de Manager qui implémente une stratégie différente de la stratégie "naive"
  * Prend en compte l'intensité courrante des différents incendies
@@ -5,6 +6,11 @@
  */
 
 import java.util.LinkedList;
+
+import elements.Incendie;
+import elements.Robot;
+import simulation.Evenement;
+import simulation.Simulateur;
 
 public class Manager3 extends Manager {
 	private int clock = 0;

@@ -1,3 +1,8 @@
+package simulation;
+import elements.ExceptionTeleportation;
+import elements.Robot;
+import environnement.Case;
+
 
 /**
  * Permet de déplacer un robot dans une case voisine

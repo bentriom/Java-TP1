@@ -1,8 +1,20 @@
+package simulation;
 
 // Ensimag 2014-15 - 2A POO  
 
 import java.io.*;
 import java.util.*;
+
+import elements.Incendie;
+import elements.NatureRobot;
+import elements.Robot;
+import elements.RobotAChenille;
+import elements.RobotAPattes;
+import elements.RobotARoue;
+import elements.RobotVolant;
+import environnement.Carte;
+import environnement.Case;
+import environnement.NatureTerrain;
 
 /**
  * Lecteur de cartes au format spectifie dans le sujet.

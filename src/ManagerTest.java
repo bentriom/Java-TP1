@@ -6,6 +6,12 @@
 
 import java.util.LinkedList;
 
+import managerPack.Manager;
+import elements.Incendie;
+import elements.Robot;
+import simulation.Evenement;
+import simulation.Simulateur;
+
 public final class ManagerTest extends Manager {
 	
 	private boolean dejapasse = false;

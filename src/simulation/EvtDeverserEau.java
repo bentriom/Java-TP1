@@ -1,3 +1,7 @@
+package simulation;
+import elements.Incendie;
+import elements.Robot;
+
 
 /**
  * Classe d'Evenement permettant de verser de l'eau sur un incendie

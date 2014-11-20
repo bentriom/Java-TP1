@@ -1,3 +1,6 @@
+package simulation;
+import elements.Robot;
+
 /**
  * Définition de la classe abstraite Evenement
  * Ces objets concernent un robot, sont datées et contiennent une fonction à executer

@@ -1,3 +1,6 @@
+import environnement.Carte;
+import environnement.Direction;
+
 
 public class TestCarte {
 

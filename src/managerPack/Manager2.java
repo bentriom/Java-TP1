@@ -1,9 +1,15 @@
+package managerPack;
 /**
  * Sous-classe de Manager qui implémente la stratégie "naive"
  * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
  */
 
 import java.util.LinkedList;
+
+import elements.Incendie;
+import elements.Robot;
+import simulation.Evenement;
+import simulation.Simulateur;
 
 public class Manager2 extends Manager {
 	private int clock = 0;

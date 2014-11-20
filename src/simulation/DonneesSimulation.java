@@ -1,3 +1,4 @@
+package simulation;
 
 /**
  * Classe qui contient toutes les informations de la simulation : cartes, robots, incendies
@@ -7,6 +8,11 @@
  */
 
 import java.util.LinkedList;
+
+import elements.Incendie;
+import elements.Robot;
+import environnement.Carte;
+import environnement.Case;
 
 public class DonneesSimulation {
 	

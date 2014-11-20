@@ -1,3 +1,7 @@
+package simulation;
+import elements.ExceptionRemplirSansEau;
+import elements.Robot;
+
 
 public class EvtRemplirRobot extends Evenement {
 	

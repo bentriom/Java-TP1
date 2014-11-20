@@ -1,3 +1,4 @@
+package elements;
 
 /**
  * Enumeration d'objets qui correspondent à un type de terrain

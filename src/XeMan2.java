@@ -1,6 +1,9 @@
 import java.awt.Color;
 import java.io.FileNotFoundException;
 
+import managerPack.Manager;
+import managerPack.Manager2;
+import simulation.Simulateur;
 import ihm.*;
 
 
