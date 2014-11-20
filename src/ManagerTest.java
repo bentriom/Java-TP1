@@ -1,6 +1,6 @@
 /** 
  * Manager test, qui va cr�er
- * @author Moud
+ * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
  *
  */
 

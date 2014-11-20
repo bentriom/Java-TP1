@@ -2,7 +2,11 @@ package simulation;
 import elements.ExceptionRemplirSansEau;
 import elements.Robot;
 
-
+/**
+ * Classe d'Evenement qui permet de remplir un robot
+ * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
+ *
+ */
 public class EvtRemplirRobot extends Evenement {
 	
 	/**

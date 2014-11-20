@@ -5,6 +5,7 @@ package environnement;
  * @author dutrieux, bentriou, biehler
  *
  */
+
 public enum Direction {
 	NORD,
 	EST,

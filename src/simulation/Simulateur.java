@@ -9,10 +9,11 @@ import managerPack.Manager;
 import ihm.*;
 
 /**
- * @author Dutrieux Cyril, Bentriou Mahmoud, Biehler Mathias.
+ * 
  * Classe implémentant Simulable,
  *  effectue l'interface entre l'IG et le programme en soit.
  *  Gère la date et les évènements, appelle le manager
+ *  @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
  *  
  */
 public class Simulateur implements Simulable {

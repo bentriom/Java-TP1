@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * Classe qui implémente l'interface Comparator
- * Permet de comparer deux objets Evenement, pour pouvoir les trier dans une liste chainée
+ * Permet de comparer deux objets Evenement, pour pouvoir les trier dans TreeSet
  * @author bentriom
  */
 public class ComparateurEvenements implements Comparator<Evenement> {

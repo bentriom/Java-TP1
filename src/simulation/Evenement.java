@@ -7,6 +7,7 @@ import elements.Robot;
  * @author dutrieux, biehler, bentriou
  *
  */
+
 public abstract class Evenement implements Comparable<Evenement> {
 	protected long date;
 	protected Robot robot;

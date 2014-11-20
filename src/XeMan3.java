@@ -7,6 +7,11 @@ import managerPack.Manager3;
 import simulation.Simulateur;
 import ihm.*;
 
+/**
+ * Classe "main" qui lance la simulation avec le manageur 3
+ * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
+ *
+ */
 
 public class XeMan3 {
 	public static void main(String[] args) {

@@ -11,6 +11,11 @@ import environnement.Carte;
 import environnement.Case;
 import environnement.ExceptionOutOfMap;
 
+/**
+ * Classe qui gère le dessin de l'interface graphique
+ * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
+ *
+ */
 public class Affichage {
 
 	/**

@@ -114,10 +114,7 @@ public class LecteurDonnees {
 		}
 		// une ExceptionFormat levee depuis lireCase est remontee telle quelle
 	}
-	
-
-	
-	
+		
 	/**
 	 * Lit et affiche les donnees d'une case.
 	 */
@@ -141,7 +138,6 @@ public class LecteurDonnees {
 		return c;
 	}
 
-
 	/** 
 	 * Lit et affiche les donnees des incendies.
 	 */
@@ -162,7 +158,6 @@ public class LecteurDonnees {
 					+ "Attendu: nbIncendies");
 		}		
 	}
-
 	
 	/**
 	 * Lit et affiche les donnees du i-eme incendie.
@@ -201,7 +196,6 @@ public class LecteurDonnees {
 		}
 	}
 
-
 	/** 
 	 * Lit et affiche les donnees des robots.
 	 */
@@ -222,7 +216,6 @@ public class LecteurDonnees {
 					+ "Attendu: nbRobots");
 		}		
 	}
-
 	
 	/**
 	 * Lit et affiche les donnees du i-eme robot.
@@ -303,9 +296,6 @@ public class LecteurDonnees {
 					+ "Attendu: ligne colonne type [valeur_specifique]");		
 		}
 	}
-
-
-
 
 	/** Ignore toute (fin de) ligne commencant par '#' */
 	private void ignorerCommentaires() {

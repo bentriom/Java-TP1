@@ -1,6 +1,7 @@
 package elements;
 
 import java.util.PriorityQueue;
+
 import java.util.Comparator;
 import java.util.LinkedList;
 
@@ -13,9 +14,9 @@ import environnement.NatureTerrain;
 /**
  * Class imlémentant le Driver,
  *  entité permettant de calculer le plus court chemin vers différents objectifs
- * @author dutrieux, biehler, bentriou
- *
+ * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
  */
+
 public class Driver {
 
 	private Robot robot;

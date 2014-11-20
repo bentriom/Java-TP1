@@ -1,7 +1,7 @@
 package managerPack;
 /**
  * Sous-classe de Manager qui implémente une stratégie différente de la stratégie "naive"
- * Prend en compte l'intensité courrante des différents incendies et envoie 
+ * Prend en compte l'intensité courrante des différents incendies (pour en envoyer trop sur un incendie) et envoie 
  * un robot sur l'incendie le plus proche
  * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
  */

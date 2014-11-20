@@ -20,6 +20,5 @@ public class TestLecteurDonnees {
 			System.out.println("\n\t**format du fichier " + args[0] + " invalide: " + e.getMessage());
 		}
 	}
-
 }
  

@@ -6,7 +6,11 @@ import managerPack.Manager2;
 import simulation.Simulateur;
 import ihm.*;
 
-
+/**
+ * Classe "main" qui lance la simulation avec le manageur 2
+ * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
+ *
+ */
 public class XeMan2 {
 	public static void main(String[] args) {
 		Simulateur simu = new Simulateur(args);

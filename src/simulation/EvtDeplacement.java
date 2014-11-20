@@ -6,7 +6,7 @@ import environnement.Case;
 
 /**
  * Permet de déplacer un robot dans une case voisine
- * @author bentriom
+ * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
  *
  */
 public class EvtDeplacement extends Evenement {
