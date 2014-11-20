@@ -47,22 +47,40 @@
 
 Le but de ce TP libre est de programmer un simulateur de robots pompiers. Ces derniers doivent éteindre tous les incendies d'une carte, affichée par une interface graphique qui nous est fourni. Le simulateur doit afficher les actions des robots dans le temps, et les prises de décision à propos des actions des robots doivent être pris en temps réel. Tout cela doit être développé selon les concepts de la programmation orientée objet.
 
-Pour executer le programmer on utilise un script bash qui laisse le choix du manager à utiliser ainsi que la carte :
-./simulation.sh [numéro manager] [MAP] 
+Pour executer le programmer on utilise un script bash qui laisse le choix du manager à utiliser ainsi que la carte : \\
+./simulation.sh [numéro manager] [MAP] \\
 où [numéro manager] est le numéro du manager à utiliser (2 ou 3) et [MAP] est le nom d'un fichier carte situé dans le dossier cartes.
 
 \section{Choix d'implémentations}
 
+\subsection{Paquetages}
+
 La source est décomposée en plusieurs paquetages :
 \begin{itemize}
-\item Simulateur : regroupe les fichiers propre à la simulation (Simulateur.java, DonneesSimulation.java)
-\item Manager : Regroupe les différents types de Manager (super-classe et classes finales)
-\item Evenements : Regroupe les différents types d'événements élémentaires (se déplacer d'une case..)
-\item IHM : Paquetage d'affichage graphique fournie en bytecode
+\item simulation : regroupe les fichiers propre à la simulation : données, événements élémentaires et l'affichage
+\item managerPack : regroupe les différents types de Manager 
+\item elements : regroupe les éléments de la carte : robots, incendie ainsi que  algorithme de plus court chemin
+\item environnement : Regroupe dans quel environnement les éléments évoluent (Carte etc..)
+\item IHM : Paquetage d'affichage graphique fournie en bytecode (dans le fichier bin)
 \end{itemize}
 
-\section{Attentes vis à vis du programme}
+\subsection{Collections}
 
+Au niveau du choix des collections, nous avons choisi d'utiliser TreeSet<> pour stocker les événements du simulateur à executer : cette collection allie à la fois facilité d'implémentation dans notre cas (quand on ajoute un événement, il est déjà trié dans la liste) ainsi qu'un cout algorithmique acceptable (en $O(log(n))$).
+
+L'algorithme de plus court chemin A* a besoin d'une file de priorité, nous avons donc utilisé la collection PriorityQueue<>.
+
+\subsection{Classes et héritage}
+
+On a voulu respecter au mieux les différentes dépendances entre classes selon le graphe UML du sujet. 
+La classe DonneesSimulation possède ses éléments: on crée des instances d'objets quand on lit le fichier de la carte, puis on instancie à nouveau les objets par constructeur de copie pour les données de la classe DonneesSimulation, pour que l'agrégation forte (composition) demandée par le sujet soit respectée.
+
+
+\section{Attentes vis à vis du produit livré}
+
+Le programme s'execute correctement. Il affiche les déplacements des robots, les incendies et les incendies éteints, et indique par le biais d'un point d'interrogation quand le robot est libre.
+
+Le Manager2 est le manager naif et Manager3 est un manager moins naif qui envoie chaque robot sur l'incendie le plus proche.
 %===============
 \end{document}
 %===============

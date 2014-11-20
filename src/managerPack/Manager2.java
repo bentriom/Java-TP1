@@ -56,7 +56,5 @@ public class Manager2 extends Manager {
 		}
 		this.simu.ajouteEvenement(moveEvents);
 		simulationTerminee = !continuer; 
-		
 	}
-
 }

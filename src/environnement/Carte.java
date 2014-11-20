@@ -21,13 +21,19 @@ public class Carte {
 	 * @param tabCases ensemble des cases présentes sur la carte
 	 * 
 	 */
-	public Carte(int lignes, int colonnes, int taillecase, Case [][] tabCases) {
+	public Carte(int lignes, int colonnes, int taillecase, Case [][] Cases) {
 		this.nbLignes = lignes;
 		this.nbColonnes = colonnes;
-		this.tailleCases = taillecase;
-		this.tabCases = tabCases;
-	}
-	
+        this.tailleCases = taillecase;
+        /* On instancie de nouvelles cases pour qu'il y ait agrégation forte avec la Carte */
+        this.tabCases = new Case[lignes][colonnes];
+        for(int i=0; i<lignes; i++) {
+            for(int j=0; j<colonnes; j++) {
+                this.tabCases[i][j] = new Case(Cases[i][j]);
+            }
+        }
+    }
+
 	/**
 	 * Constructeur de Carte constituée uniquement de terrain libre
 	 * @param lignes nombre de lignes sur la carte
@@ -46,11 +52,10 @@ public class Carte {
 				this.tabCases[i][j] = new Case(i,j,NatureTerrain.TERRAIN_LIBRE);
 			}
 		}
-		
 	}
 	
 	/**
-	 *  Constructeur de copie 
+	 *  Constructeur de copie
 	 *  @param carte carte à copier 
 	 */
 	public Carte(Carte carte) {
@@ -58,7 +63,6 @@ public class Carte {
 		this.nbColonnes = carte.nbColonnes;
 		this.tailleCases = carte.tailleCases;
 		this.tabCases = carte.tabCases;
-		this.tabCases[0][0] = new Case(0, 0, tabCases[0][0].getNature());
 	}
 	
 	/**

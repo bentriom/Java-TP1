@@ -1,7 +1,8 @@
 package managerPack;
 /**
  * Sous-classe de Manager qui implémente une stratégie différente de la stratégie "naive"
- * Prend en compte l'intensité courrante des différents incendies
+ * Prend en compte l'intensité courrante des différents incendies et envoie 
+ * un robot sur l'incendie le plus proche
  * @author Mahmoud Bentriou, Mathias Biehler, Cyril Dutrieux
  */
 
@@ -28,7 +29,6 @@ public class Manager3 extends Manager {
 		}
 		boolean continuer = false;
 		LinkedList<Evenement> moveEvents = new LinkedList<Evenement>();
-		//DonneesSimulation data = simu.getData();
 		int i=0;
 		for (Incendie fire : simu.getData().getIncendies()){
 			vivaciteFeu[i] = fire.getWaterNeed();

@@ -30,11 +30,12 @@ public class DonneesSimulation {
 	public DonneesSimulation(Carte map,
 			LinkedList<Robot> robots,
 			LinkedList<Incendie> incendies) {
-		/* Création de la carte */
-		this.carte = map;
-		this.incendies = incendies;
-		this.robots = robots;
-		Robot.setMap(map);
+		/* Création de la carte 
+         * Pour respecter la composition on instancie de nouvelles références */
+		this.carte = new Carte(map);
+		this.incendies = new LinkedList<Incendie>(incendies);
+		this.robots = new LinkedList<Robot>(robots);
+		Robot.setMap(this.carte);
 	}
 	
 	/* Méthodes pour la carte : un seul accesseur, on utilise ensuite les méthodes de Carte */
