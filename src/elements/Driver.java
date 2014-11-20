@@ -258,6 +258,8 @@ public class Driver {
 	 * @return la liste d'Evenements de déplacements élémentaires pour parcourir le plus court chemin
 	 */
 	public LinkedList<Evenement> pathFinder(){
+		if (goal == null)
+			return null;
 		Case current = this.goal;
 		LinkedList<Evenement> totalPath = new LinkedList<Evenement>();
 		totalPath.addLast( new EvtDeplacement((long)fromStartScore(current), robot, current));

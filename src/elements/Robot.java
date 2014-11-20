@@ -93,11 +93,16 @@ public abstract class Robot {
     	}
     	Driver tomTom = new Driver(map, this);
     	double tempsVoyage = tomTom.findWater(position, canBeNextTo());
-		LinkedList<Evenement> evtList = tomTom.pathFinder();
-		evtList.add(this.remplirEau((long) tempsVoyage));	
-
+		LinkedList<Evenement> evtList = new LinkedList<Evenement>();
+		LinkedList<Evenement> chemin = tomTom.pathFinder();
+		if (chemin != null){
+			evtList.addAll(chemin);
+		}
+		if (tempsVoyage >= 0){
+			evtList.add(this.remplirEau((long)tempsVoyage));
+		}
 	    if(!evtList.isEmpty()){
-	    	this.busy();
+	    	this.busy();	
 	    }
 		return evtList;
     }
